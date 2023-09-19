@@ -10,15 +10,13 @@ import pl.coderslab.catering2springboot.repository.MealRepository;
 import java.util.Calendar;
 
 @Controller
-@SessionAttributes({"userId", "superAdmin"})
-public class ViewController {
+public class HomeController {
 
     private final MealRepository mealRepository;
 
-    public ViewController(MealRepository mealRepository) {
+    public HomeController(MealRepository mealRepository) {
         this.mealRepository = mealRepository;
     }
-
 
     @GetMapping
     public String mealsView(Model model) {
