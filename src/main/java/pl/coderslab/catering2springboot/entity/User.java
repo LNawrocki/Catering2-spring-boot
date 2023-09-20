@@ -10,10 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="users")
 @Getter
 @Setter
 @ToString
+@Table(name ="users")
 public class User {
     @Id
     @Column(name = "user_id", unique = true)
