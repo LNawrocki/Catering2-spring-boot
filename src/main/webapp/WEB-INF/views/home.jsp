@@ -30,11 +30,11 @@
                 </td>
                 <td>
                     <div class="meal">
-                        <ol>
+                        <ul>
                             <c:forEach var="mealMonday" items="${mealsMonday}">
-                                <li>${mealMonday.mealName}</li>
+                                <li> ${mealMonday.mealNo}  ${mealMonday.mealName}</li>
                             </c:forEach>
-                        </ol>
+                        </ul>
                     </div>
                 </td>
             </tr>
@@ -48,11 +48,11 @@
                 </td>
                 <td>
                     <div class="meal">
-                        <ol>
+                        <ul>
                             <c:forEach var="mealTuesday" items="${mealsTuesday}">
-                                <li>${mealTuesday.mealName}</li>
+                                <li> ${mealTuesday.mealNo}  ${mealTuesday.mealName}</li>
                             </c:forEach>
-                        </ol>
+                        </ul>
                     </div>
                 </td>
             </tr>
@@ -66,11 +66,11 @@
                 </td>
                 <td>
                     <div class="meal">
-                        <ol>
+                        <ul>
                             <c:forEach var="mealWednesday" items="${mealsWednesday}">
-                                <li>${mealWednesday.mealName}</li>
+                                <li>${mealWednesday.mealNo}  ${mealWednesday.mealName}</li>
                             </c:forEach>
-                        </ol>
+                        </ul>
                     </div>
                 </td>
             </tr>
@@ -84,11 +84,11 @@
                 </td>
                 <td>
                     <div class="meal">
-                        <ol>
+                        <ul>
                             <c:forEach var="mealThursday" items="${mealsThursday}">
-                                <li>${mealThursday.mealName}</li>
+                                <li>${mealThursday.mealNo}  ${mealThursday.mealName}</li>
                             </c:forEach>
-                        </ol>
+                        </ul>
                     </div>
                 </td>
             </tr>
@@ -102,11 +102,11 @@
                 </td>
                 <td>
                     <div class="meal">
-                        <ol>
+                        <ul>
                             <c:forEach var="mealFriday" items="${mealsFriday}">
-                                <li>${mealFriday.mealName}</li>
+                                <li>${mealFriday.mealNo}  ${mealFriday.mealName}</li>
                             </c:forEach>
-                        </ol>
+                        </ul>
                     </div>
                 </td>
             </tr>

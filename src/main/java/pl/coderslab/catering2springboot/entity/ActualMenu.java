@@ -14,8 +14,8 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @ToString
-@Table(name ="meals")
-public class Meal {
+@Table(name ="actual_menu")
+public class ActualMenu {
 
     @Id
     @Column(name = "meal_no", unique = true)
