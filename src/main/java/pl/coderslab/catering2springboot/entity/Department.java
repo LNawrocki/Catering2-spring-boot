@@ -10,9 +10,10 @@ import javax.persistence.*;
 @Setter
 public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "department_id")
+    private Integer departmentId;
     private String name;
     @Column(name = "payment_perc")
     private Integer paymentPerc;
+
 }

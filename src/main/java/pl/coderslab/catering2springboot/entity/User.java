@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -21,11 +18,14 @@ public class User {
     private String name;
     @Column(name = "last_name")
     private String lastName;
-    private String department;
     @Column(unique = true)
     private String login;
     private String password;
     @Column(name = "super_admin")
     private Boolean superAdmin;
     private Boolean active;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "department_id")
+    private Department department;
 }

@@ -5,6 +5,6 @@ import pl.coderslab.catering2springboot.entity.NewMenu;
 
 import java.util.List;
 
-public interface MealRepository extends JpaRepository<NewMenu, Long> {
+public interface MenuRepository extends JpaRepository<NewMenu, Long> {
     List<NewMenu> findByDayId(Integer dayId);
 }

@@ -92,7 +92,7 @@
                     <td>
                         <div class="day">
                             <div>
-                                    ${user.department}
+                                    ${user.department.name}
                             </div>
                         </div>
                     </td>

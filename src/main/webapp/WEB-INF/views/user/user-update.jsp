@@ -31,8 +31,8 @@
             </label>
         </div>
         <div class="login-row">
-            <label for="department">Dział:
-                <form:input path="department"/>
+            <label for="department.name">Dział:
+                <form:input path="department.name"/>
             </label>
         </div>
         <div class="login-row">

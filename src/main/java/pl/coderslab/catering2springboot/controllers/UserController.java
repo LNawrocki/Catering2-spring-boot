@@ -23,24 +23,35 @@ public class UserController {
 
     @GetMapping("/list")
     public String userList(Model model) {
+        List<User> list = userRepository.findBy();
         model.addAttribute("usersList",userRepository.findBy());
         return "/user/user-list";
     }
 
     @GetMapping("/update")
     public String update(@RequestParam Long userId, Model model){
-        System.out.println(userId);
         model.addAttribute("user", userRepository.getByUserId(userId));
         return "/user/user-update";
     }
 
+    @PostMapping("/update")
+    public String updateUser(@RequestParam String name,
+                             @RequestParam String lastName,
+                             @RequestParam String login,
+                             @RequestParam String password,
+                             @RequestParam Boolean superAdmin,
+                             @RequestParam Long userId) {
+        userRepository.updateUserFieldsByUserId(name, lastName, login, password, superAdmin, userId);
+        return "redirect:/user/list";
+    }
 
 
-    @PostMapping("/delete")
+
+    @GetMapping("/delete")
     public String updateUser(@RequestParam Long userId, Model model) {
         userRepository.deleteUserByUserId(userId);
         model.addAttribute("usersList",userRepository.findBy());
-        return "redirect:/user/user-list";
+        return "redirect:/user/list";
     }
 
 
