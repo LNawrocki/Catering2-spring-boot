@@ -9,8 +9,6 @@ import pl.coderslab.catering2springboot.repository.MenuRepository;
 import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 
 import java.util.Calendar;
-import java.util.Random;
-
 
 @Controller
 public class MenuController {
