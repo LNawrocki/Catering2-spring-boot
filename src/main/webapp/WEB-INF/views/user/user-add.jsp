@@ -6,7 +6,7 @@
     <meta charset="UTF-8"/>
     <title>Catering</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_user_update.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_user_add.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
     <div class="main-block">
         <div class="login-row">
             <label for="userId">ID użytkownika:
-                <form:input path="userId" readonly="true"/>
+                <form:input path="userId"/>
             </label>
         </div>
         <div class="login-row">

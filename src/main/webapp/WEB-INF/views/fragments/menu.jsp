@@ -3,10 +3,13 @@
 
 <div class="main-menu-block">
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/menu/login">Zamów</a>
+        <a href="${pageContext.request.contextPath}/">Nowe Menu</a>
     </div>
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/user/list">Lista użytkowników</a>
+    </div>
+    <div class="menu-links">
+        <a href="${pageContext.request.contextPath}/user/add">Dodaj użytkownika</a>
     </div>
 
 </div>

@@ -1,5 +1,6 @@
 package pl.coderslab.catering2springboot.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,9 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Data
 @Table(name ="users")
 public class User {
     @Id
