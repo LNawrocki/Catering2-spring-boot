@@ -13,19 +13,11 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    List<User> findBy(); // List of all users
+//    List<User> findBy(); // List of all users
+
     User getByUserId(Long userId); // get user by userId
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE User u SET u.name = ?1, u.lastName = ?2, u.login = ?3, u.password = ?4, u.superAdmin = ?5 WHERE u.userId = ?6" )
-    int updateUserFieldsByUserId(String name, String lastName, String login, String password, Boolean superAdmin, long userId);
+}
 
-
-    @Modifying
-    @Transactional
-    @Query("delete User u where u.userId = ?1")
-    int deleteUserByUserId(Long userId);
-    }
 
 

@@ -54,7 +54,7 @@
 
         <div class="login-row">
                 <%--        <form:hidden path="userId"/>--%>
-            <form:button>Edytuj</form:button>
+            <form:button>Dodaj</form:button>
         </div>
     </div>
 </form:form>

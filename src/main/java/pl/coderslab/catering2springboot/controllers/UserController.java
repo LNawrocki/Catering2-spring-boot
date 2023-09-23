@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.catering2springboot.entity.Department;
 import pl.coderslab.catering2springboot.entity.User;
 import pl.coderslab.catering2springboot.repository.DepartmentRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -21,15 +22,14 @@ public class UserController {
     private final UserRepository userRepository;
     public final DepartmentRepository departmentRepository;
 
-//    public UserController(UserRepository userRepository, DepartmentRepository departmentRepository) {
-//        this.userRepository = userRepository;
-//        this.departmentRepository = departmentRepository;
-//    }
+    public UserController(UserRepository userRepository, DepartmentRepository departmentRepository) {
+        this.userRepository = userRepository;
+        this.departmentRepository = departmentRepository;
+    }
 
     @GetMapping("/list")
     public String userList(Model model) {
-        List<User> list = userRepository.findBy();
-        model.addAttribute("usersList", userRepository.findBy());
+        model.addAttribute("usersList", userRepository.findAll());
         return "/user/user-list";
     }
 
@@ -58,20 +58,15 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String update(@RequestParam String name,
-                             @RequestParam String lastName,
-                             @RequestParam String login,
-                             @RequestParam String password,
-                             @RequestParam Boolean superAdmin,
-                             @RequestParam Long userId) {
-        userRepository.updateUserFieldsByUserId(name, lastName, login, password, superAdmin, userId);
+    public String update(User user) {
+        userRepository.save(user);
         return "redirect:/user/list";
     }
 
     @GetMapping("/delete")
-    public String update(@RequestParam Long userId, Model model) {
-        userRepository.deleteUserByUserId(userId);
-        model.addAttribute("usersList", userRepository.findBy());
+    public String update(@RequestParam Long userId, Model model, User user) {
+        userRepository.delete(user);
+        model.addAttribute("usersList", userRepository.findAll());
         return "redirect:/user/list";
     }
 }
