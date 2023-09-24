@@ -6,7 +6,7 @@
         <a href="${pageContext.request.contextPath}/">Nowe Menu</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/menu/neworder">Zamów obiad</a>
+        <a href="${pageContext.request.contextPath}/user/auth">Zamów obiad</a>
     </div>
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/user/list">Lista użytkowników</a>

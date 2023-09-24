@@ -16,10 +16,15 @@
 
 <div class="main-block">
     <div class="day-block">
-        <h3>Nowe menu na tydzień KW: ${kw}</h3>
+        <h3>Cześć ${name} ${lastName}</h3>
     </div>
 </div>
-<form:form method="post" modelAttribute="newOrder">
+<div class="main-block">
+<div class="day-block">
+    <h3>Nowe menu na tydzień KW: ${kw}</h3>
+</div>
+</div>
+<form:form action="/menu/newOrder" method="post" modelAttribute="newOrder">
     <div class="main-block">
         <div class="day-block">
             <form:hidden path="kw"/>

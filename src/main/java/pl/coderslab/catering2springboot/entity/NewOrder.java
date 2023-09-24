@@ -59,7 +59,7 @@ public class NewOrder {
     private Integer userQtyFri;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User userId;
 
 }

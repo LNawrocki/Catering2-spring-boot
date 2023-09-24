@@ -31,31 +31,9 @@ public class MenuController {
         return "home";
     }
 
-
-    @GetMapping("/menu/neworder")
-    public String newOrderView(Model model) {
-        NewOrder newOrder = new NewOrder();
-        newOrder.setUserQtyMon(1);
-        newOrder.setUserQtyTue(1);
-        newOrder.setUserQtyWed(1);
-        newOrder.setUserQtyThu(1);
-        newOrder.setUserQtyFri(1);
-        System.out.println(newOrder);
-        model.addAttribute("newOrder", newOrder);
-        model.addAttribute("newMenuMonday", menuRepository.findByDayId(1));
-        model.addAttribute("newMenuTuesday", menuRepository.findByDayId(2));
-        model.addAttribute("newMenuWednesday", menuRepository.findByDayId(3));
-        model.addAttribute("newMenuThursday", menuRepository.findByDayId(4));
-        model.addAttribute("newMenuFriday", menuRepository.findByDayId(5));
-        model.addAttribute("kw", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR) + 1);
-        return "/menu/new-order";
-    }
-
-    @PostMapping("/menu/neworder")
+    @PostMapping("/menu/newOrder")
     public String newOrder(NewOrder newOrder) {
         newOrderRepository.save(newOrder);
-        return "redirect:/menu/neworder";
+        return "redirect:/";
     }
-
-
 }

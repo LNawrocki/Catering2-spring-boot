@@ -39,7 +39,7 @@ INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (2
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (23, 4, 'Bułka z pastą z kurczaka  i dodatkami', 7.40);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (24, 4, 'Bułka z pastą z kurczaka  i dodatkami x2', 14.40);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (25, 4, 'Czeburaki ukraińskie z mięsem mielonym smażone', 14.40);
-INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (26 4, 'Łazanki z mięsem i warzywami', 14.40);
+INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (26, 4, 'Łazanki z mięsem i warzywami', 14.40);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (27, 4, 'Rumsztyk wieprzowy z cebulką i pieczarkami + ziemniaki + sałatka z czerwonej kapusty', 18.40);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (28, 4, 'Jesienna "szakszuka" fasolka szparagowa, pierś z kurczaka, cukinia, papryka, makaron pełnoziarnisty, sos meksykański', 18.40);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (29, 4, 'Szpinakowy kotlecik z serem + ryż brązowy + zestaw sałatek', 18.40);
