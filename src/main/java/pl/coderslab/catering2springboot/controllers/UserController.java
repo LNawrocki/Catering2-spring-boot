@@ -13,6 +13,7 @@ import pl.coderslab.catering2springboot.repository.DepartmentRepository;
 import pl.coderslab.catering2springboot.repository.MenuRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
 
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -83,17 +84,25 @@ public class UserController {
                                @RequestParam String password, Model model) {
 
         User user = userRepository.getByLogin(login);
+        Long userId = user.getUserId();
         model.addAttribute("userId", user.getUserId());
         model.addAttribute("name", user.getName());
         model.addAttribute("lastName", user.getLastName());
         if (Objects.nonNull(user)) {
             if (BCrypt.checkpw(password, user.getPassword())) {
+                int kw = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR) + 1;
                 NewOrder newOrder = new NewOrder();
                 newOrder.setUserQtyMon(1);
+                newOrder.setUserPriceMon(BigInteger.valueOf(0));
                 newOrder.setUserQtyTue(1);
+                newOrder.setUserPriceTue(BigInteger.valueOf(0));
                 newOrder.setUserQtyWed(1);
+                newOrder.setUserPriceWed(BigInteger.valueOf(0));
                 newOrder.setUserQtyThu(1);
+                newOrder.setUserPriceMon(BigInteger.valueOf(0));
                 newOrder.setUserQtyFri(1);
+                newOrder.setKw(kw);
+//                newOrder.setUserId(user.getUserId());
                 model.addAttribute("newOrder", newOrder);
                 model.addAttribute("newMenuMonday", menuRepository.findByDayId(1));
                 model.addAttribute("newMenuTuesday", menuRepository.findByDayId(2));
@@ -108,4 +117,3 @@ public class UserController {
         return "redirect:/user/auth";
     }
 }
-

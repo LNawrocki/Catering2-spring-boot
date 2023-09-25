@@ -4,7 +4,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8"/>
-    <title>Order-dinner</title>
+    <title>Catering</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_menu_order.css">
 </head>
@@ -21,7 +21,7 @@
 </div>
 <div class="main-block">
 <div class="day-block">
-    <h3>Nowe menu na tydzień KW: ${kw}</h3>
+<%--    <h3>Nowe menu na tydzień KW: ${kw}</h3>--%>
 </div>
 </div>
 <form:form action="/menu/newOrder" method="post" modelAttribute="newOrder">
@@ -34,6 +34,11 @@
             <form:hidden path="userQtyWed"/>
             <form:hidden path="userQtyThu"/>
             <form:hidden path="userQtyFri"/>
+            <form:hidden path="userPriceMon"/>
+            <form:hidden path="userPriceTue"/>
+            <form:hidden path="userPriceWed"/>
+            <form:hidden path="userPriceThu"/>
+            <form:hidden path="userPriceFri"/>
         </div>
     </div>
     <div class="main-block">
