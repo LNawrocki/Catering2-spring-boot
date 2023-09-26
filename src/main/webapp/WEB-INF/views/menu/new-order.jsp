@@ -28,17 +28,18 @@
     <div class="main-block">
         <div class="day-block">
             <form:hidden path="kw"/>
-            <form:hidden path="userId"/>
+            <form:hidden path="user"/>
             <form:hidden path="userQtyMon"/>
             <form:hidden path="userQtyTue"/>
             <form:hidden path="userQtyWed"/>
-            <form:hidden path="userQtyThu"/>
+            <form:hidden path="userQtyThu" />
             <form:hidden path="userQtyFri"/>
             <form:hidden path="userPriceMon"/>
             <form:hidden path="userPriceTue"/>
             <form:hidden path="userPriceWed"/>
             <form:hidden path="userPriceThu"/>
             <form:hidden path="userPriceFri"/>
+
         </div>
     </div>
     <div class="main-block">

@@ -3,23 +3,28 @@ package pl.coderslab.catering2springboot.controllers;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.catering2springboot.entity.Department;
+import pl.coderslab.catering2springboot.entity.NewMenu;
 import pl.coderslab.catering2springboot.entity.NewOrder;
 import pl.coderslab.catering2springboot.entity.User;
 import pl.coderslab.catering2springboot.repository.DepartmentRepository;
 import pl.coderslab.catering2springboot.repository.MenuRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 //@RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")
+@SessionAttributes({"userId", "name", "lastName", "superAdmin"})
 public class UserController {
 
     public final DepartmentRepository departmentRepository;
@@ -88,6 +93,42 @@ public class UserController {
         model.addAttribute("userId", user.getUserId());
         model.addAttribute("name", user.getName());
         model.addAttribute("lastName", user.getLastName());
+        model.addAttribute("superAdmin", user.getSuperAdmin());
+        BigDecimal paymentPerc  = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
+
+        List<NewMenu> menuMonday = menuRepository.findByDayId(1);
+        List<NewMenu> menuTuesday = menuRepository.findByDayId(2);
+        List<NewMenu> menuWednesday = menuRepository.findByDayId(3);
+        List<NewMenu> menuThursday = menuRepository.findByDayId(4);
+        List<NewMenu> menuFriday = menuRepository.findByDayId(5);
+
+        menuMonday
+                .forEach(e -> {
+                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                });
+        menuTuesday
+                .forEach(e -> {
+                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                });
+        menuWednesday
+                .forEach(e -> {
+                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                });
+        menuThursday
+                .forEach(e -> {
+                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                });
+        menuFriday
+                .forEach(e -> {
+                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                });
+
+
         if (Objects.nonNull(user)) {
             if (BCrypt.checkpw(password, user.getPassword())) {
                 int kw = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR) + 1;
@@ -102,15 +143,15 @@ public class UserController {
                 newOrder.setUserPriceMon(BigInteger.valueOf(0));
                 newOrder.setUserQtyFri(1);
                 newOrder.setKw(kw);
-                newOrder.setUserId(user.getUserId());
+                newOrder.setUser(user);
                 model.addAttribute("newOrder", newOrder);
-                model.addAttribute("newMenuMonday", menuRepository.findByDayId(1));
-                model.addAttribute("newMenuTuesday", menuRepository.findByDayId(2));
-                model.addAttribute("newMenuWednesday", menuRepository.findByDayId(3));
-                model.addAttribute("newMenuThursday", menuRepository.findByDayId(4));
-                model.addAttribute("newMenuFriday", menuRepository.findByDayId(5));
+                model.addAttribute("newMenuMonday", menuMonday);
+                model.addAttribute("newMenuTuesday", menuTuesday);
+                model.addAttribute("newMenuWednesday", menuWednesday);
+                model.addAttribute("newMenuThursday", menuThursday);
+                model.addAttribute("newMenuFriday", menuFriday);
                 model.addAttribute("userId", user.getUserId());
-                model.addAttribute("kw", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR) + 1);
+                model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
                 return "/menu/new-order";
             }
         }

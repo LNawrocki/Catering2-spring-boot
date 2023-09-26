@@ -1,9 +1,9 @@
 # CREATE DATABASE catering CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 use catering;
 
-INSERT INTO catering.department (id, name, payment_perc) VALUES (1, 'Biuro', 30);
+INSERT INTO catering.department (id, name, payment_perc) VALUES (1, 'Biuro', 50);
 INSERT INTO catering.department (id, name, payment_perc) VALUES (2, 'Produkcja', 50);
-INSERT INTO catering.department (id, name, payment_perc) VALUES (3, 'Lakiernia', 80);
+INSERT INTO catering.department (id, name, payment_perc) VALUES (3, 'Lakiernia', 50);
 
 INSERT INTO catering.users (department_id, last_name, login, name, password, super_admin, user_id) VALUES (1, 'Nawrocki', 'admin', 'Łukasz', '$2a$10$C51xjC3nufMwRMoKC9DOaOj2vyShpFvxXnKqDbAMNTv8P1j4qO5NK', true, 1); #hasło admin
 INSERT INTO catering.users (department_id, last_name, login, name, password, super_admin, user_id) VALUES (1, 'Nawro2', 'user', 'Luk2', '$2a$10$dVzs8LDCb4KrdmLpGOZu2.isIzqS93aSi161B72XRNXC1Gb4BY3DO', false, 2); #hasło user

@@ -24,7 +24,7 @@ public class User {
     private Boolean superAdmin;
     private Boolean active;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 }

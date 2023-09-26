@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MenuRepository extends JpaRepository<NewMenu, Long> {
     List<NewMenu> findByDayId(Integer dayId);
+    NewMenu findByMealNo(Integer mealNo);
 }
