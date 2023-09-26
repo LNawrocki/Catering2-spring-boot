@@ -102,7 +102,7 @@ public class UserController {
                 newOrder.setUserPriceMon(BigInteger.valueOf(0));
                 newOrder.setUserQtyFri(1);
                 newOrder.setKw(kw);
-//                newOrder.setUserId(user.getUserId());
+                newOrder.setUserId(user.getUserId());
                 model.addAttribute("newOrder", newOrder);
                 model.addAttribute("newMenuMonday", menuRepository.findByDayId(1));
                 model.addAttribute("newMenuTuesday", menuRepository.findByDayId(2));
