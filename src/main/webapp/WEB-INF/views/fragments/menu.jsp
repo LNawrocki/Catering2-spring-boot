@@ -15,7 +15,10 @@
         <a href="${pageContext.request.contextPath}/user/add">Dodaj użytkownika</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/admin/department">Edycja Działów</a>
+        <a href="${pageContext.request.contextPath}/admin/department">Edycja działów</a>
+    </div>
+    <div class="menu-links">
+        <a href="${pageContext.request.contextPath}/menu/edit">Edycja menu</a>
     </div>
 
 </div>

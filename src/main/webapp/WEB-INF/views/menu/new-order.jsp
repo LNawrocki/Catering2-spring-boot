@@ -39,6 +39,8 @@
             <form:hidden path="userPriceWed"/>
             <form:hidden path="userPriceThu"/>
             <form:hidden path="userPriceFri"/>
+            <form:hidden path="toPay"/>
+            <form:hidden path="isPaid"/>
 
         </div>
     </div>

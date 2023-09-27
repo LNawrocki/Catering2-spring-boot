@@ -51,9 +51,13 @@
                 <form:radiobutton path="superAdmin" value="false"/>NIE
             </label>
         </div>
-
         <div class="login-row">
-                <%--        <form:hidden path="userId"/>--%>
+            <label>
+                <form:radiobutton path="active" value="true"/>Użytkownik aktywny</br>
+                <form:radiobutton path="active" value="false"/>Użytkownik nieaktywny
+            </label>
+        </div>
+        <div class="login-row">
             <form:button>Edytuj</form:button>
         </div>
     </div>

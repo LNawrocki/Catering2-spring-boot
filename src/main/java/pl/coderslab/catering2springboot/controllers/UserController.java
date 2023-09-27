@@ -4,22 +4,20 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.catering2springboot.entity.Department;
+
 import pl.coderslab.catering2springboot.entity.NewMenu;
 import pl.coderslab.catering2springboot.entity.NewOrder;
 import pl.coderslab.catering2springboot.entity.User;
 import pl.coderslab.catering2springboot.repository.DepartmentRepository;
-import pl.coderslab.catering2springboot.repository.MenuRepository;
+import pl.coderslab.catering2springboot.repository.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+
 
 //@RequiredArgsConstructor
 @Controller
@@ -29,12 +27,12 @@ public class UserController {
 
     public final DepartmentRepository departmentRepository;
     private final UserRepository userRepository;
-    private final MenuRepository menuRepository;
+    private final NewMenuRepository newMenuRepository;
 
-    public UserController(UserRepository userRepository, DepartmentRepository departmentRepository, MenuRepository menuRepository) {
+    public UserController(UserRepository userRepository, DepartmentRepository departmentRepository, NewMenuRepository newMenuRepository) {
         this.userRepository = userRepository;
         this.departmentRepository = departmentRepository;
-        this.menuRepository = menuRepository;
+        this.newMenuRepository = newMenuRepository;
     }
 
     @GetMapping("/list")
@@ -52,7 +50,7 @@ public class UserController {
 
     @PostMapping("/add")
     public String add(User user) {
-        System.out.println(user);
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userRepository.save(user);
         return "redirect:/user/list";
     }
@@ -68,6 +66,7 @@ public class UserController {
 
     @PostMapping("/update")
     public String update(User user) {
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userRepository.save(user);
         return "redirect:/user/list";
     }
@@ -89,18 +88,18 @@ public class UserController {
                                @RequestParam String password, Model model) {
 
         User user = userRepository.getByLogin(login);
-        Long userId = user.getUserId();
+//        Long userId = user.getUserId();
         model.addAttribute("userId", user.getUserId());
         model.addAttribute("name", user.getName());
         model.addAttribute("lastName", user.getLastName());
         model.addAttribute("superAdmin", user.getSuperAdmin());
         BigDecimal paymentPerc  = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
 
-        List<NewMenu> menuMonday = menuRepository.findByDayId(1);
-        List<NewMenu> menuTuesday = menuRepository.findByDayId(2);
-        List<NewMenu> menuWednesday = menuRepository.findByDayId(3);
-        List<NewMenu> menuThursday = menuRepository.findByDayId(4);
-        List<NewMenu> menuFriday = menuRepository.findByDayId(5);
+        List<NewMenu> menuMonday = newMenuRepository.findByDayId(1);
+        List<NewMenu> menuTuesday = newMenuRepository.findByDayId(2);
+        List<NewMenu> menuWednesday = newMenuRepository.findByDayId(3);
+        List<NewMenu> menuThursday = newMenuRepository.findByDayId(4);
+        List<NewMenu> menuFriday = newMenuRepository.findByDayId(5);
 
         menuMonday
                 .forEach(e -> {
@@ -131,19 +130,8 @@ public class UserController {
 
         if (Objects.nonNull(user)) {
             if (BCrypt.checkpw(password, user.getPassword())) {
-                int kw = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR) + 1;
-                NewOrder newOrder = new NewOrder();
-                newOrder.setUserQtyMon(1);
-                newOrder.setUserPriceMon(BigInteger.valueOf(0));
-                newOrder.setUserQtyTue(1);
-                newOrder.setUserPriceTue(BigInteger.valueOf(0));
-                newOrder.setUserQtyWed(1);
-                newOrder.setUserPriceWed(BigInteger.valueOf(0));
-                newOrder.setUserQtyThu(1);
-                newOrder.setUserPriceMon(BigInteger.valueOf(0));
-                newOrder.setUserQtyFri(1);
-                newOrder.setKw(kw);
-                newOrder.setUser(user);
+                int kw = LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1;
+                NewOrder newOrder = getNewOrder(kw, user);
                 model.addAttribute("newOrder", newOrder);
                 model.addAttribute("newMenuMonday", menuMonday);
                 model.addAttribute("newMenuTuesday", menuTuesday);
@@ -151,10 +139,29 @@ public class UserController {
                 model.addAttribute("newMenuThursday", menuThursday);
                 model.addAttribute("newMenuFriday", menuFriday);
                 model.addAttribute("userId", user.getUserId());
-                model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+                model.addAttribute("date", kw);
                 return "/menu/new-order";
             }
         }
         return "redirect:/user/auth";
+    }
+
+    private static NewOrder getNewOrder(int kw, User user) {
+        NewOrder newOrder = new NewOrder();
+        newOrder.setUserQtyMon(1);
+        newOrder.setUserPriceMon(BigDecimal.valueOf(0));
+        newOrder.setUserQtyTue(1);
+        newOrder.setUserPriceTue(BigDecimal.valueOf(0));
+        newOrder.setUserQtyWed(1);
+        newOrder.setUserPriceWed(BigDecimal.valueOf(0));
+        newOrder.setUserQtyThu(1);
+        newOrder.setUserPriceThu(BigDecimal.valueOf(0));
+        newOrder.setUserQtyFri(1);
+        newOrder.setUserPriceFri(BigDecimal.valueOf(0));
+        newOrder.setKw(kw);
+        newOrder.setUser(user);
+        newOrder.setToPay(BigDecimal.valueOf(0));
+        newOrder.setIsPaid(false);
+        return newOrder;
     }
 }

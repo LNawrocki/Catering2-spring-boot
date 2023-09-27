@@ -51,14 +51,18 @@
                 <form:radiobutton path="superAdmin" value="false"/>NIE
             </label>
         </div>
+        <div class="login-row">
+            <label>
+                <form:radiobutton path="active" value="true"/>Użytkownik aktywny</br>
+                <form:radiobutton path="active" value="false"/>Użytkownik nieaktywny
+            </label>
+        </div>
 
         <div class="login-row">
-                <%--        <form:hidden path="userId"/>--%>
             <form:button>Dodaj</form:button>
         </div>
     </div>
 </form:form>
-
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

@@ -4,38 +4,40 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.catering2springboot.entity.NewMenu;
 import pl.coderslab.catering2springboot.entity.NewOrder;
-import pl.coderslab.catering2springboot.repository.MenuRepository;
+import pl.coderslab.catering2springboot.entity.User;
+import pl.coderslab.catering2springboot.repository.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
 
-import javax.servlet.http.HttpSession;
-import java.math.BigInteger;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
-
 
 
 @Controller
 
 public class MenuController {
-    private final MenuRepository menuRepository;
+    private final NewMenuRepository newMenuRepository;
     private final NewOrderRepository newOrderRepository;
     private final UserRepository userRepository;
 
-    public MenuController(MenuRepository menuRepository, NewOrderRepository newOrderRepository, UserRepository userRepository) {
-        this.menuRepository = menuRepository;
+    public MenuController(NewMenuRepository newMenuRepository, NewOrderRepository newOrderRepository, UserRepository userRepository) {
+        this.newMenuRepository = newMenuRepository;
         this.newOrderRepository = newOrderRepository;
         this.userRepository = userRepository;
     }
 
     @GetMapping
     public String mealsView(Model model) {
-        model.addAttribute("mealsMonday", menuRepository.findByDayId(1));
-        model.addAttribute("mealsTuesday", menuRepository.findByDayId(2));
-        model.addAttribute("mealsWednesday", menuRepository.findByDayId(3));
-        model.addAttribute("mealsThursday", menuRepository.findByDayId(4));
-        model.addAttribute("mealsFriday", menuRepository.findByDayId(5));
+        model.addAttribute("mealsMonday", newMenuRepository.findByDayId(1));
+        model.addAttribute("mealsTuesday", newMenuRepository.findByDayId(2));
+        model.addAttribute("mealsWednesday", newMenuRepository.findByDayId(3));
+        model.addAttribute("mealsThursday", newMenuRepository.findByDayId(4));
+        model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
         model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
         return "home";
     }
@@ -43,16 +45,49 @@ public class MenuController {
     @PostMapping("/menu/newOrder")
     public String newOrder(NewOrder newOrder) {
 
-//        menuRepository.findByMealNo(newOrder.getUserMealMon()).getMealPrice(); // pobranie ceny posiłku wybranego przez użytkownika
-//        newOrder.getUser().getUserId(); // pobranie id użytkownika z formularza w celu przeliczenia ceny wybranych potraw
+        User user = userRepository.getByUserId(newOrder.getUser().getUserId());
+        BigDecimal paymentPerc  = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
 
-//        newOrder.setUserPriceMon(BigInteger.valueOf(5));
-//        newOrder.setUserPriceTue();
-//        newOrder.setUserPriceWed();
-//        newOrder.setUserPriceThu();
-//        newOrder.setUserPriceFri();
+        NewMenu mealMonday = newMenuRepository.findByMealNo(newOrder.getUserMealMon());
+        NewMenu mealTuesday = newMenuRepository.findByMealNo(newOrder.getUserMealTue());
+        NewMenu mealWednesday = newMenuRepository.findByMealNo(newOrder.getUserMealWed());
+        NewMenu mealThursday = newMenuRepository.findByMealNo(newOrder.getUserMealThu());
+        NewMenu mealFriday = newMenuRepository.findByMealNo(newOrder.getUserMealFri());
+
+        newOrder.setUserPriceMon(mealMonday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+        newOrder.setUserPriceTue(mealTuesday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+        newOrder.setUserPriceWed(mealWednesday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+        newOrder.setUserPriceThu(mealThursday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+        newOrder.setUserPriceFri(mealFriday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
 
         newOrderRepository.save(newOrder);
         return "redirect:/";
+    }
+    @GetMapping("/menu/edit")
+    public String editMenuView(Model model){
+        model.addAttribute("newMenu",new NewMenu());
+
+        model.addAttribute("mealsMonday", newMenuRepository.findByDayId(1));
+        model.addAttribute("mealsTuesday", newMenuRepository.findByDayId(2));
+        model.addAttribute("mealsWednesday", newMenuRepository.findByDayId(3));
+        model.addAttribute("mealsThursday", newMenuRepository.findByDayId(4));
+        model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
+        model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+
+        return "/menu/menu-edit";
+    }
+
+    @PostMapping("/menu/edit")
+    public String editMenu(NewMenu newMenu){
+        newMenu.setMealNo(newMenu.getMealNo());
+        newMenuRepository.save(newMenu);
+        return "redirect:/menu/edit";
+    }
+
+    @GetMapping("/menu/delete")
+    public String deleteMenu(@RequestParam Integer mealNo) {
+        System.out.println(mealNo);
+        newMenuRepository.deleteByMealNo(mealNo);
+        return "redirect:/menu/edit";
     }
 }

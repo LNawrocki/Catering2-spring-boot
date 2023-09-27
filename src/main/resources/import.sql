@@ -2,17 +2,14 @@
 use catering;
 
 INSERT INTO catering.department (id, name, payment_perc) VALUES (1, 'Biuro', 50);
-INSERT INTO catering.department (id, name, payment_perc) VALUES (2, 'Produkcja', 50);
-INSERT INTO catering.department (id, name, payment_perc) VALUES (3, 'Lakiernia', 50);
+INSERT INTO catering.department (id, name, payment_perc) VALUES (2, 'Produkcja', 90);
+INSERT INTO catering.department (id, name, payment_perc) VALUES (3, 'Lakiernia', 10);
 
-INSERT INTO catering.users (department_id, last_name, login, name, password, super_admin, user_id) VALUES (1, 'Nawrocki', 'admin', 'Łukasz', '$2a$10$C51xjC3nufMwRMoKC9DOaOj2vyShpFvxXnKqDbAMNTv8P1j4qO5NK', true, 1); #hasło admin
-INSERT INTO catering.users (department_id, last_name, login, name, password, super_admin, user_id) VALUES (1, 'Nawro2', 'user', 'Luk2', '$2a$10$dVzs8LDCb4KrdmLpGOZu2.isIzqS93aSi161B72XRNXC1Gb4BY3DO', false, 2); #hasło user
-INSERT INTO catering.users (department_id, last_name, login, name, password, super_admin, user_id) VALUES (2, 'Nawro3', 'user1', 'Luk2', '$2a$10$dVzs8LDCb4KrdmLpGOZu2.isIzqS93aSi161B72XRNXC1Gb4BY3DO', false, 3); #hasło user
-INSERT INTO catering.users (department_id, last_name, login, name, password, super_admin, user_id) VALUES (3, 'Nawro3', 'user2', 'Luk2', '$2a$10$dVzs8LDCb4KrdmLpGOZu2.isIzqS93aSi161B72XRNXC1Gb4BY3DO', false, 4); #hasło user
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (1, true, 'Nawrocki', 'admin', 'Łukasz', '$2a$10$SrqpdU.KRWLbhU2kdwSs2uoG5Ks1lr6yesD8fv6oj.F23qcHQ7fkq', true, 1);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (2, true, 'nazwisko produkcja', 'produkcja', 'imie produkcja', '$2a$10$yaQOjsXb5O235OZ/hHV3y.BrdUWXRNWVfOZNYNZb/f2nUJwxQrm0u', false, 2);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (3, true, 'nazwisko lakiernia', 'lakiernia', 'imie lakiernia', '$2a$10$caF6nVeZYKoLdxlt4inHGu0FV/w4hf6m.oRoKPvgr3syniOdh6wAi', false, 3);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (4, true, 'biuro', 'biuro', 'biuro', '$2a$10$CY9H.S.L/2Ye3LjFvbk1ieg5puht41NIm10/RJk3P1JD79Lt3VDSq', false, 1);
 
-# INSERT INTO catering.user_orders (id, kw, user_id, user_meal_thu, user_meal_fri, user_meal_mon, user_meal_tue, user_meal_wed, user_price_fri, user_price_mon, user_price_thu, user_price_tue, user_price_wed, user_qty_fri, user_qty_mon, user_qty_thu, user_qty_tue, user_qty_wed, user_shift_fri, user_shift_mon, user_shift_thu, user_shift_tue, user_shift_wed) VALUES (1, 38, 1, 'umthu', 'umfri', 'ummon', 'umtue', 'umwed', 3.5, 4.5, 5.5, 6.5, 7.5, 1, 1, 1, 1, 1, 5, 1, 4, 2, 3);
-
-# INSERT INTO catering.orders (id, kw, paid, to_pay, order_meal_thu, order_meal_fri, order_meal_mon, order_meal_tue, order_meal_wed, order_price_fri, order_price_mon, order_price_thur, order_price_tue, order_price_wed, order_qty_fri, order_qty_mon, order_qty_thu, order_qty_tue, order_qty_wed, order_shift_fri, order_shift_mon, order_shift_thu, order_shift_tue, order_shift_wed, user_id) VALUES (1, 38, true, 15.2, 'om_thursday1', 'om_friday1', 'om_monday1', 'om_tue', 'om_wed', 10, 20, 30, 40, 50, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1);
 
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (1, 1, 'Brak', 0.00);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (2, 1, 'Bułka z szynką, serem i warzywami', 7.10);

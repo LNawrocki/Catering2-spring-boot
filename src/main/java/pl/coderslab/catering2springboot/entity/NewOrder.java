@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Entity
@@ -22,7 +23,7 @@ public class NewOrder {
     @Column(name = "user_meal_mon")
     private Integer userMealMon;
     @Column(name = "user_price_mon")
-    private BigInteger userPriceMon;
+    private BigDecimal userPriceMon;
     @Column(name = "user_shift_mon")
     private Integer userShiftMon;
     @Column(name = "user_qty_mon")
@@ -30,7 +31,7 @@ public class NewOrder {
     @Column(name = "user_meal_tue")
     private Integer userMealTue;
     @Column(name = "user_price_tue")
-    private BigInteger userPriceTue;
+    private BigDecimal userPriceTue;
     @Column(name = "user_shift_tue")
     private Integer userShiftTue;
     @Column(name = "user_qty_tue")
@@ -38,7 +39,7 @@ public class NewOrder {
     @Column(name = "user_meal_wed")
     private Integer userMealWed;
     @Column(name = "user_price_wed")
-    private BigInteger userPriceWed;
+    private BigDecimal userPriceWed;
     @Column(name = "user_shift_wed")
     private Integer userShiftWed;
     @Column(name = "user_qty_wed")
@@ -46,7 +47,7 @@ public class NewOrder {
     @Column(name = "user_meal_thu")
     private Integer userMealThu;
     @Column(name = "user_price_thu")
-    private BigInteger userPriceThu;
+    private BigDecimal userPriceThu;
     @Column(name = "user_shift_thu")
     private Integer userShiftThu;
     @Column(name = "user_qty_thu")
@@ -54,11 +55,15 @@ public class NewOrder {
     @Column(name = "user_meal_fri")
     private Integer userMealFri;
     @Column(name = "user_price_fri")
-    private BigInteger userPriceFri;
+    private BigDecimal userPriceFri;
     @Column(name = "user_shift_fri")
     private Integer userShiftFri;
     @Column(name = "user_qty_fri")
     private Integer userQtyFri;
+    @Column(name = "to_pay")
+    private BigDecimal toPay;
+    @Column(name = "is_paid")
+    private Boolean isPaid;
 
     @OneToOne
     @JoinColumn(name = "user_id")
