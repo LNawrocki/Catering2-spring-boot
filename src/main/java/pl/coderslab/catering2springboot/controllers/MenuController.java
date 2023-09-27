@@ -63,8 +63,8 @@ public class MenuController {
         newOrderRepository.save(newOrder);
         return "redirect:/";
     }
-    @GetMapping("/menu/edit")
-    public String editMenuView(Model model){
+    @GetMapping("/menu/update")
+    public String updateMenuView(Model model){
         model.addAttribute("newMenu",new NewMenu());
 
         model.addAttribute("mealsMonday", newMenuRepository.findByDayId(1));
@@ -74,20 +74,28 @@ public class MenuController {
         model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
         model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
 
-        return "/menu/menu-edit";
+        return "/menu/menu-update";
     }
 
-    @PostMapping("/menu/edit")
-    public String editMenu(NewMenu newMenu){
+    @PostMapping("/menu/update")
+    public String updateMenu(NewMenu newMenu){
         newMenu.setMealNo(newMenu.getMealNo());
         newMenuRepository.save(newMenu);
-        return "redirect:/menu/edit";
+        return "redirect:/menu/update";
     }
 
+    //do poprawy - metoda get nie powinna zmieniać stanu bazy danych
     @GetMapping("/menu/delete")
     public String deleteMenu(@RequestParam Integer mealNo) {
         System.out.println(mealNo);
         newMenuRepository.deleteByMealNo(mealNo);
-        return "redirect:/menu/edit";
+        return "redirect:/menu/update";
+    }
+
+    //do poprawy - metoda get nie powinna zmieniać stanu bazy danych
+    @GetMapping("/menu/deleteDay")
+    public String deleteMenuDay(@RequestParam Integer dayId){
+        newMenuRepository.deleteByDayNo(dayId);
+        return "redirect:/menu/update";
     }
 }

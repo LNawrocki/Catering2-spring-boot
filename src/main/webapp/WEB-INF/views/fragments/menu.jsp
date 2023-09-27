@@ -18,7 +18,7 @@
         <a href="${pageContext.request.contextPath}/admin/department">Edycja działów</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/menu/edit">Edycja menu</a>
+        <a href="${pageContext.request.contextPath}/menu/update">Edycja menu</a>
     </div>
 
 </div>

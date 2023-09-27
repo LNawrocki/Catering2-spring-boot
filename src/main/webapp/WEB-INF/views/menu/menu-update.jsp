@@ -6,7 +6,7 @@
     <meta charset="UTF-8"/>
     <title>Catering - Lightnet</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_home.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_menu_update.css">
 </head>
 
 <body>
@@ -20,23 +20,30 @@
 </div>
 <form:form method="post" modelAttribute="newMenu">
     <div class="main-block">
-        <div class="day-block">
+        <div class="login-row">
             <label for="mealNo">numer dania:
                 <form:input path="mealNo"/>
             </label>
-            <label for="mealName">Nazwa dania:
-                <form:input path="mealName"/>
-            </label>
+        </div>
+        <div class="login-row">
             <label for="mealPrice">Cena dania:
                 <form:input path="mealPrice"/>
             </label>
+        </div>
+        <div class="login-row">
             <label for="dayId">Numer dnia:
                 <form:input path="dayId"/>
             </label>
-            <div class="login-row">
-                <form:button>Dodaj</form:button>
-            </div>
         </div>
+        <div class="login-row">
+            <label for="mealName">Nazwa dania:
+                <input name="mealName" type="text" size="100"/>
+            </label>
+        </div>
+        <div class="login-row">
+            <form:button>Dodaj</form:button>
+        </div>
+    </div>
     </div>
 </form:form>
 
@@ -56,10 +63,14 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealMonday" items="${mealsMonday}">
-                                <li> ${mealMonday.mealNo} ${mealMonday.mealName}<a href="/menu/delete?mealNo=${mealMonday.mealNo}">Usuń</a></li>
+                                <li> ${mealMonday.mealNo} ${mealMonday.mealName}  ${mealMonday.mealPrice} zł
+                                    <a href="/menu/delete?mealNo=${mealMonday.mealNo}">Usuń</a></li>
                             </c:forEach>
                         </ul>
                     </div>
+                </td>
+                <td>
+                    <a href="/menu/deleteDay?dayId=1">Usuń dzień</a></li>
                 </td>
             </tr>
             <tr>
@@ -74,10 +85,14 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealTuesday" items="${mealsTuesday}">
-                                <li> ${mealTuesday.mealNo} ${mealTuesday.mealName}<a href="/menu/delete?mealNo=${mealTuesday.mealNo}">Usuń</a></li>
+                                <li> ${mealTuesday.mealNo} ${mealTuesday.mealName}    ${mealTuesday.mealPrice} zł
+                                    <a href="/menu/delete?mealNo=${mealTuesday.mealNo}">Usuń</a></li>
                             </c:forEach>
                         </ul>
                     </div>
+                </td>
+                <td>
+                    <a href="/menu/deleteDay?dayId=2">Usuń dzień</a></li>
                 </td>
             </tr>
             <tr>
@@ -92,10 +107,14 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealWednesday" items="${mealsWednesday}">
-                                <li>${mealWednesday.mealNo} ${mealWednesday.mealName}<a href="/menu/delete?mealNo=${mealWednesday.mealNo}">Usuń</a></li>
+                                <li>${mealWednesday.mealNo} ${mealWednesday.mealName}  ${mealWednesday.mealPrice} zł
+                                    <a href="/menu/delete?mealNo=${mealWednesday.mealNo}">Usuń</a></li>
                             </c:forEach>
                         </ul>
                     </div>
+                </td>
+                <td>
+                    <a href="/menu/deleteDay?dayId=3">Usuń dzień</a></li>
                 </td>
             </tr>
             <tr>
@@ -110,10 +129,14 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealThursday" items="${mealsThursday}">
-                                <li>${mealThursday.mealNo} ${mealThursday.mealName}<a href="/menu/delete?mealNo=${mealThursday.mealNo}">Usuń</a></li>
+                                <li>${mealThursday.mealNo} ${mealThursday.mealName}    ${mealThursday.mealPrice} zł
+                                    <a href="/menu/delete?mealNo=${mealThursday.mealNo}">Usuń</a></li>
                             </c:forEach>
                         </ul>
                     </div>
+                </td>
+                <td>
+                    <a href="/menu/deleteDay?dayId=4">Usuń dzień</a></li>
                 </td>
             </tr>
             <tr>
@@ -128,10 +151,14 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealFriday" items="${mealsFriday}">
-                                <li>${mealFriday.mealNo} ${mealFriday.mealName}<a href="/menu/delete?mealNo=${mealFriday.mealNo}">Usuń</a></li>
+                                <li>${mealFriday.mealNo} ${mealFriday.mealName}    ${mealFriday.mealPrice} zł
+                                    <a href="/menu/delete?mealNo=${mealFriday.mealNo}">Usuń</a></li>
                             </c:forEach>
                         </ul>
                     </div>
+                </td>
+                <td>
+                    <a href="/menu/deleteDay?dayId=5">Usuń dzień</a></li>
                 </td>
             </tr>
         </table>

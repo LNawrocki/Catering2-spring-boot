@@ -17,4 +17,9 @@ public interface NewMenuRepository extends JpaRepository<NewMenu, Long> {
     @Transactional
     @Query(value = "DELETE FROM new_menu WHERE meal_no = ?1", nativeQuery = true)
     int deleteByMealNo(Integer mealNo);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM new_menu WHERE day_id = ?1", nativeQuery = true)
+    int deleteByDayNo(Integer dayId);
 }
