@@ -69,7 +69,7 @@
                         </ul>
                     </div>
                 </td>
-                <td>
+                <td class="day">
                     <a href="/menu/deleteDay?dayId=1">Usuń dzień</a></li>
                 </td>
             </tr>
@@ -91,7 +91,7 @@
                         </ul>
                     </div>
                 </td>
-                <td>
+                <td class="day">
                     <a href="/menu/deleteDay?dayId=2">Usuń dzień</a></li>
                 </td>
             </tr>
@@ -113,7 +113,7 @@
                         </ul>
                     </div>
                 </td>
-                <td>
+                <td class="day">
                     <a href="/menu/deleteDay?dayId=3">Usuń dzień</a></li>
                 </td>
             </tr>
@@ -135,7 +135,7 @@
                         </ul>
                     </div>
                 </td>
-                <td>
+                <td class="day">
                     <a href="/menu/deleteDay?dayId=4">Usuń dzień</a></li>
                 </td>
             </tr>
@@ -157,7 +157,7 @@
                         </ul>
                     </div>
                 </td>
-                <td>
+                <td class="day">
                     <a href="/menu/deleteDay?dayId=5">Usuń dzień</a></li>
                 </td>
             </tr>
