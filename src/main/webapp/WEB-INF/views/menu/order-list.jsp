@@ -65,6 +65,13 @@
                         </div>
                     </div>
                 </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            Dane osoby
+                        </div>
+                    </div>
+                </td>
 
 
             </tr>
