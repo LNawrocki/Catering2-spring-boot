@@ -16,6 +16,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -108,7 +110,19 @@ public class MenuController {
 
     @GetMapping("/menu/order/list")
     public String orderListView(Model model){
+        List<NewOrder> newOrders = newOrderRepository.findAll(); // pobranie wszystkich nowych zamówień
+        List<String> mealsNames = new ArrayList<>();
+        for (NewOrder newOrder : newOrders) {
+            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getUserMealMon()).getMealName());
+            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getUserMealTue()).getMealName());
+            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getUserMealWed()).getMealName());
+            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getUserMealThu()).getMealName());
+            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getUserMealFri()).getMealName());
+        }
+
+
         model.addAttribute("newOrders", newOrderRepository.findAll());
+
         return "/menu/order-list";
     }
 }

@@ -26,105 +26,28 @@
                 <td>
                     <div class="day">
                         <div>
-                            Pn nr
+                            Dzień
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="day">
                         <div>
-                            Pn cena
+                            Dania
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="day">
                         <div>
-                            Pn zm
+                            Cena
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="day">
                         <div>
-                            Wt nr
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Wt cena
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Wt zm
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Śr nr
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Śr cena
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Śr zm
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Czw nr
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Czw cena
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Czw zm
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Pt nr
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Pt cena
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Pt zm
+                            Zmiana
                         </div>
                     </div>
                 </td>
@@ -142,13 +65,7 @@
                         </div>
                     </div>
                 </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Osoba
-                        </div>
-                    </div>
-                </td>
+
 
             </tr>
             <c:forEach var="newOrder" items="${newOrders}">
@@ -163,112 +80,51 @@
                     <td>
                         <div class="day">
                             <div>
-                                    ${newOrder.userMealMon}
+                                    Paniedziałek<br>
+                                    Wtorek<br>
+                                    Środa<br>
+                                    Czwartek<br>
+                                    Piątek<br>
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="day">
                             <div>
-                                    ${newOrder.userPriceMon}
+                                    ${newOrder.userMealMon}<br>
+                                    ${newOrder.userMealTue}<br>
+                                    ${newOrder.userMealWed}<br>
+                                    ${newOrder.userMealThu}<br>
+                                    ${newOrder.userMealFri}<br>
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="day">
                             <div>
-                                    ${newOrder.userShiftMon}
+                                    ${newOrder.userPriceMon} zł<br>
+                                    ${newOrder.userPriceTue} zł<br>
+                                    ${newOrder.userPriceWed} zł<br>
+                                    ${newOrder.userPriceThu} zł<br>
+                                    ${newOrder.userPriceFri} zł<br>
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="day">
                             <div>
-                                    ${newOrder.userMealTue}
+                                    ${newOrder.userShiftMon}<br>
+                                    ${newOrder.userShiftTue}<br>
+                                    ${newOrder.userShiftWed}<br>
+                                    ${newOrder.userShiftThu}<br>
+                                    ${newOrder.userShiftFri}<br>
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="day">
                             <div>
-                                    ${newOrder.userPriceTue}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.userShiftTue}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.userMealWed}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.userPriceWed}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.userShiftWed}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.userMealThu}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.userPriceThu}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.userShiftThu}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.userMealFri}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.userPriceFri}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.userShiftFri}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.toPay}
+                                    ${newOrder.toPay} zł
                             </div>
                         </div>
                     </td>
@@ -282,7 +138,10 @@
                     <td>
                         <div class="day">
                             <div>
-                                    ${newOrder.user.userId}
+                                   ID: ${newOrder.user.userId}<br>
+                                   ${newOrder.user.name}
+                                   ${newOrder.user.lastName}<br>
+                                   Login: ${newOrder.user.login}
                             </div>
                         </div>
                     </td>
