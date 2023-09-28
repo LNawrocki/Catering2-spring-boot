@@ -184,7 +184,7 @@
                     <td>
                         <div class="day">
                             <div>
-
+                                    ${newOrder.userMealTue}
                             </div>
                         </div>
                     </td>
