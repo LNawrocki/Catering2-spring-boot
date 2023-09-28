@@ -20,5 +20,8 @@
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/menu/update">Edycja menu</a>
     </div>
+    <div class="menu-links">
+        <a href="${pageContext.request.contextPath}/menu/order/list">Lista zamówień</a>
+    </div>
 
 </div>

@@ -60,9 +60,17 @@ public class MenuController {
         newOrder.setUserPriceThu(mealThursday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
         newOrder.setUserPriceFri(mealFriday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
 
+        newOrder.setToPay(newOrder.getUserPriceMon().add(newOrder.getUserPriceTue()).add(newOrder.getUserPriceWed())
+                .add(newOrder.getUserPriceThu()).add(newOrder.getUserPriceFri()));
+
         newOrderRepository.save(newOrder);
         return "redirect:/";
     }
+
+
+
+
+
     @GetMapping("/menu/update")
     public String updateMenuView(Model model){
         model.addAttribute("newMenu",new NewMenu());
@@ -73,13 +81,12 @@ public class MenuController {
         model.addAttribute("mealsThursday", newMenuRepository.findByDayId(4));
         model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
         model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-
         return "/menu/menu-update";
     }
 
     @PostMapping("/menu/update")
     public String updateMenu(NewMenu newMenu){
-        newMenu.setMealNo(newMenu.getMealNo());
+//        newMenu.setMealNo(newMenu.getMealNo());
         newMenuRepository.save(newMenu);
         return "redirect:/menu/update";
     }
@@ -97,5 +104,11 @@ public class MenuController {
     public String deleteMenuDay(@RequestParam Integer dayId){
         newMenuRepository.deleteByDayNo(dayId);
         return "redirect:/menu/update";
+    }
+
+    @GetMapping("/menu/order/list")
+    public String orderListView(Model model){
+        model.addAttribute("newOrders", newOrderRepository.findAll());
+        return "/menu/order-list";
     }
 }

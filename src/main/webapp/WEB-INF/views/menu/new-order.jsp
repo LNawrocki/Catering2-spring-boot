@@ -39,6 +39,12 @@
             <form:hidden path="userPriceWed"/>
             <form:hidden path="userPriceThu"/>
             <form:hidden path="userPriceFri"/>
+<%--            <form:hidden path="userShiftMon"/>--%>
+<%--            <form:hidden path="userShiftTue"/>--%>
+<%--            <form:hidden path="userShiftWed"/>--%>
+<%--            <form:hidden path="userShiftThu"/>--%>
+<%--            <form:hidden path="userShiftFri"/>--%>
+
             <form:hidden path="toPay"/>
             <form:hidden path="isPaid"/>
 
@@ -91,6 +97,7 @@
                             <div>
                                 <form:radiobutton path="userShiftMon" value="1"/>1
                                 <form:radiobutton path="userShiftMon" value="2"/>2
+                                <input type="radio" name="userShiftMon" value="0" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -114,8 +121,9 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:radiobutton path="userShiftTue" value="1"/>1
+                                <form:radiobutton path="userShiftTue" value="1" />1
                                 <form:radiobutton path="userShiftTue" value="2"/>2
+                                <input type="radio" name="userShiftTue" value="0" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -141,6 +149,7 @@
                             <div>
                                 <form:radiobutton path="userShiftWed" value="1"/>1
                                 <form:radiobutton path="userShiftWed" value="2"/>2
+                                <input type="radio" name="userShiftWed" value="0" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -166,6 +175,7 @@
                             <div>
                                 <form:radiobutton path="userShiftThu" value="1"/>1
                                 <form:radiobutton path="userShiftThu" value="2"/>2
+                                <input type="radio" name="userShiftThu" value="0" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -191,6 +201,7 @@
                             <div>
                                 <form:radiobutton path="userShiftFri" value="1"/>1
                                 <form:radiobutton path="userShiftFri" value="2"/>2
+                                <input type="radio" name="userShiftFri" value="0" checked hidden/>
                             </div>
                         </div>
                     </td>

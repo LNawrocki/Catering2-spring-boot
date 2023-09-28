@@ -149,15 +149,16 @@ public class UserController {
     private static NewOrder getNewOrder(int kw, User user) {
         NewOrder newOrder = new NewOrder();
         newOrder.setUserQtyMon(1);
-        newOrder.setUserPriceMon(BigDecimal.valueOf(0));
         newOrder.setUserQtyTue(1);
-        newOrder.setUserPriceTue(BigDecimal.valueOf(0));
         newOrder.setUserQtyWed(1);
-        newOrder.setUserPriceWed(BigDecimal.valueOf(0));
         newOrder.setUserQtyThu(1);
-        newOrder.setUserPriceThu(BigDecimal.valueOf(0));
         newOrder.setUserQtyFri(1);
-        newOrder.setUserPriceFri(BigDecimal.valueOf(0));
+        newOrder.setUserShiftMon(0);
+        newOrder.setUserShiftTue(0);
+        newOrder.setUserShiftWed(0);
+        newOrder.setUserShiftThu(0);
+        newOrder.setUserShiftFri(0);
+
         newOrder.setKw(kw);
         newOrder.setUser(user);
         newOrder.setToPay(BigDecimal.valueOf(0));
