@@ -72,8 +72,6 @@
                         </div>
                     </div>
                 </td>
-
-
             </tr>
             <c:forEach var="newOrder" items="${newOrders}">
                 <tr>
