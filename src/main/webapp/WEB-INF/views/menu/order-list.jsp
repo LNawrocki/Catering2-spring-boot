@@ -10,7 +10,7 @@
 
 <body>
 <jsp:include page="../fragments/header.jsp"/>
-<jsp:include page="../fragments/menu.jsp"/>
+<jsp:include page="../fragments/menu-admin.jsp"/>
 
 <div class="main-block">
     <div class="day-block">

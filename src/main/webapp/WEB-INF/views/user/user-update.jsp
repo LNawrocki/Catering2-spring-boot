@@ -11,7 +11,7 @@
 
 <body>
 <jsp:include page="../fragments/header.jsp"/>
-<jsp:include page="../fragments/menu.jsp"/>
+<jsp:include page="../fragments/menu-admin.jsp"/>
 
 <form:form method="post" modelAttribute="user">
     <div class="main-block">

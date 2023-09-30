@@ -5,165 +5,206 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import pl.coderslab.catering2springboot.entity.NewMenu;
 import pl.coderslab.catering2springboot.entity.NewOrder;
 import pl.coderslab.catering2springboot.entity.User;
 import pl.coderslab.catering2springboot.repository.DepartmentRepository;
 import pl.coderslab.catering2springboot.repository.NewMenuRepository;
+import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 
 //@RequiredArgsConstructor
 @Controller
-@RequestMapping("/user")
+//@RequestMapping("/user")
 @SessionAttributes({"userId", "name", "lastName", "superAdmin"})
 public class UserController {
 
     public final DepartmentRepository departmentRepository;
+    public final NewOrderRepository newOrderRepository;
     private final UserRepository userRepository;
     private final NewMenuRepository newMenuRepository;
 
-    public UserController(UserRepository userRepository, DepartmentRepository departmentRepository, NewMenuRepository newMenuRepository) {
+    public UserController(UserRepository userRepository, DepartmentRepository departmentRepository, NewMenuRepository newMenuRepository, NewOrderRepository newOrderRepository) {
         this.userRepository = userRepository;
         this.departmentRepository = departmentRepository;
         this.newMenuRepository = newMenuRepository;
+        this.newOrderRepository = newOrderRepository;
     }
 
-    @GetMapping("/list")
+    @GetMapping
+    public String mealsView(Model model) {
+        model.addAttribute("mealsMonday", newMenuRepository.findByDayId(1));
+        model.addAttribute("mealsTuesday", newMenuRepository.findByDayId(2));
+        model.addAttribute("mealsWednesday", newMenuRepository.findByDayId(3));
+        model.addAttribute("mealsThursday", newMenuRepository.findByDayId(4));
+        model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
+        model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+        return "home";
+    }
+
+    @GetMapping("/admin/list")
     public String userList(Model model) {
         model.addAttribute("usersList", userRepository.findAll());
         return "/user/user-list";
     }
 
-    @GetMapping("/add")
-    public String addView(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("departments", departmentRepository.findAll());
-        return "/user/user-add";
+    @GetMapping("/admin/add")
+    public String addView(Model model, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+
+            model.addAttribute("user", new User());
+            model.addAttribute("departments", departmentRepository.findAll());
+            return "/user/user-add";
+        }
+        session.invalidate();
+        return "redirect:/";
     }
 
-    @PostMapping("/add")
-    public String add(User user) {
-        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-        userRepository.save(user);
-        return "redirect:/user/list";
+    @PostMapping("/admin/add")
+    public String add(User user, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+            userRepository.save(user);
+            return "redirect:/admin/list";
+        }
+        session.invalidate();
+        return "redirect:/";
     }
 
-    @GetMapping("/update")
-    public String updateView(@RequestParam Long userId, Model model) {
-        User user = userRepository.getByUserId(userId);
-        user.setPassword("");
-        model.addAttribute("user", user);
-        model.addAttribute("departments", departmentRepository.findAll());
-        return "/user/user-update";
+    @GetMapping("/admin/update")
+    public String updateView(@RequestParam Long userId, Model model, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            User user = userRepository.getByUserId(userId);
+            user.setPassword("");
+            model.addAttribute("user", user);
+            model.addAttribute("departments", departmentRepository.findAll());
+            return "/user/user-update";
+        }
+        session.invalidate();
+        return "redirect:/";
     }
 
-    @PostMapping("/update")
-    public String update(User user) {
-        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-        userRepository.save(user);
-        return "redirect:/user/list";
+    @PostMapping("/admin/update")
+    public String update(User user, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+            userRepository.save(user);
+            return "redirect:/admin/list";
+        }
+        session.invalidate();
+        return "redirect:/";
     }
 
-    @GetMapping("/delete")
-    public String update(@RequestParam Long userId, Model model, User user) {
-        userRepository.delete(user);
-        model.addAttribute("usersList", userRepository.findAll());
-        return "redirect:/user/list";
+    @GetMapping("/admin/delete")
+    public String update(@RequestParam Long userId, Model model, User user, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            userRepository.delete(user);
+            model.addAttribute("usersList", userRepository.findAll());
+            return "redirect:/admin/list";
+        }
+        session.invalidate();
+        return "redirect:/";
     }
 
-    @GetMapping("/auth")
+    @GetMapping("/user/auth")
     public String authenticate() {
         return "/user/user-auth";
     }
 
-    @PostMapping("/auth")
-    public String authenticate(@RequestParam String login,
-                               @RequestParam String password, Model model) {
+    @PostMapping("/user/auth")
+    public String authenticate(@RequestParam String login, @RequestParam String password, Model model) {
 
         User user = userRepository.getByLogin(login);
-        model.addAttribute("userId", user.getUserId());
-        model.addAttribute("name", user.getName());
-        model.addAttribute("lastName", user.getLastName());
-        model.addAttribute("superAdmin", user.getSuperAdmin());
 
         if (Objects.nonNull(user)) {
             if (BCrypt.checkpw(password, user.getPassword())) {
-
-                BigDecimal paymentPerc  = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
-
-                List<NewMenu> menuMonday = newMenuRepository.findByDayId(1);
-                List<NewMenu> menuTuesday = newMenuRepository.findByDayId(2);
-                List<NewMenu> menuWednesday = newMenuRepository.findByDayId(3);
-                List<NewMenu> menuThursday = newMenuRepository.findByDayId(4);
-                List<NewMenu> menuFriday = newMenuRepository.findByDayId(5);
-
-                menuMonday
-                        .forEach(e -> {
-                            e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                            e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                        });
-                menuTuesday
-                        .forEach(e -> {
-                            e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                            e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                        });
-                menuWednesday
-                        .forEach(e -> {
-                            e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                            e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                        });
-                menuThursday
-                        .forEach(e -> {
-                            e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                            e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                        });
-                menuFriday
-                        .forEach(e -> {
-                            e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                            e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                        });
-
-
-                int kw = LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1;
-                NewOrder newOrder = getNewOrder(kw, user);
-                model.addAttribute("newOrder", newOrder);
-                model.addAttribute("newMenuMonday", menuMonday);
-                model.addAttribute("newMenuTuesday", menuTuesday);
-                model.addAttribute("newMenuWednesday", menuWednesday);
-                model.addAttribute("newMenuThursday", menuThursday);
-                model.addAttribute("newMenuFriday", menuFriday);
+                model.addAttribute("name", user.getName());
+                model.addAttribute("lastname", user.getLastName());
                 model.addAttribute("userId", user.getUserId());
-                model.addAttribute("date", kw);
-                return "/menu/new-order";
+                model.addAttribute("superAdmin", user.getSuperAdmin());
+                model.addAttribute("login", user.getLogin());
+                if (user.getSuperAdmin()) {
+                    return "redirect:/admin/home";
+                }
+                return "redirect:/user/home";
             }
         }
         return "redirect:/user/auth";
     }
 
-    private static NewOrder getNewOrder(int kw, User user) {
-        NewOrder newOrder = new NewOrder();
-        newOrder.setQtyMon(1);
-        newOrder.setQtyTue(1);
-        newOrder.setQtyWed(1);
-        newOrder.setQtyThu(1);
-        newOrder.setQtyFri(1);
-        newOrder.setShiftMon(0);
-        newOrder.setShiftTue(0);
-        newOrder.setShiftWed(0);
-        newOrder.setShiftThu(0);
-        newOrder.setShiftFri(0);
+    @GetMapping("/admin/home")
+    public String adminHomeView(Model model, HttpSession session) {
 
-        newOrder.setKw(kw);
-        newOrder.setUser(user);
-        newOrder.setToPay(BigDecimal.valueOf(0));
-        newOrder.setIsPaid(false);
-        return newOrder;
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
+            model.addAttribute("name", user.getName());
+            model.addAttribute("lastName", user.getLastName());
+
+            NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
+            if (order != null && order.getIsPaid()) {
+                model.addAttribute("receivables", order.getToPay());
+            } else {
+                model.addAttribute("receivables", 0);
+            }
+            model.addAttribute("mealsMonday", newMenuRepository.findByDayId(1));
+            model.addAttribute("mealsTuesday", newMenuRepository.findByDayId(2));
+            model.addAttribute("mealsWednesday", newMenuRepository.findByDayId(3));
+            model.addAttribute("mealsThursday", newMenuRepository.findByDayId(4));
+            model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
+            model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+            return "/admin/admin-home";
+        }
+
+        session.invalidate();
+        return "redirect:/";
+    }
+
+    @GetMapping("/user/home")
+    public String userHomeView(Model model, HttpSession session) {
+
+        if (session.getAttribute("userId") != null) {
+            User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
+            model.addAttribute("name", user.getName());
+            model.addAttribute("lastName", user.getLastName());
+
+            NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
+            if (order != null && order.getIsPaid()) {
+                model.addAttribute("receivables", order.getToPay());
+            } else {
+                model.addAttribute("receivables", 0);
+            }
+
+            model.addAttribute("mealsMonday", newMenuRepository.findByDayId(1));
+            model.addAttribute("mealsTuesday", newMenuRepository.findByDayId(2));
+            model.addAttribute("mealsWednesday", newMenuRepository.findByDayId(3));
+            model.addAttribute("mealsThursday", newMenuRepository.findByDayId(4));
+            model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
+
+            model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+
+            return "/user/user-home";
+        }
+        session.invalidate();
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 }
+
+
+
+
+
+

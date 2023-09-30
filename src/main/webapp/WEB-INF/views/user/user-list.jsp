@@ -10,7 +10,7 @@
 
 <body>
 <jsp:include page="../fragments/header.jsp"/>
-<jsp:include page="../fragments/menu.jsp"/>
+<jsp:include page="../fragments/menu-admin.jsp"/>
 
 <div class="main-block">
     <div class="day-block">
@@ -99,8 +99,8 @@
                     <td>
                         <div class="day">
                             <div>
-                                <a href="/user/update?userId=${user.userId}">Edytuj</a><br/>
-                                <a href="/user/delete?userId=${user.userId}">Usuń</a>
+                                <a href="/admin/update?userId=${user.userId}">Edytuj</a><br/>
+                                <a href="/admin/delete?userId=${user.userId}">Usuń</a>
                             </div>
                         </div>
                     </td>

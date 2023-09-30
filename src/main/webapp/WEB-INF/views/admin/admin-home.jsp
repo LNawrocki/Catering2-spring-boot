@@ -1,52 +1,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>--%>
 <html lang="pl">
 <head>
     <meta charset="UTF-8"/>
-    <title>Catering - Lightnet</title>
+    <title>Catering</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_menu_update.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_admin_home.css">
 </head>
 
 <body>
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
+
+<div class="main-block">
+    <div class="login-row">
+        Witaj ${name} ${lastName}
+    </div>
+    <div class="login-row">
+        Należności: ${receivables} zł
+    </div>
+</div>
 <div class="main-block">
     <div class="day-block">
         <h3>Nowe menu na tydzień KW: ${date}</h3>
     </div>
 </div>
-<form:form method="post" modelAttribute="newMenu">
-    <div class="main-block">
-        <div class="login-row">
-            <label for="mealNo">Numer potrawy:
-                <form:input path="mealNo"/>
-            </label>
-        </div>
-        <div class="login-row">
-            <label for="mealPrice">Cena:
-                <form:input path="mealPrice"/>
-            </label>
-        </div>
-        <div class="login-row">
-            <label for="dayId">Dzień (id):
-                <form:input path="dayId"/>
-            </label>
-        </div>
-        <div class="login-row">
-            <label for="mealName">Nazwa:
-                <input name="mealName" type="text" size="100"/>
-            </label>
-        </div>
-        <div class="login-row">
-            <form:button>Dodaj</form:button>
-        </div>
-    </div>
-    </div>
-</form:form>
-
 <div class="main-block">
     <div class="day-block">
         <table>
@@ -62,14 +42,10 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealMonday" items="${mealsMonday}">
-                                <li> ${mealMonday.mealNo} ${mealMonday.mealName} ${mealMonday.mealPrice} zł
-                                    <a href="/menu/delete?mealNo=${mealMonday.mealNo}">Usuń</a></li>
+                                <li> ${mealMonday.mealNo}  ${mealMonday.mealName}</li>
                             </c:forEach>
                         </ul>
                     </div>
-                </td>
-                <td class="day">
-                    <a href="/menu/deleteDay?dayId=1">Usuń dzień</a></li>
                 </td>
             </tr>
             <tr>
@@ -84,14 +60,10 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealTuesday" items="${mealsTuesday}">
-                                <li> ${mealTuesday.mealNo} ${mealTuesday.mealName} ${mealTuesday.mealPrice} zł
-                                    <a href="/menu/delete?mealNo=${mealTuesday.mealNo}">Usuń</a></li>
+                                <li> ${mealTuesday.mealNo}  ${mealTuesday.mealName}</li>
                             </c:forEach>
                         </ul>
                     </div>
-                </td>
-                <td class="day">
-                    <a href="/menu/deleteDay?dayId=2">Usuń dzień</a></li>
                 </td>
             </tr>
             <tr>
@@ -106,14 +78,10 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealWednesday" items="${mealsWednesday}">
-                                <li>${mealWednesday.mealNo} ${mealWednesday.mealName} ${mealWednesday.mealPrice} zł
-                                    <a href="/menu/delete?mealNo=${mealWednesday.mealNo}">Usuń</a></li>
+                                <li>${mealWednesday.mealNo}  ${mealWednesday.mealName}</li>
                             </c:forEach>
                         </ul>
                     </div>
-                </td>
-                <td class="day">
-                    <a href="/menu/deleteDay?dayId=3">Usuń dzień</a></li>
                 </td>
             </tr>
             <tr>
@@ -128,14 +96,10 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealThursday" items="${mealsThursday}">
-                                <li>${mealThursday.mealNo} ${mealThursday.mealName} ${mealThursday.mealPrice} zł
-                                    <a href="/menu/delete?mealNo=${mealThursday.mealNo}">Usuń</a></li>
+                                <li>${mealThursday.mealNo}  ${mealThursday.mealName}</li>
                             </c:forEach>
                         </ul>
                     </div>
-                </td>
-                <td class="day">
-                    <a href="/menu/deleteDay?dayId=4">Usuń dzień</a></li>
                 </td>
             </tr>
             <tr>
@@ -150,14 +114,10 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealFriday" items="${mealsFriday}">
-                                <li>${mealFriday.mealNo} ${mealFriday.mealName} ${mealFriday.mealPrice} zł
-                                    <a href="/menu/delete?mealNo=${mealFriday.mealNo}">Usuń</a></li>
+                                <li>${mealFriday.mealNo}  ${mealFriday.mealName}</li>
                             </c:forEach>
                         </ul>
                     </div>
-                </td>
-                <td class="day">
-                    <a href="/menu/deleteDay?dayId=5">Usuń dzień</a></li>
                 </td>
             </tr>
         </table>
