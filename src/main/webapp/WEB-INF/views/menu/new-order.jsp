@@ -29,22 +29,16 @@
         <div class="day-block">
             <form:hidden path="kw"/>
             <form:hidden path="user"/>
-            <form:hidden path="userQtyMon"/>
-            <form:hidden path="userQtyTue"/>
-            <form:hidden path="userQtyWed"/>
-            <form:hidden path="userQtyThu" />
-            <form:hidden path="userQtyFri"/>
-            <form:hidden path="userPriceMon"/>
-            <form:hidden path="userPriceTue"/>
-            <form:hidden path="userPriceWed"/>
-            <form:hidden path="userPriceThu"/>
-            <form:hidden path="userPriceFri"/>
-<%--            <form:hidden path="userShiftMon"/>--%>
-<%--            <form:hidden path="userShiftTue"/>--%>
-<%--            <form:hidden path="userShiftWed"/>--%>
-<%--            <form:hidden path="userShiftThu"/>--%>
-<%--            <form:hidden path="userShiftFri"/>--%>
-
+            <form:hidden path="qtyMon"/>
+            <form:hidden path="qtyTue"/>
+            <form:hidden path="qtyWed"/>
+            <form:hidden path="qtyThu" />
+            <form:hidden path="qtyFri"/>
+            <form:hidden path="priceMon"/>
+            <form:hidden path="priceTue"/>
+            <form:hidden path="priceWed"/>
+            <form:hidden path="priceThu"/>
+            <form:hidden path="priceFri"/>
             <form:hidden path="toPay"/>
             <form:hidden path="isPaid"/>
 
@@ -87,7 +81,7 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:select path="userMealMon" items="${newMenuMonday}" itemLabel="mealName"
+                                <form:select path="mealMon" items="${newMenuMonday}" itemLabel="mealName"
                                              itemValue="mealNo"/>
                             </div>
                         </div>
@@ -95,9 +89,9 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:radiobutton path="userShiftMon" value="1"/>1
-                                <form:radiobutton path="userShiftMon" value="2"/>2
-                                <input type="radio" name="userShiftMon" value="0" checked hidden/>
+                                <form:radiobutton path="shiftMon" value="1"/>1
+                                <form:radiobutton path="shiftMon" value="2"/>2
+                                <input type="radio" name="shiftMon" value="0" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -113,7 +107,7 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:select path="userMealTue" items="${newMenuTuesday}" itemLabel="mealName"
+                                <form:select path="mealTue" items="${newMenuTuesday}" itemLabel="mealName"
                                              itemValue="mealNo"/>
                             </div>
                         </div>
@@ -121,9 +115,9 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:radiobutton path="userShiftTue" value="1" />1
-                                <form:radiobutton path="userShiftTue" value="2"/>2
-                                <input type="radio" name="userShiftTue" value="0" checked hidden/>
+                                <form:radiobutton path="shiftTue" value="1" />1
+                                <form:radiobutton path="shiftTue" value="2"/>2
+                                <input type="radio" name="shiftTue" value="0" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -139,7 +133,7 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:select path="userMealWed" items="${newMenuWednesday}" itemLabel="mealName"
+                                <form:select path="mealWed" items="${newMenuWednesday}" itemLabel="mealName"
                                              itemValue="mealNo"/>
                             </div>
                         </div>
@@ -147,9 +141,9 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:radiobutton path="userShiftWed" value="1"/>1
-                                <form:radiobutton path="userShiftWed" value="2"/>2
-                                <input type="radio" name="userShiftWed" value="0" checked hidden/>
+                                <form:radiobutton path="shiftWed" value="1"/>1
+                                <form:radiobutton path="shiftWed" value="2"/>2
+                                <input type="radio" name="shiftWed" value="0" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -165,7 +159,7 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:select path="userMealThu" items="${newMenuThursday}" itemLabel="mealName"
+                                <form:select path="mealThu" items="${newMenuThursday}" itemLabel="mealName"
                                              itemValue="mealNo"/>
                             </div>
                         </div>
@@ -173,9 +167,9 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:radiobutton path="userShiftThu" value="1"/>1
-                                <form:radiobutton path="userShiftThu" value="2"/>2
-                                <input type="radio" name="userShiftThu" value="0" checked hidden/>
+                                <form:radiobutton path="shiftThu" value="1"/>1
+                                <form:radiobutton path="shiftThu" value="2"/>2
+                                <input type="radio" name="shiftThu" value="0" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -191,7 +185,7 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:select path="userMealFri" items="${newMenuFriday}" itemLabel="mealName"
+                                <form:select path="mealFri" items="${newMenuFriday}" itemLabel="mealName"
                                              itemValue="mealNo"/>
                             </div>
                         </div>
@@ -199,9 +193,9 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:radiobutton path="userShiftFri" value="1"/>1
-                                <form:radiobutton path="userShiftFri" value="2"/>2
-                                <input type="radio" name="userShiftFri" value="0" checked hidden/>
+                                <form:radiobutton path="shiftFri" value="1"/>1
+                                <form:radiobutton path="shiftFri" value="2"/>2
+                                <input type="radio" name="shiftFri" value="0" checked hidden/>
                             </div>
                         </div>
                     </td>

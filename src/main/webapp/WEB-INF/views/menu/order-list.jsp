@@ -96,33 +96,33 @@
                     <td>
                         <div class="day">
                             <div>
-                                    ${newOrder.userMealMon}<br>
-                                    ${newOrder.userMealTue}<br>
-                                    ${newOrder.userMealWed}<br>
-                                    ${newOrder.userMealThu}<br>
-                                    ${newOrder.userMealFri}<br>
+                                    ${newOrder.mealMon}. ${newOrder.mealMonName}<br>
+                                    ${newOrder.mealTue}. ${newOrder.mealTueName}<br>
+                                    ${newOrder.mealWed}. ${newOrder.mealWedName}<br>
+                                    ${newOrder.mealThu}. ${newOrder.mealThuName}<br>
+                                    ${newOrder.mealFri}. ${newOrder.mealFriName}<br>
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="day">
                             <div>
-                                    ${newOrder.userPriceMon} zł<br>
-                                    ${newOrder.userPriceTue} zł<br>
-                                    ${newOrder.userPriceWed} zł<br>
-                                    ${newOrder.userPriceThu} zł<br>
-                                    ${newOrder.userPriceFri} zł<br>
+                                    ${newOrder.priceMon} zł<br>
+                                    ${newOrder.priceTue} zł<br>
+                                    ${newOrder.priceWed} zł<br>
+                                    ${newOrder.priceThu} zł<br>
+                                    ${newOrder.priceFri} zł<br>
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="day">
                             <div>
-                                    ${newOrder.userShiftMon}<br>
-                                    ${newOrder.userShiftTue}<br>
-                                    ${newOrder.userShiftWed}<br>
-                                    ${newOrder.userShiftThu}<br>
-                                    ${newOrder.userShiftFri}<br>
+                                    ${newOrder.shiftMon}<br>
+                                    ${newOrder.shiftTue}<br>
+                                    ${newOrder.shiftWed}<br>
+                                    ${newOrder.shiftThu}<br>
+                                    ${newOrder.shiftFri}<br>
                             </div>
                         </div>
                     </td>

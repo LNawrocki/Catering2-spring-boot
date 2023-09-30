@@ -88,48 +88,49 @@ public class UserController {
                                @RequestParam String password, Model model) {
 
         User user = userRepository.getByLogin(login);
-//        Long userId = user.getUserId();
         model.addAttribute("userId", user.getUserId());
         model.addAttribute("name", user.getName());
         model.addAttribute("lastName", user.getLastName());
         model.addAttribute("superAdmin", user.getSuperAdmin());
-        BigDecimal paymentPerc  = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
-
-        List<NewMenu> menuMonday = newMenuRepository.findByDayId(1);
-        List<NewMenu> menuTuesday = newMenuRepository.findByDayId(2);
-        List<NewMenu> menuWednesday = newMenuRepository.findByDayId(3);
-        List<NewMenu> menuThursday = newMenuRepository.findByDayId(4);
-        List<NewMenu> menuFriday = newMenuRepository.findByDayId(5);
-
-        menuMonday
-                .forEach(e -> {
-                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                });
-        menuTuesday
-                .forEach(e -> {
-                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                });
-        menuWednesday
-                .forEach(e -> {
-                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                });
-        menuThursday
-                .forEach(e -> {
-                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                });
-        menuFriday
-                .forEach(e -> {
-                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                });
-
 
         if (Objects.nonNull(user)) {
             if (BCrypt.checkpw(password, user.getPassword())) {
+
+                BigDecimal paymentPerc  = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
+
+                List<NewMenu> menuMonday = newMenuRepository.findByDayId(1);
+                List<NewMenu> menuTuesday = newMenuRepository.findByDayId(2);
+                List<NewMenu> menuWednesday = newMenuRepository.findByDayId(3);
+                List<NewMenu> menuThursday = newMenuRepository.findByDayId(4);
+                List<NewMenu> menuFriday = newMenuRepository.findByDayId(5);
+
+                menuMonday
+                        .forEach(e -> {
+                            e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                            e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                        });
+                menuTuesday
+                        .forEach(e -> {
+                            e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                            e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                        });
+                menuWednesday
+                        .forEach(e -> {
+                            e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                            e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                        });
+                menuThursday
+                        .forEach(e -> {
+                            e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                            e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                        });
+                menuFriday
+                        .forEach(e -> {
+                            e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                            e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                        });
+
+
                 int kw = LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1;
                 NewOrder newOrder = getNewOrder(kw, user);
                 model.addAttribute("newOrder", newOrder);
@@ -148,16 +149,16 @@ public class UserController {
 
     private static NewOrder getNewOrder(int kw, User user) {
         NewOrder newOrder = new NewOrder();
-        newOrder.setUserQtyMon(1);
-        newOrder.setUserQtyTue(1);
-        newOrder.setUserQtyWed(1);
-        newOrder.setUserQtyThu(1);
-        newOrder.setUserQtyFri(1);
-        newOrder.setUserShiftMon(0);
-        newOrder.setUserShiftTue(0);
-        newOrder.setUserShiftWed(0);
-        newOrder.setUserShiftThu(0);
-        newOrder.setUserShiftFri(0);
+        newOrder.setQtyMon(1);
+        newOrder.setQtyTue(1);
+        newOrder.setQtyWed(1);
+        newOrder.setQtyThu(1);
+        newOrder.setQtyFri(1);
+        newOrder.setShiftMon(0);
+        newOrder.setShiftTue(0);
+        newOrder.setShiftWed(0);
+        newOrder.setShiftThu(0);
+        newOrder.setShiftFri(0);
 
         newOrder.setKw(kw);
         newOrder.setUser(user);

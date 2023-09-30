@@ -16,8 +16,6 @@
 <form method="post">
     <div class="main-block">
         <div class="login-row">
-
-        <div class="login-row">
             <label for="login">Login:
                 <input type="text" name="login" placeholder="login">
             </label>

@@ -28,7 +28,7 @@ INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (1
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (15, 2, 'Wegetariański kociołek warzywny + kluski gnioczki  + zestaw surówek', 18.20);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (16, 3, 'Brak', 0.00);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (17, 3, 'Sandwicze z pieczarkami, serem i szynką zapiekane', 14.30);
-INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (18, 3, 'Zestaw śniadaniowy z sałatką jajeczną , wędliną, serem, warzywami /pieczywo ', 14.30);
+INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (18, 3, 'Zestaw śniadaniowy z sałatką jajeczną , wędliną, serem, warzywami /pieczywo', 14.30);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (19, 3, 'PILAV - ryż z warzywami i mięsem wieprzowym zapiekany w foremce', 14.30);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (20, 3, 'Roladka drobiowa w sosie śmietanowo-koperkowym + ryż dziki + sałatka z czerwonych buraczków', 18.30);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (21, 3, 'Nagetsy z kurczaka + ziemnaki opiekane + mix sałat', 18.30);
@@ -50,6 +50,6 @@ INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (3
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (37, 5, 'Morszczuk w cieście naleśnikowym + ziemniaki + zestaw surówek', 18.40);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (38, 5, 'Uwijaczki drobiowe z serem i kolorową papryką + ziemniaki + zestaw surówek', 18.40);
 
-INSERT INTO catering.new_orders (id, is_paid, kw, to_pay, user_meal_fri, user_meal_mon, user_meal_thu, user_meal_tue, user_meal_wed, user_price_fri, user_price_mon, user_price_thu, user_price_tue, user_price_wed, user_qty_fri, user_qty_mon, user_qty_thu, user_qty_tue, user_qty_wed, user_shift_fri, user_shift_mon, user_shift_thu, user_shift_tue, user_shift_wed, user_id) VALUES (1, false, 40, 39.70, 34, 5, 27, 14, 20, 7.20, 7.05, 7.20, 9.10, 9.15, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1);
-INSERT INTO catering.new_orders (id, is_paid, kw, to_pay, user_meal_fri, user_meal_mon, user_meal_thu, user_meal_tue, user_meal_wed, user_price_fri, user_price_mon, user_price_thu, user_price_tue, user_price_wed, user_qty_fri, user_qty_mon, user_qty_thu, user_qty_tue, user_qty_wed, user_shift_fri, user_shift_mon, user_shift_thu, user_shift_tue, user_shift_wed, user_id) VALUES (2, false, 40, 6.44, 35, 2, 26, 12, 18, 1.44, 0.71, 1.44, 1.42, 1.43, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 3);
+
+INSERT INTO catering.new_orders (id, is_paid, kw, meal_fri, meal_fri_name, meal_mon, meal_mon_name, meal_thu, meal_thu_name, meal_tue, meal_tue_name, meal_wed, meal_wed_name, price_fri, price_mon, price_thu, price_tue, price_wed, qty_fri, qty_mon, qty_thu, qty_tue, qty_wed, shift_fri, shift_mon, shift_thu, shift_tue, shift_wed, to_pay, user_id) VALUES (3, false, 40, 34, 'Sałatka grecka z warzywami i jajkiem / pieczywo', 3, 'Bułka z szynką, serem i warzywami x2', 29, 'Jesienna "szakszuka" fasolka szparagowa, pierś z kurczaka, cukinia, papryka, makaron pełnoziarnisty, sos meksykański', 12, 'Lazania z mięsem zapiekana w foremce', 18, 'Zestaw śniadaniowy z sałatką jajeczną , wędliną, serem, warzywami /pieczywo', 7.20, 7.05, 7.20, 7.10, 7.15, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 35.70, 1);
 

@@ -12,7 +12,6 @@ import pl.coderslab.catering2springboot.repository.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -50,20 +49,26 @@ public class MenuController {
         User user = userRepository.getByUserId(newOrder.getUser().getUserId());
         BigDecimal paymentPerc  = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
 
-        NewMenu mealMonday = newMenuRepository.findByMealNo(newOrder.getUserMealMon());
-        NewMenu mealTuesday = newMenuRepository.findByMealNo(newOrder.getUserMealTue());
-        NewMenu mealWednesday = newMenuRepository.findByMealNo(newOrder.getUserMealWed());
-        NewMenu mealThursday = newMenuRepository.findByMealNo(newOrder.getUserMealThu());
-        NewMenu mealFriday = newMenuRepository.findByMealNo(newOrder.getUserMealFri());
+        NewMenu mealMonday = newMenuRepository.findByMealNo(newOrder.getMealMon());
+        NewMenu mealTuesday = newMenuRepository.findByMealNo(newOrder.getMealTue());
+        NewMenu mealWednesday = newMenuRepository.findByMealNo(newOrder.getMealWed());
+        NewMenu mealThursday = newMenuRepository.findByMealNo(newOrder.getMealThu());
+        NewMenu mealFriday = newMenuRepository.findByMealNo(newOrder.getMealFri());
 
-        newOrder.setUserPriceMon(mealMonday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-        newOrder.setUserPriceTue(mealTuesday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-        newOrder.setUserPriceWed(mealWednesday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-        newOrder.setUserPriceThu(mealThursday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-        newOrder.setUserPriceFri(mealFriday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+        newOrder.setPriceMon(mealMonday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+        newOrder.setPriceTue(mealTuesday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+        newOrder.setPriceWed(mealWednesday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+        newOrder.setPriceThu(mealThursday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+        newOrder.setPriceFri(mealFriday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
 
-        newOrder.setToPay(newOrder.getUserPriceMon().add(newOrder.getUserPriceTue()).add(newOrder.getUserPriceWed())
-                .add(newOrder.getUserPriceThu()).add(newOrder.getUserPriceFri()));
+        newOrder.setMealMonName(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealName());
+        newOrder.setMealTueName(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealName());
+        newOrder.setMealWedName(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealName());
+        newOrder.setMealThuName(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealName());
+        newOrder.setMealFriName(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealName());
+
+        newOrder.setToPay(newOrder.getPriceMon().add(newOrder.getPriceTue()).add(newOrder.getPriceWed())
+                .add(newOrder.getPriceThu()).add(newOrder.getPriceFri()));
 
         newOrderRepository.save(newOrder);
         return "redirect:/";
@@ -113,11 +118,11 @@ public class MenuController {
         List<NewOrder> newOrders = newOrderRepository.findAll(); // pobranie wszystkich nowych zamówień
         List<String> mealsNames = new ArrayList<>();
         for (NewOrder newOrder : newOrders) {
-            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getUserMealMon()).getMealName());
-            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getUserMealTue()).getMealName());
-            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getUserMealWed()).getMealName());
-            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getUserMealThu()).getMealName());
-            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getUserMealFri()).getMealName());
+            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealName());
+            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealTue()).getMealName());
+            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealWed()).getMealName());
+            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealThu()).getMealName());
+            mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealFri()).getMealName());
         }
 
 
