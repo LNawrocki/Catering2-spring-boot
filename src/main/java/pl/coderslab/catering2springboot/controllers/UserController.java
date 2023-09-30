@@ -149,7 +149,7 @@ public class UserController {
             model.addAttribute("lastName", user.getLastName());
 
             NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
-            if (order != null && order.getIsPaid()) {
+            if (order != null && !order.getIsPaid()) {
                 model.addAttribute("receivables", order.getToPay());
             } else {
                 model.addAttribute("receivables", 0);
@@ -176,7 +176,7 @@ public class UserController {
             model.addAttribute("lastName", user.getLastName());
 
             NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
-            if (order != null && order.getIsPaid()) {
+            if (order != null && !order.getIsPaid()) {
                 model.addAttribute("receivables", order.getToPay());
             } else {
                 model.addAttribute("receivables", 0);
