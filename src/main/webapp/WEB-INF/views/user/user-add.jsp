@@ -17,7 +17,8 @@
     <div class="main-block">
         <div class="login-row">
             <label for="userId">ID użytkownika:
-                <form:input path="userId"/>
+                <form:input path="userId"/><br>
+                <form:errors path="userId"/>
             </label>
         </div>
         <div class="login-row">

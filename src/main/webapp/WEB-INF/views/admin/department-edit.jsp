@@ -17,7 +17,8 @@
     <div class="main-block">
         <div class="login-row">
             <label for="id">ID:
-                <form:input path="id"/>
+<%--                <form:input path="id"/>--%>
+                <input type="number" name="id" value="${nextId}"> admin / user
             </label>
         </div>
         <div class="login-row">
@@ -27,7 +28,8 @@
         </div>
         <div class="login-row">
             <label for="paymentPerc">Płatność (%):
-                <form:input path="paymentPerc"/>
+                <form:input path="paymentPerc"/><br>
+                <form:errors path="paymentPerc" cssStyle="color: red"/>
             </label>
         </div>
         <div class="login-row">

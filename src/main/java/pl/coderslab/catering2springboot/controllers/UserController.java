@@ -1,8 +1,11 @@
 package pl.coderslab.catering2springboot.controllers;
 
+import org.aspectj.asm.IModelFilter;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import pl.coderslab.catering2springboot.entity.NewOrder;
@@ -13,17 +16,17 @@ import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
-//@RequiredArgsConstructor
 @Controller
-//@RequestMapping("/user")
 @SessionAttributes({"userId", "name", "lastName", "superAdmin"})
 public class UserController {
 
@@ -69,8 +72,13 @@ public class UserController {
     }
 
     @PostMapping("/admin/add")
-    public String add(User user, HttpSession session) {
+    public String add(@Valid User user, BindingResult bindingResult, HttpSession session, Model model) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("errors", bindingResult.getFieldErrors().stream()
+                        .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
+                return "/user/user-add";
+            }
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
             userRepository.save(user);
             return "redirect:/admin/list";
@@ -137,14 +145,17 @@ public class UserController {
                 return "redirect:/user/home";
             }
         }
-        return "redirect:/user/auth";
+        model.addAttribute("msg", "Niepoprawny login lub błedne hasło");
+        return "/user/user-auth";
     }
 
     @GetMapping("/admin/home")
     public String adminHomeView(Model model, HttpSession session) {
 
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+
             User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
+
             model.addAttribute("name", user.getName());
             model.addAttribute("lastName", user.getLastName());
 

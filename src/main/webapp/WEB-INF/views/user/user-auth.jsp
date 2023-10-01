@@ -17,14 +17,19 @@
     <div class="main-block">
         <div class="login-row">
             <label for="login">Login:
-                <input type="text" name="login" placeholder="login"> admin  / user
+                <input type="text" name="login" placeholder="login"> admin / user
             </label>
         </div>
         <div class="login-row">
             <label for="password">Hasło:
-                <input type="password" name="password" placeholder="hasło"> admin  / user
+                <input type="password" name="password" placeholder="hasło"> admin / user
             </label>
         </div>
+        <c:if test="${msg != null}">
+            <div class="login-row" style="color: red">
+                    ${msg}
+            </div>
+        </c:if>
         <div class="login-row">
             <button type="submit">Dalej</button>
         </div>
