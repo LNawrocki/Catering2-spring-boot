@@ -53,9 +53,24 @@ public class MenuController {
         return newOrder;
     }
 
+    //DO poprawy - metoda get i zmiana
+    @GetMapping("/admin/newOrder/delete")
+    public String newOrderDelete(@RequestParam Long id){
+        NewOrder newOrder = newOrderRepository.getNewOrderById(id);
+        newOrderRepository.delete(newOrder);
+        return "/menu/order-list";
+    }
+
+
+
     @GetMapping("/menu/newOrder")
     public String newOrderView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+
+            if (newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")) != null){
+                return "redirect:/admin/newOrder/check";
+            }
+
             User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
             BigDecimal paymentPerc = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
 
@@ -101,6 +116,13 @@ public class MenuController {
             model.addAttribute("newMenuFriday", menuFriday);
             model.addAttribute("userId", user.getUserId());
             model.addAttribute("date", kw);
+
+            NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
+            if (order != null && !order.getIsPaid()) {
+                model.addAttribute("receivables", order.getToPay());
+            } else {
+                model.addAttribute("receivables", 0);
+            }
             if ((Boolean) session.getAttribute("superAdmin")) {
                 return "/menu/new-order-admin";
             } else {
@@ -142,7 +164,7 @@ public class MenuController {
             newOrderRepository.save(newOrder);
 
             if ((Boolean) session.getAttribute("superAdmin")) {
-                return "redirect:/admin/home";
+                return "redirect:/admin/newOrder/check";
             } else {
                 return "redirect:/user/home";
             }

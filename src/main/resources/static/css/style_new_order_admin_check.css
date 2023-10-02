@@ -5,9 +5,10 @@
     align-content: center;
     background-color: rgb(255, 255, 255);
     border-radius: 12px;
-    margin: 0px;
+    padding: 0px;
     margin-top: 3px;
     box-shadow: 0px 0px 15px rgb(170, 170, 170) inset;
+    /*font-size: 20px;*/
 }
 
 .login-row {
@@ -22,6 +23,22 @@
     border-radius: 12px;
 }
 
+.day-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    width: auto;
+    padding: 0px;
+    padding-left: 10px;
+    border-radius: 12px;
+    /*background-color: rgb(240, 240, 240);*/
+    background-color: transparent;
+    margin: 0px;
+    /*box-shadow: 0px 0px 15px rgb(141, 140, 140) inset;  */
+    height: auto;
+    font-size: 15px;
+}
 .day {
     display: flex;
     flex-direction: row;
@@ -36,42 +53,29 @@
     box-shadow: 0px 0px 15px rgb(170, 170, 170) inset;
 }
 
-.day-block {
+.list-row {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-content: center;
-    width: auto;
-    border-radius: 12px;
-    /*background-color: rgb(240, 240, 240);*/
-    background-color: transparent;
-    margin: 0px;
-    /*box-shadow: 0px 0px 15px rgb(141, 140, 140) inset;*/
     height: auto;
+    margin: 10px;
+    padding: 15px;
+    box-shadow: 0px 0px 15px rgb(170, 170, 170) inset;
+    font-size: 20px;
+    color: rgb(80, 80, 80);
+}
+select, input, button {
     font-size: 20px;
 }
-table td{
-    padding-left: 10px;
-    padding-right: 10px;
-    text-align: center;
-}
 
-.meal {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+table {
     padding: 5px;
+    border-spacing: 5px;
     width: auto;
-    border-radius: 10px;
-    margin: 5px;
-    box-shadow: 0px 0px 15px rgb(170, 170, 170) inset;
-    height: auto;
     text-align: center;
-    font-size: 15px;
 }
-.meal {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 
-}
+
+
+

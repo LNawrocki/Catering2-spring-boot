@@ -10,5 +10,6 @@ public interface NewOrderRepository extends JpaRepository<NewOrder, Long> {
     @Query(value = "SELECT * FROM new_orders WHERE user_id = ?1", nativeQuery = true)
     NewOrder getNewOrderByUserId(Long userId);
 
+    NewOrder getNewOrderById(Long id);
 
 }

@@ -13,17 +13,23 @@
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
-
 <div class="main-block">
-    <div class="day-block">
-        <h3>Cześć ${name} ${lastName}</h3>
+    <div class="login-row">
+        <div class="day">
+            Witaj ${name} ${lastName}
+        </div>
+        <c:if test="${receivables != 0}">
+        <div class="day" style="color: red">
+            </c:if>
+            <c:if test="${receivables == 0}">
+            <div class="day">
+                </c:if>
+                Należności: ${receivables} zł
+            </div>
+        </div>
     </div>
 </div>
-<div class="main-block">
-<div class="day-block">
-<%--    <h3>Nowe menu na tydzień KW: ${kw}</h3>--%>
-</div>
-</div>
+
 <form:form action="/menu/newOrder" method="post" modelAttribute="newOrder">
     <div class="main-block">
         <div class="day-block">
@@ -58,7 +64,7 @@
                     <td>
                         <div class="day">
                             <div>
-                                Danie
+                                Danie (KW ${date})
                             </div>
                         </div>
                     </td>

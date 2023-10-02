@@ -16,10 +16,17 @@
 
 <div class="main-block">
     <div class="login-row">
-        Witaj ${name} ${lastName}
-    </div>
-    <div class="login-row">
-        Należności: ${receivables} zł
+        <div class="day">
+            Witaj ${name} ${lastName}
+        </div>
+        <c:if test="${receivables != 0}">
+        <div class="day" style="color: red">
+            </c:if>
+                <c:if test="${receivables == 0}">
+                <div class="day">
+                    </c:if>
+            Należności: ${receivables} zł
+        </div>
     </div>
 </div>
 <div class="main-block">
@@ -27,6 +34,7 @@
         <h3>Nowe menu na tydzień KW: ${date}</h3>
     </div>
 </div>
+
 <div class="main-block">
     <div class="day-block">
         <table>
@@ -42,7 +50,7 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealMonday" items="${mealsMonday}">
-                                <li> ${mealMonday.mealNo}  ${mealMonday.mealName}</li>
+                                <li> ${mealMonday.mealNo} ${mealMonday.mealName}</li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -60,7 +68,7 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealTuesday" items="${mealsTuesday}">
-                                <li> ${mealTuesday.mealNo}  ${mealTuesday.mealName}</li>
+                                <li> ${mealTuesday.mealNo} ${mealTuesday.mealName}</li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -78,7 +86,7 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealWednesday" items="${mealsWednesday}">
-                                <li>${mealWednesday.mealNo}  ${mealWednesday.mealName}</li>
+                                <li>${mealWednesday.mealNo} ${mealWednesday.mealName}</li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -96,7 +104,7 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealThursday" items="${mealsThursday}">
-                                <li>${mealThursday.mealNo}  ${mealThursday.mealName}</li>
+                                <li>${mealThursday.mealNo} ${mealThursday.mealName}</li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -114,7 +122,7 @@
                     <div class="meal">
                         <ul>
                             <c:forEach var="mealFriday" items="${mealsFriday}">
-                                <li>${mealFriday.mealNo}  ${mealFriday.mealName}</li>
+                                <li>${mealFriday.mealNo} ${mealFriday.mealName}</li>
                             </c:forEach>
                         </ul>
                     </div>

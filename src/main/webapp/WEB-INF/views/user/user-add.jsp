@@ -49,12 +49,12 @@
         <div class="login-row">
             <label>Admin:
                 <form:radiobutton path="superAdmin" value="true"/>TAK
-                <form:radiobutton path="superAdmin" value="false"/>NIE
+                <form:radiobutton path="superAdmin" value="false" checked="true"/>NIE
             </label>
         </div>
         <div class="login-row">
             <label>
-                <form:radiobutton path="active" value="true"/>Użytkownik aktywny</br>
+                <form:radiobutton path="active" value="true" checked="true"/>Użytkownik aktywny</br>
                 <form:radiobutton path="active" value="false"/>Użytkownik nieaktywny
             </label>
         </div>
