@@ -128,7 +128,7 @@ public class UserController {
     }
 
     @PostMapping("/user/auth")
-    public String authenticate(@RequestParam String login, @RequestParam String password, Model model) {
+    public String authenticate(@RequestParam String login, @RequestParam String password, Model model, HttpSession session) {
 
         User user = userRepository.getByLogin(login);
 
@@ -139,6 +139,7 @@ public class UserController {
                 model.addAttribute("userId", user.getUserId());
                 model.addAttribute("superAdmin", user.getSuperAdmin());
                 model.addAttribute("login", user.getLogin());
+                session.setMaxInactiveInterval(10);
                 if (user.getSuperAdmin()) {
                     return "redirect:/admin/home";
                 }
