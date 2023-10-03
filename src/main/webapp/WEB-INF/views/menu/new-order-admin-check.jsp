@@ -28,6 +28,11 @@
         </div>
     </div>
 </div>
+<div class="main-block">
+    <div class="login-row">
+        Twoje zamówienia na KW ${date}
+    </div>
+</div>
 
 <div class="main-block">
     <div class="day-block">
@@ -50,7 +55,7 @@
                 <td>
                     <div class="day">
                         <div>
-                            Dania (KW ${date})
+                            Dania
                         </div>
                     </div>
                 </td>
