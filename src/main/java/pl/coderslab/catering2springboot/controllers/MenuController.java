@@ -35,13 +35,7 @@ public class MenuController {
 
 
 
-    //DO poprawy - metoda get i zmiana
-    @GetMapping("/admin/newOrder/delete")
-    public String newOrderDelete(@RequestParam Long id){
-        NewOrder newOrder = newOrderRepository.getNewOrderById(id);
-        newOrderRepository.delete(newOrder);
-        return "/menu/order-list";
-    }
+
 
 
 
@@ -97,22 +91,5 @@ public class MenuController {
         return "redirect:/";
     }
 
-    @GetMapping("/admin/order/list")
-    public String orderListView(Model model, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            List<NewOrder> newOrders = newOrderRepository.findAll(); // pobranie wszystkich nowych zamówień
-            List<String> mealsNames = new ArrayList<>();
-            for (NewOrder newOrder : newOrders) {
-                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealName());
-                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealTue()).getMealName());
-                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealWed()).getMealName());
-                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealThu()).getMealName());
-                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealFri()).getMealName());
-            }
-            model.addAttribute("newOrders", newOrderRepository.findAll());
-            return "/menu/order-list";
-        }
-        session.invalidate();
-        return "redirect:/";
-    }
+
 }

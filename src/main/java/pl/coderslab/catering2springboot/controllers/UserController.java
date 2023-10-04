@@ -139,7 +139,7 @@ public class UserController {
                 model.addAttribute("userId", user.getUserId());
                 model.addAttribute("superAdmin", user.getSuperAdmin());
                 model.addAttribute("login", user.getLogin());
-                session.setMaxInactiveInterval(10);
+//                session.setMaxInactiveInterval(60);
                 if (user.getSuperAdmin()) {
                     return "redirect:/admin/home";
                 }

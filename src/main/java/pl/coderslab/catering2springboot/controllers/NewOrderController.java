@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.catering2springboot.entity.NewMenu;
 import pl.coderslab.catering2springboot.entity.NewOrder;
 import pl.coderslab.catering2springboot.entity.User;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,10 +33,66 @@ public class NewOrderController {
         this.newMenuRepository = newMenuRepository;
     }
 
+    private static NewOrder getNewOrder(int kw, User user) {
+        NewOrder newOrder = new NewOrder();
+        newOrder.setQtyMon(1);
+        newOrder.setQtyTue(1);
+        newOrder.setQtyWed(1);
+        newOrder.setQtyThu(1);
+        newOrder.setQtyFri(1);
+        newOrder.setShiftMon(0);
+        newOrder.setShiftTue(0);
+        newOrder.setShiftWed(0);
+        newOrder.setShiftThu(0);
+        newOrder.setShiftFri(0);
 
-    @GetMapping("/admin/newOrder/check")
-    public String NewOrderAdminCheckView(Model model, HttpSession session) {
+        newOrder.setKw(kw);
+        newOrder.setUser(user);
+        newOrder.setToPay(BigDecimal.valueOf(0));
+        newOrder.setIsPaid(false);
+        return newOrder;
+    }
+
+    @GetMapping("/admin/order/list")
+    public String orderListView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            List<NewOrder> newOrders = newOrderRepository.findAll(); // pobranie wszystkich nowych zamówień
+            List<String> mealsNames = new ArrayList<>();
+            for (NewOrder newOrder : newOrders) {
+                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealName());
+                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealTue()).getMealName());
+                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealWed()).getMealName());
+                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealThu()).getMealName());
+                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealFri()).getMealName());
+            }
+            model.addAttribute("newOrders", newOrderRepository.findAll());
+            return "/menu/admin-order-list";
+        }
+        session.invalidate();
+        return "redirect:/";
+    }
+
+    //DO poprawy - metoda get i zmiana
+    @GetMapping("/user/newOrder/delete")
+    public String newOrderDelete(@RequestParam Long id, HttpSession session) {
+        if (session.getAttribute("userId") != null) {
+            NewOrder newOrder = newOrderRepository.getNewOrderById(id);
+            newOrderRepository.delete(newOrder);
+
+            if ((Boolean) session.getAttribute("superAdmin")) {
+                return "redirect:/admin/order/list";
+            } else {
+                return "redirect:/menu/newOrder";
+            }
+        }
+        session.invalidate();
+        return "redirect:/";
+    }
+
+    @GetMapping("/user/newOrder/check")
+    public String NewOrderAdminCheckView(Model model, HttpSession session) {
+        if (session.getAttribute("userId") != null) {
+
             User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
             NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
 
@@ -46,7 +104,11 @@ public class NewOrderController {
                 model.addAttribute("receivables", 0);
             }
 
-            return "/menu/new-order-admin-check";
+            if ((Boolean) session.getAttribute("superAdmin")) {
+                return "/menu/new-order-admin-check";
+            } else {
+                return "/menu/new-order-user-check";
+            }
         }
         session.invalidate();
         return "redirect:/";
@@ -54,10 +116,10 @@ public class NewOrderController {
 
     @GetMapping("/menu/newOrder")
     public String newOrderView(Model model, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-
-            if (newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")) != null){
-                return "redirect:/admin/newOrder/check";
+        if (session.getAttribute("userId") != null) {
+//&& (Boolean) session.getAttribute("superAdmin")
+            if (newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")) != null) {
+                return "redirect:/user/newOrder/check";
             }
 
             User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
@@ -124,9 +186,8 @@ public class NewOrderController {
 
     @PostMapping("/menu/newOrder")
     public String newOrder(NewOrder newOrder, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-
-
+        if (session.getAttribute("userId") != null) {
+//&& (Boolean) session.getAttribute("superAdmin")
 
             User user = userRepository.getByUserId(newOrder.getUser().getUserId());
             BigDecimal paymentPerc = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
@@ -154,33 +215,11 @@ public class NewOrderController {
 
             newOrderRepository.save(newOrder);
 
-            if ((Boolean) session.getAttribute("superAdmin")) {
-                return "redirect:/admin/newOrder/check";
-            } else {
-                return "redirect:/user/home";
-            }
+
+            return "redirect:/user/newOrder/check";
+
         }
         session.invalidate();
         return "redirect:/";
-    }
-
-    private static NewOrder getNewOrder(int kw, User user) {
-        NewOrder newOrder = new NewOrder();
-        newOrder.setQtyMon(1);
-        newOrder.setQtyTue(1);
-        newOrder.setQtyWed(1);
-        newOrder.setQtyThu(1);
-        newOrder.setQtyFri(1);
-        newOrder.setShiftMon(0);
-        newOrder.setShiftTue(0);
-        newOrder.setShiftWed(0);
-        newOrder.setShiftThu(0);
-        newOrder.setShiftFri(0);
-
-        newOrder.setKw(kw);
-        newOrder.setUser(user);
-        newOrder.setToPay(BigDecimal.valueOf(0));
-        newOrder.setIsPaid(false);
-        return newOrder;
     }
 }

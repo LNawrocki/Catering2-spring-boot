@@ -5,34 +5,12 @@
     <meta charset="UTF-8"/>
     <title>Catering - Lightnet</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_new_order_admin_check.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_user_list.css">
 </head>
 
 <body>
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
-
-<div class="main-block">
-   <div class="login-row">
-        <div class="day">
-            Witaj ${name} ${lastName}
-        </div>
-        <c:if test="${receivables != 0}">
-        <div class="day" style="color: red">
-            </c:if>
-            <c:if test="${receivables == 0}">
-            <div class="day">
-                </c:if>
-                Należności: ${receivables} zł
-            </div>
-        </div>
-    </div>
-</div>
-<div class="main-block">
-    <div class="login-row">
-        Twoje zamówienia na KW ${date}
-    </div>
-</div>
 
 <div class="main-block">
     <div class="day-block">
@@ -102,6 +80,7 @@
                     </div>
                 </td>
             </tr>
+            <c:forEach var="newOrder" items="${newOrders}">
                 <tr>
                     <td>
                         <div class="day">
@@ -186,6 +165,7 @@
                         </div>
                     </td>
                 </tr>
+            </c:forEach>
         </table>
     </div>
 </div>

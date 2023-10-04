@@ -6,10 +6,10 @@
         <a href="${pageContext.request.contextPath}/user/home">Nowe Menu</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/#">Zamów obiad</a>
+        <a href="${pageContext.request.contextPath}/menu/newOrder">Zamów</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/#">Edycja menu</a>
+        <a href="${pageContext.request.contextPath}/user/newOrder/check">Sprawdź</a>
     </div>
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/logout">Wyloguj</a>

@@ -8,6 +8,7 @@
     padding: 0px;
     margin-top: 3px;
     box-shadow: 0px 0px 15px rgb(170, 170, 170) inset;
+    /*font-size: 20px;*/
 }
 
 .login-row {
@@ -20,14 +21,6 @@
     padding: 15px;
     box-shadow: 0px 0px 15px rgb(170, 170, 170) inset;
     border-radius: 12px;
-}
-.login-row input, button {
-    border-style: solid;
-    border-width: 2px;
-    font-size: 20px;
-    text-align: center;
-    border-radius: 10px;
-    color: rgb(80, 80, 80);
 }
 
 .day-block {
@@ -46,7 +39,6 @@
     height: auto;
     font-size: 15px;
 }
-
 .day {
     display: flex;
     flex-direction: row;
@@ -61,25 +53,29 @@
     box-shadow: 0px 0px 15px rgb(170, 170, 170) inset;
 }
 
-.meal {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-right: 20px;
-    width: auto;
-    border-radius: 10px;
-    margin: 5px;
-    box-shadow: 0px 0px 15px rgb(170, 170, 170) inset;
-    height: auto;
-    text-align: left;
-}
-.meal {
+.list-row {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-
+    justify-content: center;
+    align-content: center;
+    height: auto;
+    margin: 10px;
+    padding: 15px;
+    box-shadow: 0px 0px 15px rgb(170, 170, 170) inset;
+    font-size: 20px;
+    color: rgb(80, 80, 80);
+}
+select, input, button {
+    font-size: 20px;
 }
 
-li {
-    list-style-type: none;
+table {
+    padding: 5px;
+    border-spacing: 5px;
+    width: auto;
+    text-align: center;
 }
+
+
+
+

@@ -9,8 +9,13 @@
         <a href="${pageContext.request.contextPath}/menu/newOrder">Zamów</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/admin/newOrder/check">Sprawdź</a>
+        <a href="${pageContext.request.contextPath}/user/newOrder/check">Sprawdź</a>
     </div>
+    <div class="menu-links">
+        <a href="${pageContext.request.contextPath}/logout">Wyloguj</a>
+    </div>
+</div>
+<div class="main-menu-block">
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/admin/list">Lista użytkowników</a>
     </div>
@@ -26,8 +31,4 @@
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/admin/order/list">Lista zamówień</a>
     </div>
-    <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/logout">Wyloguj</a>
-    </div>
-
 </div>
