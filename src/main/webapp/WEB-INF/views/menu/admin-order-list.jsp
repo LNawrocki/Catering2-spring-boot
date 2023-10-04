@@ -92,11 +92,11 @@
                     <td>
                         <div class="day">
                             <div>
-                                    Paniedziałek<br>
-                                    Wtorek<br>
-                                    Środa<br>
-                                    Czwartek<br>
-                                    Piątek<br>
+                                Paniedziałek<br>
+                                Wtorek<br>
+                                Środa<br>
+                                Czwartek<br>
+                                Piątek<br>
                             </div>
                         </div>
                     </td>
@@ -141,19 +141,24 @@
                         </div>
                     </td>
                     <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.isPaid}
+                        <c:if test="${newOrder.isPaid == false}">
+                        <div class="day" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;">
+                            </c:if>
+                                <c:if test="${newOrder.isPaid == true}">
+                                <div class="day" style="box-shadow: 0px 0px 15px rgb(166,229,135) inset;">
+                                    </c:if>
+                                <div>
+                                        ${newOrder.isPaid}
+                                </div>
                             </div>
-                        </div>
                     </td>
                     <td>
                         <div class="day">
                             <div>
-                                   ID: ${newOrder.user.userId}<br>
-                                   ${newOrder.user.name}
-                                   ${newOrder.user.lastName}<br>
-                                   Login: ${newOrder.user.login}
+                                ID: ${newOrder.user.userId}<br>
+                                    ${newOrder.user.name}
+                                    ${newOrder.user.lastName}<br>
+                                Login: ${newOrder.user.login}
                             </div>
                         </div>
                     </td>
