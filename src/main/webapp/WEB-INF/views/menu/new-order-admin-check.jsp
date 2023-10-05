@@ -5,7 +5,8 @@
     <meta charset="UTF-8"/>
     <title>Catering - Lightnet</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_new_order_admin_check.css">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/css/style_new_order_admin_check.css">
 </head>
 
 <body>
@@ -13,7 +14,7 @@
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
 <div class="main-block">
-   <div class="login-row">
+    <div class="login-row">
         <div class="day">
             Witaj ${name} ${lastName}
         </div>
@@ -102,82 +103,88 @@
                     </div>
                 </td>
             </tr>
-                <tr>
-                    <td>
-                        <div class="day">
+            <tr>
+                <td>
+                    <div class="day">
+                        <div>
+                            ${newOrder.id}
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            Paniedziałek<br>
+                            Wtorek<br>
+                            Środa<br>
+                            Czwartek<br>
+                            Piątek<br>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            ${newOrder.mealMon}. ${newOrder.mealMonName}<br>
+                            ${newOrder.mealTue}. ${newOrder.mealTueName}<br>
+                            ${newOrder.mealWed}. ${newOrder.mealWedName}<br>
+                            ${newOrder.mealThu}. ${newOrder.mealThuName}<br>
+                            ${newOrder.mealFri}. ${newOrder.mealFriName}<br>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            ${newOrder.priceMon} zł<br>
+                            ${newOrder.priceTue} zł<br>
+                            ${newOrder.priceWed} zł<br>
+                            ${newOrder.priceThu} zł<br>
+                            ${newOrder.priceFri} zł<br>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            ${newOrder.shiftMon}<br>
+                            ${newOrder.shiftTue}<br>
+                            ${newOrder.shiftWed}<br>
+                            ${newOrder.shiftThu}<br>
+                            ${newOrder.shiftFri}<br>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            ${newOrder.toPay} zł
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <c:if test="${newOrder.isPaid == false}">
+                    <div class="day" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;">
+                        </c:if>
+                        <c:if test="${newOrder.isPaid == true}">
+                        <div class="day" style="box-shadow: 0px 0px 15px rgb(166,229,135) inset;">
+                            </c:if>
                             <div>
-                                    ${newOrder.id}
+                                ${newOrder.isPaid}
                             </div>
                         </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    Paniedziałek<br>
-                                    Wtorek<br>
-                                    Środa<br>
-                                    Czwartek<br>
-                                    Piątek<br>
-                            </div>
+                </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            ID: ${newOrder.user.userId}<br>
+                            ${newOrder.user.name}
+                            ${newOrder.user.lastName}<br>
+                            Login: ${newOrder.user.login}
                         </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.mealMon}. ${newOrder.mealMonName}<br>
-                                    ${newOrder.mealTue}. ${newOrder.mealTueName}<br>
-                                    ${newOrder.mealWed}. ${newOrder.mealWedName}<br>
-                                    ${newOrder.mealThu}. ${newOrder.mealThuName}<br>
-                                    ${newOrder.mealFri}. ${newOrder.mealFriName}<br>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.priceMon} zł<br>
-                                    ${newOrder.priceTue} zł<br>
-                                    ${newOrder.priceWed} zł<br>
-                                    ${newOrder.priceThu} zł<br>
-                                    ${newOrder.priceFri} zł<br>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.shiftMon}<br>
-                                    ${newOrder.shiftTue}<br>
-                                    ${newOrder.shiftWed}<br>
-                                    ${newOrder.shiftThu}<br>
-                                    ${newOrder.shiftFri}<br>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.toPay} zł
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                    ${newOrder.isPaid}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day">
-                            <div>
-                                   ID: ${newOrder.user.userId}<br>
-                                   ${newOrder.user.name}
-                                   ${newOrder.user.lastName}<br>
-                                   Login: ${newOrder.user.login}
-                            </div>
-                        </div>
-                    </td>
+                    </div>
+                </td>
+                <c:if test="${newOrder.isPaid == false}">
                     <td>
                         <div class="day">
                             <div>
@@ -185,7 +192,8 @@
                             </div>
                         </div>
                     </td>
-                </tr>
+                </c:if>
+            </tr>
         </table>
     </div>
 </div>

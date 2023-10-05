@@ -9,7 +9,7 @@
         <a href="${pageContext.request.contextPath}/menu/newOrder">Zamów</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/user/newOrder/check">Sprawdź</a>
+        <a href="${pageContext.request.contextPath}/user/actualOrder">Twój obiad</a>
     </div>
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/logout">Wyloguj</a>

@@ -95,9 +95,8 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:radiobutton path="shiftMon" value="1"/>1
+                                <input type="radio" name="shiftMon" value="1" checked/>1
                                 <form:radiobutton path="shiftMon" value="2"/>2
-                                <input type="radio" name="shiftMon" value="1" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -121,9 +120,8 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:radiobutton path="shiftTue" value="1" />1
+                                <input type="radio" name="shiftTue" value="1" checked/>1
                                 <form:radiobutton path="shiftTue" value="2"/>2
-                                <input type="radio" name="shiftTue" value="1" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -147,9 +145,8 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:radiobutton path="shiftWed" value="1"/>1
+                                <input type="radio" name="shiftWed" value="1" checked/>1
                                 <form:radiobutton path="shiftWed" value="2"/>2
-                                <input type="radio" name="shiftWed" value="1" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -173,9 +170,8 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:radiobutton path="shiftThu" value="1"/>1
+                                <input type="radio" name="shiftThu" value="1" checked/>1
                                 <form:radiobutton path="shiftThu" value="2"/>2
-                                <input type="radio" name="shiftThu" value="1" checked hidden/>
                             </div>
                         </div>
                     </td>
@@ -199,9 +195,9 @@
                     <td>
                         <div class="meal">
                             <div>
-                                <form:radiobutton path="shiftFri" value="1"/>1
+                                <input type="radio" name="shiftFri" value="1" checked/>1
                                 <form:radiobutton path="shiftFri" value="2"/>2
-                                <input type="radio" name="shiftFri" value="1" checked hidden/>
+
                             </div>
                         </div>
                     </td>
