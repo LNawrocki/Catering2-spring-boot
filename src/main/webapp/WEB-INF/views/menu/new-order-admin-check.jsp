@@ -170,7 +170,14 @@
                         <div class="day" style="box-shadow: 0px 0px 15px rgb(166,229,135) inset;">
                             </c:if>
                             <div>
-                                ${newOrder.isPaid}
+                                <c:choose>
+                                    <c:when test="${newOrder.isPaid eq true}">
+                                        TAK
+                                    </c:when>
+                                    <c:when test="${newOrder.isPaid eq false}">
+                                        NIE
+                                    </c:when>
+                                </c:choose>
                             </div>
                         </div>
                 </td>
