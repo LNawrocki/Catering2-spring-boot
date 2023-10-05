@@ -162,10 +162,10 @@
                     <td>
                         <div class="day">
                             <div>
+                                Login: ${newOrder.user.login}<br>
                                 ID: ${newOrder.user.userId}<br>
                                     ${newOrder.user.name}
                                     ${newOrder.user.lastName}<br>
-                                Login: ${newOrder.user.login}
                             </div>
                         </div>
                     </td>

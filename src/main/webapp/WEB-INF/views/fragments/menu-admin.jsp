@@ -31,4 +31,7 @@
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/admin/order/list">Lista zamówień</a>
     </div>
+    <div class="menu-links">
+        <a href="${pageContext.request.contextPath}/admin/config">Ustawienia</a>
+    </div>
 </div>
