@@ -197,7 +197,6 @@
                             <div>
                                 <input type="radio" name="shiftFri" value="1" checked/>1
                                 <form:radiobutton path="shiftFri" value="2"/>2
-
                             </div>
                         </div>
                     </td>
