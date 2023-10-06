@@ -33,14 +33,6 @@ public class MenuController {
         this.userRepository = userRepository;
     }
 
-
-
-
-
-
-
-
-
     @GetMapping("/admin/menu/update")
     public String updateMenuView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {

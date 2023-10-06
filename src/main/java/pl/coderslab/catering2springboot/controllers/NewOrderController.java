@@ -45,7 +45,6 @@ public class NewOrderController {
         newOrder.setShiftWed(0);
         newOrder.setShiftThu(0);
         newOrder.setShiftFri(0);
-
         newOrder.setKw(kw);
         newOrder.setUser(user);
         newOrder.setToPay(BigDecimal.valueOf(0));
@@ -92,10 +91,8 @@ public class NewOrderController {
     @GetMapping("/user/newOrder/check")
     public String NewOrderAdminCheckView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null) {
-
             User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
             NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
-
             model.addAttribute("newOrder", newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")));
             model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
             if (order != null && !order.getIsPaid()) {
@@ -117,7 +114,6 @@ public class NewOrderController {
     @GetMapping("/menu/newOrder")
     public String newOrderView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null) {
-//&& (Boolean) session.getAttribute("superAdmin")
             if (newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")) != null) {
                 return "redirect:/user/newOrder/check";
             }
@@ -214,10 +210,7 @@ public class NewOrderController {
                     .add(newOrder.getPriceThu()).add(newOrder.getPriceFri()));
 
             newOrderRepository.save(newOrder);
-
-
             return "redirect:/user/newOrder/check";
-
         }
         session.invalidate();
         return "redirect:/";

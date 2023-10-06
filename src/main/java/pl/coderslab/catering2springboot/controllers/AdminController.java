@@ -6,9 +6,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.catering2springboot.entity.Department;
+import pl.coderslab.catering2springboot.repository.ConfigRepository;
 import pl.coderslab.catering2springboot.repository.DepartmentRepository;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -16,9 +19,11 @@ import javax.validation.Valid;
 public class AdminController {
 
     private  final DepartmentRepository departmentRepository;
+    private final ConfigRepository configRepository;
 
-    public AdminController(DepartmentRepository departmentRepository) {
+    public AdminController(DepartmentRepository departmentRepository, ConfigRepository configRepository) {
         this.departmentRepository = departmentRepository;
+        this.configRepository = configRepository;
     }
 
     @GetMapping("/department")
@@ -38,5 +43,24 @@ public class AdminController {
         }
         departmentRepository.save(department);
         return "redirect:/admin/department";
+    }
+
+    @GetMapping ("/config")
+    public String adminConfigView(HttpSession session){
+//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            return "/admin/admin-config";
+//        }
+//        return "redirect:/";
+    }
+
+    @PostMapping ("/config")
+    public String adminConfigView(@RequestParam Boolean editMode, HttpSession session){
+//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+//        configRepository.findAllById();
+
+
+        return "/admin/admin-config";
+//        }
+//        return "redirect:/";
     }
 }

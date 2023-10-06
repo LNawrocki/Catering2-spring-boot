@@ -1,6 +1,8 @@
 # CREATE DATABASE catering CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 use catering;
 
+INSERT INTO catering.config (id, edit_mode) VALUES (1, false);
+
 INSERT INTO catering.department (id, name, payment_perc) VALUES (1, 'Biuro', 50);
 INSERT INTO catering.department (id, name, payment_perc) VALUES (2, 'Produkcja', 90);
 INSERT INTO catering.department (id, name, payment_perc) VALUES (3, 'Lakiernia', 10);
