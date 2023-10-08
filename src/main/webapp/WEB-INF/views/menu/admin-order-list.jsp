@@ -141,23 +141,34 @@
                         </div>
                     </td>
                     <td>
-                        <c:if test="${newOrder.isPaid == false}">
-                        <div class="day" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;">
-                            </c:if>
+                        <form method="post" action="/admin/order/list/paid">
+                            <c:if test="${newOrder.isPaid == false}">
+                            <div class="day" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;">
+                                </c:if>
                                 <c:if test="${newOrder.isPaid == true}">
                                 <div class="day" style="box-shadow: 0px 0px 15px rgb(166,229,135) inset;">
                                     </c:if>
-                                        <div>
-                                            <c:choose>
-                                                <c:when test="${newOrder.isPaid eq true}">
-                                                    TAK
-                                                </c:when>
-                                                <c:when test="${newOrder.isPaid eq false}">
-                                                    NIE
-                                                </c:when>
-                                            </c:choose>
+                                    <div>
+                                        <c:choose>
+                                            <c:when test="${newOrder.isPaid eq true}">
+                                                TAK
+                                            </c:when>
+                                            <c:when test="${newOrder.isPaid eq false}">
+                                                NIE
+                                            </c:when>
+                                        </c:choose>
+
+                                        <input name="userIdUpdate" value="${newOrder.user.userId}" hidden>
+                                        <div class="day">
+                                            <button type="submit" name="paid" value="true" style="border-radius: 10px">wpłata</button>
+                                            <br>
                                         </div>
-                            </div>
+                                        <div class="day">
+                                            <button type="submit" name="paid" value="false" style="border-radius: 10px">nie zpałacono</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </form>
                     </td>
                     <td>
                         <div class="day">

@@ -65,6 +65,16 @@ public class NewOrderController {
         return "redirect:/";
     }
 
+    @PostMapping("/admin/order/list/paid")
+    public String orderListPaidButtonForm(@RequestParam Boolean paid,
+                                          @RequestParam Long userIdUpdate){
+        NewOrder newOrder = newOrderRepository.getNewOrderByUserId(userIdUpdate);
+        newOrder.setIsPaid(paid);
+        newOrderRepository.save(newOrder);
+        return "redirect:/admin/order/list";
+    }
+
+
     //DO poprawy - metoda get i zmiana
     @GetMapping("/user/newOrder/delete")
     public String newOrderDelete(@RequestParam Long id, HttpSession session) {
