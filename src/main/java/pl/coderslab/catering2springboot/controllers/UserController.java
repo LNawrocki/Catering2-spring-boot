@@ -146,7 +146,7 @@ public class UserController {
                 return "redirect:/user/home";
             }
         }
-        model.addAttribute("msg", "Niepoprawny login lub błedne hasło");
+        model.addAttribute("msg", "Niepoprawny login lub błędne hasło");
         return "/user/user-auth";
     }
 

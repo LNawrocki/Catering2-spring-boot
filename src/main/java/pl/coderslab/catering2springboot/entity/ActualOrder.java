@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -17,50 +17,64 @@ public class ActualOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer kw;
-    @Column(name = "user_meal_mon")
-    private Integer userMealMon;
-    @Column(name = "user_price_mon")
-    private BigInteger userPriceMon;
-    @Column(name = "user_shift_mon")
-    private Integer userShiftMon;
-    @Column(name = "user_qty_mon")
-    private Integer userQtyMon;
-    @Column(name = "user_meal_tue")
-    private Integer userMealTue;
-    @Column(name = "user_price_tue")
-    private BigInteger userPriceTue;
-    @Column(name = "user_shift_tue")
-    private Integer userShiftTue;
-    @Column(name = "user_qty_tue")
-    private Integer userQtyTue;
-    @Column(name = "user_meal_wed")
-    private Integer userMealWed;
-    @Column(name = "user_price_wed")
-    private BigInteger userPriceWed;
-    @Column(name = "user_shift_wed")
-    private Integer userShiftWed;
-    @Column(name = "user_qty_wed")
-    private Integer userQtyWed;
-    @Column(name = "user_meal_thu")
-    private Integer userMealThu;
-    @Column(name = "user_price_thu")
-    private BigInteger userPriceThu;
-    @Column(name = "user_shift_thu")
-    private Integer userShiftThu;
-    @Column(name = "user_qty_thu")
-    private Integer userQtyThu;
-    @Column(name = "user_meal_fri")
-    private Integer userMealFri;
-    @Column(name = "user_price_fri")
-    private BigInteger userPriceFri;
-    @Column(name = "user_shift_fri")
-    private Integer userShiftFri;
-    @Column(name = "user_qty_fri")
-    private Integer userQtyFri;
+    @Column(name = "meal_mon")
+    private Integer mealMon;
+    @Column(name = "meal_mon_name")
+    private String mealMonName;
+    @Column(name = "price_mon")
+    private BigDecimal priceMon;
+    @Column(name = "shift_mon")
+    private Integer shiftMon;
+    @Column(name = "qty_mon")
+    private Integer qtyMon;
+    @Column(name = "meal_tue")
+    private Integer mealTue;
+    @Column(name = "meal_tue_name")
+    private String mealTueName;
+    @Column(name = "price_tue")
+    private BigDecimal priceTue;
+    @Column(name = "shift_tue")
+    private Integer shiftTue;
+    @Column(name = "qty_tue")
+    private Integer qtyTue;
+    @Column(name = "meal_wed")
+    private Integer mealWed;
+    @Column(name = "meal_wed_name")
+    private String mealWedName;
+    @Column(name = "price_wed")
+    private BigDecimal priceWed;
+    @Column(name = "shift_wed")
+    private Integer shiftWed;
+    @Column(name = "qty_wed")
+    private Integer qtyWed;
+    @Column(name = "meal_thu")
+    private Integer mealThu;
+    @Column(name = "meal_thu_name")
+    private String mealThuName;
+    @Column(name = "price_thu")
+    private BigDecimal priceThu;
+    @Column(name = "shift_thu")
+    private Integer shiftThu;
+    @Column(name = "qty_thu")
+    private Integer qtyThu;
+    @Column(name = "meal_fri")
+    private Integer mealFri;
+    @Column(name = "meal_fri_name")
+    private String mealFriName;
+    @Column(name = "price_fri")
+    private BigDecimal priceFri;
+    @Column(name = "shift_fri")
+    private Integer shiftFri;
+    @Column(name = "qty_fri")
+    private Integer qtyFri;
+    @Column(name = "to_pay")
+    private BigDecimal toPay;
+    @Column(name = "is_paid")
+    private Boolean isPaid;
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
 }
 

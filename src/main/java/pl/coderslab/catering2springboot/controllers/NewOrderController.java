@@ -2,7 +2,6 @@ package pl.coderslab.catering2springboot.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,9 +11,7 @@ import pl.coderslab.catering2springboot.entity.User;
 import pl.coderslab.catering2springboot.repository.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
-
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -40,17 +37,14 @@ public class NewOrderController {
         newOrder.setQtyWed(1);
         newOrder.setQtyThu(1);
         newOrder.setQtyFri(1);
-        newOrder.setShiftMon(0);
-        newOrder.setShiftTue(0);
-        newOrder.setShiftWed(0);
-        newOrder.setShiftThu(0);
-        newOrder.setShiftFri(0);
         newOrder.setKw(kw);
         newOrder.setUser(user);
         newOrder.setToPay(BigDecimal.valueOf(0));
         newOrder.setIsPaid(false);
         return newOrder;
     }
+
+
 
     @GetMapping("/admin/order/list")
     public String orderListView(Model model, HttpSession session) {
@@ -107,7 +101,6 @@ public class NewOrderController {
                 return "/menu/new-order-user-check";
             }
         }
-        session.invalidate();
         return "redirect:/";
     }
 
@@ -176,14 +169,13 @@ public class NewOrderController {
                 return "/menu/new-order-user";
             }
         }
-        session.invalidate();
+//        session.invalidate();
         return "redirect:/";
     }
 
     @PostMapping("/menu/newOrder")
     public String newOrder(NewOrder newOrder, HttpSession session) {
         if (session.getAttribute("userId") != null) {
-//&& (Boolean) session.getAttribute("superAdmin")
 
             User user = userRepository.getByUserId(newOrder.getUser().getUserId());
             BigDecimal paymentPerc = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
