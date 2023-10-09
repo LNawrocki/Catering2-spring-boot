@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import pl.coderslab.catering2springboot.entity.Department;
 import pl.coderslab.catering2springboot.entity.NewOrder;
 import pl.coderslab.catering2springboot.entity.User;
 import pl.coderslab.catering2springboot.repository.DepartmentRepository;
@@ -16,18 +17,20 @@ import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 @Controller
-@SessionAttributes({"userId", "name", "lastName", "superAdmin", "findUserId"})
+@SessionAttributes({"userId", "name", "lastName", "superAdmin", "searchId", "searchLogin", "searchDepartmentId"})
 public class UserController {
 
     public final DepartmentRepository departmentRepository;
@@ -55,23 +58,69 @@ public class UserController {
 
     @GetMapping("/admin/list")
     public String userList(Model model, HttpSession session) {
-        if (session.getAttribute("findUserId") == null) {
-            model.addAttribute("usersList", userRepository.findAll());
-        }
-        if (session.getAttribute("findUserId") != null) {
-            model.addAttribute("usersList", userRepository.getByUserId((Long) session.getAttribute("findUserId")));
+        model.addAttribute("departments", departmentRepository.findAll());
+
+        if (session.getAttribute("searchId") != null && session.getAttribute("searchId") != "") {
+            Long id = Long.parseLong((String) session.getAttribute("searchId"));
+            User user = userRepository.getByUserId(id);
+            List<User> users = new ArrayList<>();
+            users.add(user);
+            model.addAttribute("usersList", users);
+            model.addAttribute("searchId", null);
             return "/user/user-list";
         }
+
+        if (session.getAttribute("searchLogin") != null && session.getAttribute("searchLogin") != "") {
+            String login = (String) session.getAttribute("searchLogin");
+            User user = userRepository.getByLogin(login);
+            System.out.println(user);
+            List<User> users = new ArrayList<>();
+            users.add(user);
+            model.addAttribute("usersList", users);
+            model.addAttribute("searchLogin", null);
+            return "/user/user-list";
+        }
+
+        System.out.println(session.getAttribute("searchDepartmentId"));
+        System.out.println(session.getAttribute("searchDepartmentId") != null );
+        if (session.getAttribute("searchDepartmentId") != null && session.getAttribute("searchDepartmentId") != "") {
+            System.out.println(departmentRepository.findById((Integer) session.getAttribute("searchDepartmentId")));
+//            Department searchDepartmentId = departmentRepository.findById(((Integer) session.getAttribute("searchDepartmentId")));
+            List<User> users = userRepository.findAllByDepartment(departmentRepository.findById((Integer) session.getAttribute("searchDepartmentId")).get());
+            model.addAttribute("usersList", users);
+            return "/user/user-list";
+        }
+
+        model.addAttribute("usersList", userRepository.findAll());
         return "/user/user-list";
     }
 
-    @PostMapping("/admin/list/search")
-    public String userList(@RequestParam String findUserId,
-                           @RequestParam String search,
+    @PostMapping("/admin/list/searchId")
+    public String userListId(@RequestParam String searchId,
                            Model model) {
-        model.addAttribute("findUserId", findUserId);
-        System.out.println(findUserId);
-//        model.addAttribute("search", sea)
+        model.addAttribute("searchId", searchId);
+        return "redirect:/admin/list";
+    }
+
+    @PostMapping("/admin/list/searchLogin")
+    public String userListLogin(@RequestParam String searchLogin,
+                           Model model) {
+        model.addAttribute("searchLogin", searchLogin);
+        return "redirect:/admin/list";
+    }
+
+    @PostMapping("/admin/list/searchDepartment")
+    public String userListDepartment(@RequestParam Integer searchDepartmentId,
+                                Model model) {
+        model.addAttribute("searchDepartmentId", searchDepartmentId);
+        return "redirect:/admin/list";
+    }
+
+    @PostMapping("/admin/list/searchClean")
+    public String userListClean(Model model, HttpSession session) {
+        model.addAttribute("searchId", "");
+        model.addAttribute("searchLogin", "");
+        model.addAttribute("searchDepartmentId", "");
         return "redirect:/admin/list";
     }
 

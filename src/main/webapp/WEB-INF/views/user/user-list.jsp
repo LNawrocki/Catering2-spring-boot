@@ -13,32 +13,47 @@
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
-<form action="/admin/list/search" method="post">
-    <div class="main-block">
-        <div class="day-block">
-            <table>
-                <tr>
+
+<div class="main-block">
+    <div class="day-block">
+        <table>
+            <tr>
+                <form action="/admin/list/searchId" method="post">
                     <td>
-                        Wyszukaj:
-                    </td>
-                    <td>
-                        <select name="item">
-                            <option name="findLogin" value="findLogin" >Login</option>
-                            <option name="findUserId" value="findUserId" selected>Id</option>
-                            <option name="findDepartment" value="findDepartment">Dział</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" name="search" placeholder="szukana wartość">
-                    </td>
-                    <td>
+                        ID: <input type="number" name="searchId">
                         <button type="submit">Wyszukaj</button>
                     </td>
-                </tr>
-            </table>
-        </div>
+                </form>
+                <form action="/admin/list/searchLogin" method="post">
+                    <td>
+                        Login: <input type="text" name="searchLogin">
+                        <button type="submit">Wyszukaj</button>
+                    </td>
+                </form>
+                <form action="/admin/list/searchDepartment" method="post">
+                    <td>
+                        Dział: <select name="searchDepartmentId">
+                        <c:forEach var="department" items="${departments}">
+                            <option value="${department.id}">${department.name}</option>
+                        </c:forEach>
+                    </select>
+                        <button type="submit">Wyszukaj</button>
+                    </td>
+                </form>
+            </tr>
+            <tr><td></td>
+
+                <form action="/admin/list/searchClean" method="post">
+                    <td>
+                        <button type="submit">Wyczyść</button>
+                    </td>
+                </form>
+                <td></td>
+            </tr>
+        </table>
     </div>
-</form>
+</div>
+
 
 <div class="main-block">
     <div class="day-block">
