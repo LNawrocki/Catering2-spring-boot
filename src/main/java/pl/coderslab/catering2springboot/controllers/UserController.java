@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 
 @Controller
-@SessionAttributes({"userId", "name", "lastName", "superAdmin"})
+@SessionAttributes({"userId", "name", "lastName", "superAdmin", "findUserId"})
 public class UserController {
 
     public final DepartmentRepository departmentRepository;
@@ -54,10 +54,27 @@ public class UserController {
     }
 
     @GetMapping("/admin/list")
-    public String userList(Model model) {
-        model.addAttribute("usersList", userRepository.findAll());
+    public String userList(Model model, HttpSession session) {
+        if (session.getAttribute("findUserId") == null) {
+            model.addAttribute("usersList", userRepository.findAll());
+        }
+        if (session.getAttribute("findUserId") != null) {
+            model.addAttribute("usersList", userRepository.getByUserId((Long) session.getAttribute("findUserId")));
+            return "/user/user-list";
+        }
         return "/user/user-list";
     }
+
+    @PostMapping("/admin/list/search")
+    public String userList(@RequestParam String findUserId,
+                           @RequestParam String search,
+                           Model model) {
+        model.addAttribute("findUserId", findUserId);
+        System.out.println(findUserId);
+//        model.addAttribute("search", sea)
+        return "redirect:/admin/list";
+    }
+
 
     @GetMapping("/admin/add")
     public String addView(Model model, HttpSession session) {
@@ -67,7 +84,6 @@ public class UserController {
             model.addAttribute("departments", departmentRepository.findAll());
             return "/user/user-add";
         }
-        session.invalidate();
         return "redirect:/";
     }
 
@@ -83,7 +99,6 @@ public class UserController {
             userRepository.save(user);
             return "redirect:/admin/list";
         }
-        session.invalidate();
         return "redirect:/";
     }
 
@@ -96,7 +111,6 @@ public class UserController {
             model.addAttribute("departments", departmentRepository.findAll());
             return "/user/user-update";
         }
-        session.invalidate();
         return "redirect:/";
     }
 
@@ -107,7 +121,6 @@ public class UserController {
             userRepository.save(user);
             return "redirect:/admin/list";
         }
-        session.invalidate();
         return "redirect:/";
     }
 
@@ -128,7 +141,7 @@ public class UserController {
     }
 
     @PostMapping("/user/auth")
-    public String authenticate(@RequestParam String login, @RequestParam String password, Model model, HttpSession session) {
+    public String authenticate(@RequestParam String login, @RequestParam String password, Model model) {
 
         User user = userRepository.getByLogin(login);
 
@@ -174,8 +187,6 @@ public class UserController {
             model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
             return "/admin/admin-home";
         }
-
-        session.invalidate();
         return "redirect:/";
     }
 
@@ -201,10 +212,8 @@ public class UserController {
             model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
 
             model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-
             return "/user/user-home";
         }
-        session.invalidate();
         return "redirect:/";
     }
 

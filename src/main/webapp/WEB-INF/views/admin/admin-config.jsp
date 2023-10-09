@@ -13,12 +13,23 @@
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
-<form method="post">
+<form method="post" action="/admin/config/editMenu">
     <div class="main-block">
         <div class="login-row">
             <label for="editMode">Tryb edycji:
                 <input type="radio" name="editMode" value="true"/>Włączony
                 <input type="radio" name="editMode" value="falsy" checked/>Wyłączony
+                <button type="submit">Potwierdź</button>
+            </label>
+        </div>
+    </div>
+</form>
+<form method="post" action="/admin/config/newMenuAvaliabe">
+    <div class="main-block">
+        <div class="login-row">
+            <label for="newMenuAvaliable">Nowe MENU - podglą i zamawianie:
+                <input type="radio" name="newMenuAvaliable" value="true"/>Nowe menu dostępne
+                <input type="radio" name="newMenuAvaliable" value="falsy" checked/>Nowe menu niedostępne
                 <button type="submit">Potwierdź</button>
             </label>
         </div>

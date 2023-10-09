@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="pl">
 <head>
     <meta charset="UTF-8"/>
@@ -11,6 +12,33 @@
 <body>
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
+
+<form action="/admin/list/search" method="post">
+    <div class="main-block">
+        <div class="day-block">
+            <table>
+                <tr>
+                    <td>
+                        Wyszukaj:
+                    </td>
+                    <td>
+                        <select name="item">
+                            <option name="findLogin" value="findLogin" >Login</option>
+                            <option name="findUserId" value="findUserId" selected>Id</option>
+                            <option name="findDepartment" value="findDepartment">Dział</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="search" placeholder="szukana wartość">
+                    </td>
+                    <td>
+                        <button type="submit">Wyszukaj</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
 
 <div class="main-block">
     <div class="day-block">

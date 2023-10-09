@@ -53,8 +53,19 @@ public class AdminController {
 //        return "redirect:/";
     }
 
-    @PostMapping ("/config")
-    public String adminConfigView(@RequestParam Boolean editMode, HttpSession session){
+    @PostMapping ("/config/editMenu")
+    public String adminEditMenu(@RequestParam Boolean editMode, HttpSession session){
+//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+//        configRepository.findAllById();
+
+
+        return "/admin/admin-config";
+//        }
+//        return "redirect:/";
+    }
+
+    @PostMapping ("/config/newMenuAvaliable")
+    public String adminnewMenuAvaliable(@RequestParam Boolean editMode, HttpSession session){
 //        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
 //        configRepository.findAllById();
 

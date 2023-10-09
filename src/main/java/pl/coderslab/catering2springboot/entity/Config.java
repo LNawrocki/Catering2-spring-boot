@@ -2,6 +2,7 @@ package pl.coderslab.catering2springboot.entity;
 
 import lombok.Data;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.*;
 
@@ -15,5 +16,6 @@ public class Config {
     private Integer id;
     @Column(name = "edit_mode")
     private Boolean editMode;
-
+    @Column(name = "new_menu_avaliable")
+    private Boolean newMenuAvaliable;
 }
