@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import pl.coderslab.catering2springboot.entity.NewOrder;
 
+import java.util.List;
+
 
 public interface NewOrderRepository extends JpaRepository<NewOrder, Long> {
 
@@ -11,5 +13,7 @@ public interface NewOrderRepository extends JpaRepository<NewOrder, Long> {
     NewOrder getNewOrderByUserId(Long userId);
 
     NewOrder getNewOrderById(Long id);
+
+
 
 }
