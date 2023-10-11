@@ -15,5 +15,6 @@ public interface NewOrderRepository extends JpaRepository<NewOrder, Long> {
     NewOrder getNewOrderById(Long id);
 
 
+//    NewOrder getNewOrderByUserId_AndIsPaid(Long userId, Boolean isPaid);
 
 }
