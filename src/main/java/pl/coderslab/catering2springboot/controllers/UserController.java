@@ -167,7 +167,6 @@ public class UserController {
     @PostMapping("/admin/delete/confirm")
     public String deleteConfirm(@RequestParam Long deleteUserId, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            model.addAttribute("departments", departmentRepository.findAll());
             User user = userRepository.getByUserId(deleteUserId);
             ActualOrder actualOrderByUserId = actualOrderRepository.getActualOrderByUserId(deleteUserId);
             if (actualOrderByUserId != null) {
@@ -179,6 +178,7 @@ public class UserController {
             }
             userRepository.delete(user);
             model.addAttribute("usersList", userRepository.findAll());
+            model.addAttribute("departments", departmentRepository.findAll());
             return "redirect:/admin/list";
         }
         return "redirect:/";

@@ -27,12 +27,18 @@
         </div>
         <div class="login-row">
             <label for="mealPrice">Cena:
-                <form:input path="mealPrice"/>
+                <input type="number" name="mealPrice" placeholder="14.5" step="0.01"/>
             </label>
         </div>
         <div class="login-row">
             <label for="dayId">Dzień (id):
-                <form:input path="dayId"/>
+                <select name="dayId">
+                    <option value="1" name="Poniedziałek">Poniedziałek</option>
+                    <option value="2" name="Wtorek">Wtorek</option>
+                    <option value="3" name="Środe">Środe</option>
+                    <option value="4" name="Czwartek">Czwartek</option>
+                    <option value="5" name="Piątek">Piątek</option>
+                </select>
             </label>
         </div>
         <div class="login-row">

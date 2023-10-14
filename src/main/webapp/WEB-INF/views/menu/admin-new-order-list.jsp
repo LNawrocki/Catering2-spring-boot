@@ -141,7 +141,7 @@
                         </div>
                     </td>
                     <td>
-                        <form method="post" action="/admin/neworder/list/paid">
+                        <form method="post" action="/admin/newOrder/list/paid">
                             <c:if test="${newOrder.isPaid == false}">
                             <div class="day" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;">
                                 </c:if>

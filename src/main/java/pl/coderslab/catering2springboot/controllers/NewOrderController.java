@@ -88,32 +88,32 @@ public class NewOrderController {
         return "redirect:/";
     }
 
-    @PostMapping("/admin/order/list/paid")
+    @PostMapping("/admin/newOrder/list/paid")
     public String orderListPaidButtonForm(@RequestParam Boolean paid,
                                           @RequestParam Long userIdUpdate){
         NewOrder newOrder = newOrderRepository.getNewOrderByUserId(userIdUpdate);
         newOrder.setIsPaid(paid);
         newOrderRepository.save(newOrder);
-        return "redirect:/admin/new-order/list";
+        return "redirect:/admin/newOrder/list";
     }
 
 
-    //DO poprawy - metoda get i zmiana
-    @GetMapping("/user/newOrder/delete")
-    public String newOrderDelete(@RequestParam Long id, HttpSession session) {
-        if (session.getAttribute("userId") != null) {
-            NewOrder newOrder = newOrderRepository.getNewOrderById(id);
-            newOrderRepository.delete(newOrder);
+                                    //DO poprawy - metoda get i zmiana
+                                    @GetMapping("/user/newOrder/delete")
+                                    public String newOrderDelete(@RequestParam Long id, HttpSession session) {
+                                        if (session.getAttribute("userId") != null) {
+                                            NewOrder newOrder = newOrderRepository.getNewOrderById(id);
+                                            newOrderRepository.delete(newOrder);
 
-            if ((Boolean) session.getAttribute("superAdmin")) {
-                return "redirect:/admin/new-order/list";
-            } else {
-                return "redirect:/menu/newOrder";
-            }
-        }
-        session.invalidate();
-        return "redirect:/";
-    }
+                                            if ((Boolean) session.getAttribute("superAdmin")) {
+                                                return "redirect:/admin/newOrder/list";
+                                            } else {
+                                                return "redirect:/menu/newOrder";
+                                            }
+                                        }
+                                        session.invalidate();
+                                        return "redirect:/";
+                                    }
 
     @GetMapping("/user/newOrder/check")
     public String NewOrderAdminCheckView(Model model, HttpSession session) {
