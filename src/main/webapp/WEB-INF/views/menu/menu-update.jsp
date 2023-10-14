@@ -4,7 +4,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8"/>
-    <title>Catering - Lightnet</title>
+    <jsp:include page="../fragments/title.jsp"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_menu_update.css">
 </head>

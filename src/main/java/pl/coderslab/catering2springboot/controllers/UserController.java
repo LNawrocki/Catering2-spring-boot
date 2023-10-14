@@ -174,8 +174,12 @@ public class UserController {
     }
 
     @GetMapping("/admin/delete")
-    public String update(@RequestParam Long userId, Model model, User user, HttpSession session) {
+    public String update(@RequestParam Long userId, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            if (newOrderRepository.getNewOrderByUserId(userId) != null){
+                return "/user/user-list-delete-info";
+            }
+            User user = userRepository.getByUserId(userId);
             userRepository.delete(user);
             model.addAttribute("usersList", userRepository.findAll());
             return "redirect:/admin/list";
