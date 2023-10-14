@@ -61,9 +61,11 @@
     <div class="day-block">
         <p>
             Usuwasz użytkownika. Wraz z użytkownikiem zostaną usunięte jego bierzące i nowe zamówienia.
-            Czy potwierdzasz? ${deleteUserId}
+            Czy potwierdzasz?
         </p>
         <input name="deleteUserId" value="${deleteUserId}" hidden="hidden">
+        <input name="confirm" value="true" hidden="hidden">
+
     </div>
     <div class="day-block">
         <div class="list-row">

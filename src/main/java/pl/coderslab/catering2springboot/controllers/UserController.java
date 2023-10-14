@@ -165,14 +165,21 @@ public class UserController {
     }
 
     @PostMapping("/admin/delete/confirm")
-    public String deleteConfirm(@RequestParam Long deleteUserId, Model model, HttpSession session) {
+    public String deleteConfirm(@RequestParam Long deleteUserId, @RequestParam(required = false) Boolean confirm , Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+
             User user = userRepository.getByUserId(deleteUserId);
             ActualOrder actualOrderByUserId = actualOrderRepository.getActualOrderByUserId(deleteUserId);
+            NewOrder newOrder = newOrderRepository.getNewOrderByUserId(deleteUserId);
+            if((actualOrderByUserId != null || newOrder != null) && Objects.isNull(confirm)){
+                model.addAttribute("deleteUserId", deleteUserId);
+                return "/user/user-list-delete-info";
+            }
+
             if (actualOrderByUserId != null) {
                 actualOrderRepository.delete(actualOrderByUserId);
             }
-            NewOrder newOrder = newOrderRepository.getNewOrderByUserId(deleteUserId);
+
             if (newOrder != null) {
                 newOrderRepository.delete(newOrder);
             }
