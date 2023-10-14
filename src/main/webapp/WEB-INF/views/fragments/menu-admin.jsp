@@ -29,9 +29,12 @@
         <a href="${pageContext.request.contextPath}/admin/menu/update">Edycja menu</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/admin/order/list">Lista zamówień</a>
+        <a href="${pageContext.request.contextPath}/admin/newOrder/list">Lista nowych zamówień</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/admin/config">Ustawienia</a>
+        <a href="${pageContext.request.contextPath}/admin/actualOrder/list">Lista zamówień</a>
     </div>
+<%--    <div class="menu-links">--%>
+<%--        <a href="${pageContext.request.contextPath}/admin/config">Ustawienia</a>--%>
+<%--    </div>--%>
 </div>

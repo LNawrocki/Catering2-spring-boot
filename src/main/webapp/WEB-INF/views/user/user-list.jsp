@@ -41,7 +41,8 @@
                     </td>
                 </form>
             </tr>
-            <tr><td></td>
+            <tr>
+                <td></td>
 
                 <form action="/admin/list/searchClean" method="post">
                     <td>
@@ -140,14 +141,17 @@
                         </div>
                     </td>
                     <td>
-                        <div class="day">
-                            <div>
-                                <a href="/admin/update?userId=${user.userId}">Edytuj</a><br/>
-                                <a href="/admin/delete?userId=${user.userId}">Usuń</a>
+                        <div class="day" >
+                            <div >
+                                <form action="/admin/update" method="get" style="padding: 1px; margin: 1px">
+                                    <button name="editUserId" value="${user.userId}" style="font-size: small; border-radius: 5px; border-width: 1px">Edytuj</button>
+                                </form>
+                                <form action="/admin/delete/confirm" method="post" style="padding: 1px; margin: 1px">
+                                    <button name="deleteUserId" value="${user.userId}" style="font-size: small; border-radius: 5px; border-width: 1px">Usuń</button>
+                                </form>
                             </div>
                         </div>
                     </td>
-
                 </tr>
             </c:forEach>
         </table>

@@ -1,6 +1,5 @@
 package pl.coderslab.catering2springboot.controllers;
 
-import org.aspectj.asm.IModelFilter;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,24 +7,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import pl.coderslab.catering2springboot.entity.Department;
+import pl.coderslab.catering2springboot.entity.ActualOrder;
 import pl.coderslab.catering2springboot.entity.NewOrder;
 import pl.coderslab.catering2springboot.entity.User;
-import pl.coderslab.catering2springboot.repository.DepartmentRepository;
-import pl.coderslab.catering2springboot.repository.NewMenuRepository;
-import pl.coderslab.catering2springboot.repository.NewOrderRepository;
-import pl.coderslab.catering2springboot.repository.UserRepository;
+import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
-import javax.sound.midi.Soundbank;
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -37,12 +30,14 @@ public class UserController {
     public final NewOrderRepository newOrderRepository;
     private final UserRepository userRepository;
     private final NewMenuRepository newMenuRepository;
+    private final ActualOrderRepository actualOrderRepository;
 
-    public UserController(UserRepository userRepository, DepartmentRepository departmentRepository, NewMenuRepository newMenuRepository, NewOrderRepository newOrderRepository) {
+    public UserController(UserRepository userRepository, DepartmentRepository departmentRepository, NewMenuRepository newMenuRepository, NewOrderRepository newOrderRepository, ActualOrderRepository actualOrderRepository) {
         this.userRepository = userRepository;
         this.departmentRepository = departmentRepository;
         this.newMenuRepository = newMenuRepository;
         this.newOrderRepository = newOrderRepository;
+        this.actualOrderRepository = actualOrderRepository;
     }
 
     @GetMapping
@@ -81,11 +76,7 @@ public class UserController {
             return "/user/user-list";
         }
 
-        System.out.println(session.getAttribute("searchDepartmentId"));
-        System.out.println(session.getAttribute("searchDepartmentId") != null );
         if (session.getAttribute("searchDepartmentId") != null && session.getAttribute("searchDepartmentId") != "") {
-            System.out.println(departmentRepository.findById((Integer) session.getAttribute("searchDepartmentId")));
-//            Department searchDepartmentId = departmentRepository.findById(((Integer) session.getAttribute("searchDepartmentId")));
             List<User> users = userRepository.findAllByDepartment(departmentRepository.findById((Integer) session.getAttribute("searchDepartmentId")).get());
             model.addAttribute("usersList", users);
             return "/user/user-list";
@@ -97,21 +88,21 @@ public class UserController {
 
     @PostMapping("/admin/list/searchId")
     public String userListId(@RequestParam String searchId,
-                           Model model) {
+                             Model model) {
         model.addAttribute("searchId", searchId);
         return "redirect:/admin/list";
     }
 
     @PostMapping("/admin/list/searchLogin")
     public String userListLogin(@RequestParam String searchLogin,
-                           Model model) {
+                                Model model) {
         model.addAttribute("searchLogin", searchLogin);
         return "redirect:/admin/list";
     }
 
     @PostMapping("/admin/list/searchDepartment")
     public String userListDepartment(@RequestParam Integer searchDepartmentId,
-                                Model model) {
+                                     Model model) {
         model.addAttribute("searchDepartmentId", searchDepartmentId);
         return "redirect:/admin/list";
     }
@@ -152,9 +143,9 @@ public class UserController {
     }
 
     @GetMapping("/admin/update")
-    public String updateView(@RequestParam Long userId, Model model, HttpSession session) {
+    public String updateView(@RequestParam Long editUserId, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            User user = userRepository.getByUserId(userId);
+            User user = userRepository.getByUserId(editUserId);
             user.setPassword("");
             model.addAttribute("user", user);
             model.addAttribute("departments", departmentRepository.findAll());
@@ -173,18 +164,23 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/admin/delete")
-    public String update(@RequestParam Long userId, Model model, HttpSession session) {
+    @PostMapping("/admin/delete/confirm")
+    public String deleteConfirm(@RequestParam Long deleteUserId, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            if (newOrderRepository.getNewOrderByUserId(userId) != null){
-                return "/user/user-list-delete-info";
+            model.addAttribute("departments", departmentRepository.findAll());
+            User user = userRepository.getByUserId(deleteUserId);
+            ActualOrder actualOrderByUserId = actualOrderRepository.getActualOrderByUserId(deleteUserId);
+            if (actualOrderByUserId != null) {
+                actualOrderRepository.delete(actualOrderByUserId);
             }
-            User user = userRepository.getByUserId(userId);
+            NewOrder newOrder = newOrderRepository.getNewOrderByUserId(deleteUserId);
+            if (newOrder != null) {
+                newOrderRepository.delete(newOrder);
+            }
             userRepository.delete(user);
             model.addAttribute("usersList", userRepository.findAll());
             return "redirect:/admin/list";
         }
-        session.invalidate();
         return "redirect:/";
     }
 
@@ -272,7 +268,6 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate();
         return "redirect:/";
     }
 }

@@ -5,9 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.catering2springboot.entity.ActualOrder;
 import pl.coderslab.catering2springboot.entity.NewMenu;
 import pl.coderslab.catering2springboot.entity.NewOrder;
 import pl.coderslab.catering2springboot.entity.User;
+import pl.coderslab.catering2springboot.repository.ActualOrderRepository;
 import pl.coderslab.catering2springboot.repository.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
@@ -23,11 +25,13 @@ public class NewOrderController {
     public final NewOrderRepository newOrderRepository;
     public final UserRepository userRepository;
     public final NewMenuRepository newMenuRepository;
+    private final ActualOrderRepository actualOrderRepository;
 
-    public NewOrderController(NewOrderRepository newOrderRepository, UserRepository userRepository, NewMenuRepository newMenuRepository) {
+    public NewOrderController(NewOrderRepository newOrderRepository, UserRepository userRepository, NewMenuRepository newMenuRepository, ActualOrderRepository actualOrderRepository) {
         this.newOrderRepository = newOrderRepository;
         this.userRepository = userRepository;
         this.newMenuRepository = newMenuRepository;
+        this.actualOrderRepository = actualOrderRepository;
     }
 
     private static NewOrder getNewOrder(int kw, User user) {
@@ -46,7 +50,7 @@ public class NewOrderController {
 
 
 
-    @GetMapping("/admin/order/list")
+    @GetMapping("/admin/newOrder/list")
     public String orderListView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
             List<NewOrder> newOrders = newOrderRepository.findAll(); // pobranie wszystkich nowych zamówień
@@ -59,7 +63,26 @@ public class NewOrderController {
                 mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealFri()).getMealName());
             }
             model.addAttribute("newOrders", newOrderRepository.findAll());
-            return "/menu/admin-order-list";
+            return "/menu/admin-new-order-list";
+        }
+        session.invalidate();
+        return "redirect:/";
+    }
+
+    @GetMapping("/admin/actualOrder/list")
+    public String actualOrderListView(Model model, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            List<ActualOrder> actualOrders = actualOrderRepository.findAll(); // pobranie wszystkich aktualnych zamówień
+            List<String> mealsNames = new ArrayList<>();
+            for (ActualOrder actualOrder : actualOrders) {
+                mealsNames.add(newMenuRepository.findByMealNo(actualOrder.getMealMon()).getMealName());
+                mealsNames.add(newMenuRepository.findByMealNo(actualOrder.getMealTue()).getMealName());
+                mealsNames.add(newMenuRepository.findByMealNo(actualOrder.getMealWed()).getMealName());
+                mealsNames.add(newMenuRepository.findByMealNo(actualOrder.getMealThu()).getMealName());
+                mealsNames.add(newMenuRepository.findByMealNo(actualOrder.getMealFri()).getMealName());
+            }
+            model.addAttribute("actualOrders", actualOrderRepository.findAll());
+            return "/menu/admin-actual-order-list";
         }
         session.invalidate();
         return "redirect:/";
@@ -71,7 +94,7 @@ public class NewOrderController {
         NewOrder newOrder = newOrderRepository.getNewOrderByUserId(userIdUpdate);
         newOrder.setIsPaid(paid);
         newOrderRepository.save(newOrder);
-        return "redirect:/admin/order/list";
+        return "redirect:/admin/new-order/list";
     }
 
 
@@ -83,7 +106,7 @@ public class NewOrderController {
             newOrderRepository.delete(newOrder);
 
             if ((Boolean) session.getAttribute("superAdmin")) {
-                return "redirect:/admin/order/list";
+                return "redirect:/admin/new-order/list";
             } else {
                 return "redirect:/menu/newOrder";
             }

@@ -63,6 +63,9 @@
                         </div>
                     </div>
                 </td>
+                <td>
+                    Akcja
+                </td>
             </tr>
             <c:forEach items="${departments}" var="depart">
             <tr>
@@ -86,6 +89,9 @@
                             <c:out value="${depart.paymentPerc}"/>
                         </div>
                     </div>
+                </td>
+                <td>
+                    Do zrobioenia :)
                 </td>
             </tr>
             </c:forEach>

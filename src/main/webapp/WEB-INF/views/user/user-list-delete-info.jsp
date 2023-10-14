@@ -56,21 +56,22 @@
     </div>
 </div>
 
-
+<form action="/admin/delete/confirm" method="post">
 <div class="main-block">
     <div class="day-block">
-
-            <p>Nie można usunąć użytkownika, który złożyła zamówienie.</p>
-            <p>Przed usunięciem użytkownika usuń jego zamówienia.</p>
-
+        <p>
+            Usuwasz użytkownika. Wraz z użytkownikiem zostaną usunięte jego bierzące i nowe zamówienia.
+            Czy potwierdzasz? ${deleteUserId}
+        </p>
+        <input name="deleteUserId" value="${deleteUserId}" hidden="hidden">
     </div>
     <div class="day-block">
         <div class="list-row">
-            <a href="/admin/list">OK</a><br/>
+            <button type="submit">Potwierdź</button>
         </div>
     </div>
 </div>
-
+</form>
 
 <jsp:include page="../fragments/footer.jsp"/>
 </body>

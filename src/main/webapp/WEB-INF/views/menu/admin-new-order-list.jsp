@@ -5,7 +5,7 @@
     <meta charset="UTF-8"/>
     <jsp:include page="../fragments/title.jsp"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_user_list.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_admin_new_order_list.css">
 </head>
 
 <body>
@@ -141,7 +141,7 @@
                         </div>
                     </td>
                     <td>
-                        <form method="post" action="/admin/order/list/paid">
+                        <form method="post" action="/admin/neworder/list/paid">
                             <c:if test="${newOrder.isPaid == false}">
                             <div class="day" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;">
                                 </c:if>
