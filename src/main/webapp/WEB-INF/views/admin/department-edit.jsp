@@ -91,7 +91,7 @@
                     </div>
                 </td>
                 <td>
-                    Do zrobioenia :)
+                    Do zrobienia :)
                 </td>
             </tr>
             </c:forEach>

@@ -38,7 +38,7 @@
             <form:hidden path="qtyMon"/>
             <form:hidden path="qtyTue"/>
             <form:hidden path="qtyWed"/>
-            <form:hidden path="qtyThu" />
+            <form:hidden path="qtyThu"/>
             <form:hidden path="qtyFri"/>
             <form:hidden path="priceMon"/>
             <form:hidden path="priceTue"/>
@@ -201,15 +201,22 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <div class="meal">
+                            <button type="submit">Zapisz</button>
+                            <button type="reset">reset</button>
+                        </div>
+
+                    </td>
+                    <td></td>
+                </tr>
             </table>
         </div>
     </div>
-    <div class="main-block">
-        <div class="day-block">
-            <button type="submit">Zapisz</button>
-            <button type="reset">reset</button>
-        </div>
-    </div>
+
 </form:form>
 
 

@@ -18,23 +18,23 @@ import pl.coderslab.catering2springboot.repository.UserRepository;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.security.PrivateKey;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
     private  final DepartmentRepository departmentRepository;
-    private final ConfigRepository configRepository;
+//    private final ConfigRepository configRepository;
     private final NewOrderRepository newOrderRepository;
     private final UserRepository userRepository;
 
     public AdminController(DepartmentRepository departmentRepository, ConfigRepository configRepository, NewOrderRepository newOrderRepository, UserRepository userRepository) {
         this.departmentRepository = departmentRepository;
-        this.configRepository = configRepository;
+//        this.configRepository = configRepository;
         this.newOrderRepository = newOrderRepository;
         this.userRepository = userRepository;
     }
@@ -49,7 +49,7 @@ public class AdminController {
             for (User user : usersByDepartment) {
                 usersId.add(user.getUserId());
             }
-            System.out.println(usersId);
+            System.out.println(department + " " + usersId);
             for (Long id : usersId) {
                 NewOrder newOrder = newOrderRepository.getNewOrderByUserId(id);
                 if (newOrder != null) {
@@ -58,9 +58,8 @@ public class AdminController {
                 }
             }
         }
-
-
-        return "/admin-financial";
+        System.out.println("ok");
+        return "/admin/admin-financial";
     }
 
     @GetMapping("/department")

@@ -15,46 +15,17 @@
 
 
 <div class="main-block">
-    <div class="login-row">
-        Łączna kwota dla Hutnika:
-    </div>
-    <div class="login-row">
-
-    </div>
-    <div class="login-row">
-        <label for="lastName">Nazwisko:
-
-        </label>
-    </div>
-    <div class="login-row">
-        <label for="department">Dział:
-
-        </label>
-    </div>
-    <div class="login-row">
-        <label for="login">Login:
-
-        </label>
-    </div>
-    <div class="login-row">
-        <label for="password">Hasło:
-
-        </label>
-    </div>
-    <div class="login-row">
-        <label>Admin:
-
-        </label>
-    </div>
-    <div class="login-row">
-        <label>
-
-        </label>
-    </div>
 
     <div class="login-row">
-
+        Dział X:
     </div>
+    <div class="login-row">
+        Dział Y:
+    </div>
+    <div class="login-row">
+        Łączna kwota dla dostawcy:
+    </div>
+
 </div>
 
 <jsp:include page="../fragments/footer.jsp"/>
