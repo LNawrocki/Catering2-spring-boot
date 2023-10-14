@@ -46,14 +46,14 @@ public class AdminController {
         for (Department department : allDepartments) {
             List<Long> usersId = new ArrayList<>();
             List<User> usersByDepartment = userRepository.findAllByDepartment(department);
-            for (User user : usersByDepartment) {
-                usersId.add(user.getUserId());
+            for (User userBelongToDepartment : usersByDepartment) {
+                usersId.add(userBelongToDepartment.getUserId());
             }
             System.out.println(department + " " + usersId);
             for (Long id : usersId) {
                 NewOrder newOrder = newOrderRepository.getNewOrderByUserId(id);
                 if (newOrder != null) {
-                    BigDecimal idPrice = newOrder.getPriceMon().add(newOrder.getPriceTue().add(newOrder.getPriceWed().add(newOrder.getPriceThu().add(newOrder.getPriceFri()))));
+                    BigDecimal idPrice = newOrder.getToPay();
                     System.out.println(idPrice);
                 }
             }
