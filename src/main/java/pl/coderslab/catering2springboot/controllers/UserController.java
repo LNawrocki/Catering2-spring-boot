@@ -169,6 +169,11 @@ public class UserController {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
 
             User user = userRepository.getByUserId(deleteUserId);
+            if (user.getSuperAdmin()) {
+                model.addAttribute("departments", departmentRepository.findAll());
+                return "/admin/admin-delete-info";
+            }
+
             ActualOrder actualOrderByUserId = actualOrderRepository.getActualOrderByUserId(deleteUserId);
             NewOrder newOrder = newOrderRepository.getNewOrderByUserId(deleteUserId);
             if((actualOrderByUserId != null || newOrder != null) && Objects.isNull(confirm)){
