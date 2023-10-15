@@ -1,5 +1,12 @@
 # Catering2-spring-boot (wersja robocza)
 
+#### Technologie
+- Java
+- Spring Boot
+- MySQL
+- JSP, CSS
+- Maven
+
 ### Funkcji użytkownika
 
 Catering2 jest aplikacją pozwalającą na obsługę rezerwacji i rozliczeń obiadów zamawianych w zewnętrznej firmie cateringowej w cylku tygodniowym.
@@ -29,6 +36,14 @@ Osoba będąca administratorem posiada dodatkowe możliwości:
 
 
 # Catering2-spring-boot (draft)
+
+#### Technologies
+- Java
+- Spring Boot
+- MySQL
+- JSP, CSS
+- Maven
+
 ### User functions
 Catering2 is an application that allows you to handle reservations and settlements of dinners ordered from an external catering company on a weekly basis. After logging in, each user can order dishes for the entire next week. Until payment is made and deselected by the administrator, the user can delete and then place an order. Once the payment has been settled, it is impossible to change the order. In addition, the user can view the order from the previous week to check the meal for the current day and week.
 
