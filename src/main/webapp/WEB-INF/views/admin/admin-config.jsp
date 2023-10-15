@@ -27,7 +27,7 @@
 <form method="post" action="/admin/config/newMenuAvaliabe">
     <div class="main-block">
         <div class="login-row">
-            <label for="newMenuAvaliable">Nowe MENU - podglą i zamawianie:
+            <label for="newMenuAvaliable">Nowe MENU - podgląd i zamawianie:
                 <input type="radio" name="newMenuAvaliable" value="true"/>Nowe menu dostępne
                 <input type="radio" name="newMenuAvaliable" value="falsy" checked/>Nowe menu niedostępne
                 <button type="submit">Potwierdź</button>

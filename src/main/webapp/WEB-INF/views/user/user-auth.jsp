@@ -22,7 +22,7 @@
         </div>
         <div class="login-row">
             <label for="password">Hasło:
-                <input type="password" name="password" placeholder="hasło" value="admin"> admin / user
+                <input type="password" name="password" placeholder="hasło" value="Administrator2023!#"> admin / user
             </label>
         </div>
         <c:if test="${msg != null}">
