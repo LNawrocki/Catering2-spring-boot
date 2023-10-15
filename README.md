@@ -1,6 +1,6 @@
-## Catering2-spring-boot
+# Catering2-spring-boot
 
-## Funkcji użytkownika
+### Funkcji użytkownika
 
 Catering2 jest aplikacją pozwalającą na obsługę rezerwacji i rozliczeń obiadów zamawianych w zewnętrznej firmie cateringowej w cylku tygodniowym.
 Każdy użytkownik po zalogowaniu może zamówić dania na cały kolejny tydzień.
@@ -8,7 +8,7 @@ Do momentu opłacenia i odznaczeniu przez administratora użytkownik może usun�
 Po uregulowaniu należności niemożliwa jest zmiana zamówienie.
 Prócz tego użytkownik może podglądnąć zamówienie z poprzedniego tygodnia w celu sprawdzenia posiłku na obecny dzień i tydzień.
 
-## Funkcje administratora
+### Funkcje administratora
 
 Osoba będąca administratorem posiada dodatkowe możliwości:
 1. Wyświetlać listę wszystich użytkowników, usuwać i modyfikować,
