@@ -1,4 +1,4 @@
-# Catering2-spring-boot (draft)
+# Catering2-spring-boot (wersja robocza)
 
 ### Funkcji użytkownika
 
