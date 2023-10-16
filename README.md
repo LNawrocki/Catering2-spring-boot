@@ -32,7 +32,8 @@ Osoba będąca administratorem posiada dodatkowe możliwości:
 1. Panel konfiguracyjny, blokujący dostęp i możliwość zamawiania w trakcie tworzenia nowej listy dań,
 2. Panel podsumowujący rozliczenia z firmą zewnętrzną dostarczającą posiłki,
 3. Obsługa nieaktywnych użytkowników,
-4. Spring Security.
+4. Spring Security,
+5. Nieaktywni użytkownicy nie bedą mogli się logować.
 
 
 # Catering2-spring-boot (draft)
@@ -63,3 +64,4 @@ A person who is an administrator has additional possibilities:
 2. A panel summarizing settlements with an external company delivering meals,
 3. Support for inactive users,
 4. Spring Security,
+5. Inactive users will not be able to log in.
