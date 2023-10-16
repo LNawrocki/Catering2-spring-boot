@@ -57,22 +57,25 @@
 </div>
 
 <form action="/admin/delete/confirm" method="post">
-<div class="main-block">
-    <div class="day-block">
-        <p>
-            Usuwasz użytkownika. Wraz z użytkownikiem zostaną usunięte jego bierzące i nowe zamówienia.
-            Czy potwierdzasz?
-        </p>
-        <input name="deleteUserId" value="${deleteUserId}" hidden="hidden">
-        <input name="confirm" value="true" hidden="hidden">
+    <div class="main-block">
+        <div class="day-block">
+            <p>
+                Usuwasz użytkownika. Wraz z użytkownikiem zostaną usunięte jego bierzące i nowe zamówienia.
+                Czy potwierdzasz?
+            </p>
+            <input name="deleteUserId" value="${deleteUserId}" hidden="hidden">
+            <input name="confirm" value="true" hidden="hidden">
 
-    </div>
-    <div class="day-block">
-        <div class="list-row">
-            <button type="submit">Potwierdź</button>
+        </div>
+        <div class="day-block">
+            <div class="list-row">
+                <button type="submit">Potwierdź</button>
+            </div>
+            <div class="list-row">
+                <a href="/admin/list">Wróć</a>
+            </div>
         </div>
     </div>
-</div>
 </form>
 
 <jsp:include page="../fragments/footer.jsp"/>

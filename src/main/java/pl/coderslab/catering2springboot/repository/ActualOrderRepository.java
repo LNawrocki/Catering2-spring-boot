@@ -10,5 +10,5 @@ public interface ActualOrderRepository extends JpaRepository<ActualOrder, Long> 
     @Query(value = "SELECT * FROM actual_orders WHERE user_id = ?1", nativeQuery = true)
     ActualOrder getActualOrderByUserId(Long userId);
 
-    ActualOrder getActualOrderById(Long id);
+//    ActualOrder getActualOrderById(Long id);
 }

@@ -49,7 +49,6 @@ public class AdminController {
             for (User userBelongToDepartment : usersByDepartment) {
                 usersId.add(userBelongToDepartment.getUserId());
             }
-            System.out.println(department + " " + usersId);
             for (Long id : usersId) {
                 NewOrder newOrder = newOrderRepository.getNewOrderByUserId(id);
                 if (newOrder != null) {
@@ -58,7 +57,6 @@ public class AdminController {
                 }
             }
         }
-        System.out.println("ok");
         return "/admin/admin-financial";
     }
 
@@ -91,25 +89,21 @@ public class AdminController {
 
     @PostMapping ("/config/editMenu")
     public String adminEditMenu(@RequestParam Boolean editMode, HttpSession session){
-//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
 //        configRepository.findAllById();
 
-
         return "/admin/admin-config";
-//        }
-//        return "redirect:/";
+        }
+        return "redirect:/";
     }
 
     @PostMapping ("/config/newMenuAvaliable")
     public String adminnewMenuAvaliable(@RequestParam Boolean editMode, HttpSession session){
-//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
 //        configRepository.findAllById();
 
-
         return "/admin/admin-config";
-//        }
-//        return "redirect:/";
+        }
+        return "redirect:/";
     }
-
-
 }

@@ -1,9 +1,6 @@
 package pl.coderslab.catering2springboot.entity;
 
 import lombok.Data;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
-import org.hibernate.validator.constraints.SafeHtml;
-
 import javax.persistence.*;
 
 

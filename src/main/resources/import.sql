@@ -7,7 +7,7 @@ INSERT INTO catering.department (id, name, payment_perc) VALUES (1, 'Biuro', 50)
 INSERT INTO catering.department (id, name, payment_perc) VALUES (2, 'Produkcja', 90);
 INSERT INTO catering.department (id, name, payment_perc) VALUES (3, 'Lakiernia', 10);
 
-INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (1, true, 'admin', 'admin', 'admin', '$2a$10$KHCbUC4kO48scksdcxWdi.7pyQEz1FvZY3mDF5p7C5/pvqOF5GnVq', true, 1);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (1, true, 'admin', 'admin', 'admin', '$2a$10$t9EzBNHqNYOqRLVqt6YRAOkJ2FAfuK56/CNMbfZZreA4O82056X06', true, 1);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (2, true, 'produkcja', 'produkcja', 'produkcja', '$2a$10$R1aVAUqgzX5KRZO4FPZ43ueKMbOpF3E09xrjNnMkbVDqkpWoVOJ0m', false, 2);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (3, true, 'lakiernia', 'lakiernia', 'lakiernia', '$2a$10$Q5oetBQoc3eUDC1R9ko9fezfElH2m/ogxOPgXDbHSCmTJlfyzb5Eu', false, 3);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (4, true, 'biuro', 'biuro', 'biuro', '$2a$10$CY9H.S.L/2Ye3LjFvbk1ieg5puht41NIm10/RJk3P1JD79Lt3VDSq', false, 1);

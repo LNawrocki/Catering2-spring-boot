@@ -16,13 +16,13 @@
 <form method="post">
     <div class="main-block">
         <div class="login-row">
-            <label for="login">Login:
+            <label>Login:
                 <input type="text" name="login" placeholder="login" value="admin"> admin / user
             </label>
         </div>
         <div class="login-row">
-            <label for="password">Hasło:
-                <input type="password" name="password" placeholder="hasło" value="Administrator2023!#"> admin / user
+            <label>Hasło:
+                <input type="password" name="password" placeholder="hasło" value="Administrator"> Administrator / user
             </label>
         </div>
         <c:if test="${msg != null}">

@@ -61,42 +61,42 @@
         <table>
             <tr>
                 <td>
-                    <div class="day">
+                    <div class="day" style="color: darkorange; font-weight: bold;">
                         <div>
                             ID
                         </div>
                     </div>
                 </td>
                 <td>
-                    <div class="day">
+                    <div class="day" style="color: darkorange; font-weight: bold;">
                         <div>
                             Login
                         </div>
                     </div>
                 </td>
                 <td>
-                    <div class="day">
+                    <div class="day" style="color: darkorange; font-weight: bold;">
                         <div>
                             Imię
                         </div>
                     </div>
                 </td>
                 <td>
-                    <div class="day">
+                    <div class="day" style="color: darkorange; font-weight: bold;">
                         <div>
                             Nazwisko
                         </div>
                     </div>
                 </td>
                 <td>
-                    <div class="day">
+                    <div class="day" style="color: darkorange; font-weight: bold;">
                         <div>
                             Dział
                         </div>
                     </div>
                 </td>
                 <td>
-                    <div class="day">
+                    <div class="day" style="color: darkorange; font-weight: bold;">
                         <div>
                             Akcja
                         </div>
@@ -144,10 +144,10 @@
                         <div class="day" >
                             <div >
                                 <form action="/admin/update" method="get" style="padding: 1px; margin: 1px">
-                                    <button name="editUserId" value="${user.userId}" style="font-size: small; border-radius: 5px; border-width: 1px">Edytuj</button>
+                                    <button name="editUserId" value="${user.userId}" style="font-size: small; border-radius: 5px; border-width: 1px; color: limegreen">Edytuj</button>
                                 </form>
                                 <form action="/admin/delete/confirm" method="post" style="padding: 1px; margin: 1px">
-                                    <button name="deleteUserId" value="${user.userId}" style="font-size: small; border-radius: 5px; border-width: 1px">Usuń</button>
+                                    <button name="deleteUserId" value="${user.userId}" style="font-size: small; border-radius: 5px; border-width: 1px; color: red">Usuń</button>
                                 </form>
                             </div>
                         </div>

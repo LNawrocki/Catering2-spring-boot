@@ -188,6 +188,7 @@ public class UserController {
             if (newOrder != null) {
                 newOrderRepository.delete(newOrder);
             }
+
             userRepository.delete(user);
             model.addAttribute("usersList", userRepository.findAll());
             model.addAttribute("departments", departmentRepository.findAll());
@@ -205,7 +206,6 @@ public class UserController {
     public String authenticate(@RequestParam String login, @RequestParam String password, Model model) {
 
         User user = userRepository.getByLogin(login);
-
         if (Objects.nonNull(user)) {
             if (BCrypt.checkpw(password, user.getPassword())) {
                 model.addAttribute("name", user.getName());
@@ -230,7 +230,6 @@ public class UserController {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
 
             User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
-
             model.addAttribute("name", user.getName());
             model.addAttribute("lastName", user.getLastName());
 

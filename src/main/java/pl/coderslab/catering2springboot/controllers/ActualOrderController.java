@@ -3,8 +3,6 @@ package pl.coderslab.catering2springboot.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.coderslab.catering2springboot.entity.ActualOrder;
-import pl.coderslab.catering2springboot.entity.User;
 import pl.coderslab.catering2springboot.repository.ActualOrderRepository;
 import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
