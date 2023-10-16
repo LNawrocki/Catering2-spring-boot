@@ -183,7 +183,7 @@
                     <td>
                         <div class="day">
                             <div>
-                                <a href="/user/newOrder/delete?id=${newOrder.id}">Usuń</a>
+                                <a href="/user/newOrder/delete?id=${newOrder.id}" style="color: red">Usuń</a>
                             </div>
                         </div>
                     </td>
