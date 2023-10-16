@@ -26,7 +26,7 @@ Osoba będąca administratorem posiada dodatkowe możliwości:
 6. Przeglądać listę zamówień z bierzącego tygodnia.
 
 
-![Catering2-spring-boot](https://github.com/LNawrocki/Catering2-spring-boot/blob/master/2023-10-15_13-26-03.gif)
+![Catering2-spring-boot](https://github.com/LNawrocki/Catering2-spring-boot/blob/master/Catering2.gif)
 
 ### Funkcje do wdrożenia
 1. Panel konfiguracyjny, blokujący dostęp i możliwość zamawiania w trakcie tworzenia nowej listy dań,
