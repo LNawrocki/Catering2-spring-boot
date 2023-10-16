@@ -16,7 +16,7 @@
 <form method="post" action="/admin/config/editMenu">
     <div class="main-block">
         <div class="login-row">
-            <label for="editMode">Tryb edycji:
+            <label>Tryb edycji:
                 <input type="radio" name="editMode" value="true"/>Włączony
                 <input type="radio" name="editMode" value="falsy" checked/>Wyłączony
                 <button type="submit">Potwierdź</button>
@@ -27,7 +27,7 @@
 <form method="post" action="/admin/config/newMenuAvaliabe">
     <div class="main-block">
         <div class="login-row">
-            <label for="newMenuAvaliable">Nowe MENU - podgląd i zamawianie:
+            <label>Nowe MENU - podgląd i zamawianie:
                 <input type="radio" name="newMenuAvaliable" value="true"/>Nowe menu dostępne
                 <input type="radio" name="newMenuAvaliable" value="falsy" checked/>Nowe menu niedostępne
                 <button type="submit">Potwierdź</button>

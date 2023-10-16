@@ -16,9 +16,9 @@
 <form:form method="post" modelAttribute="department">
     <div class="main-block">
         <div class="login-row">
-            <label for="id">ID:
+            <label>ID:
 <%--                <form:input path="id"/>--%>
-                <input type="number" name="id" value="${nextId}"> admin / user
+                <input type="number" name="id" value="${nextId}">
             </label>
         </div>
         <div class="login-row">

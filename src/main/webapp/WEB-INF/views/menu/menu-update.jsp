@@ -27,7 +27,7 @@
         </div>
         <div class="login-row">
             <label for="mealPrice">Cena:
-                <input type="number" name="mealPrice" placeholder="14.5" step="0.01"/> zł
+                <input type="number" name="mealPrice" placeholder="np. 14.5" step="0.01"/> zł
             </label>
         </div>
         <div class="login-row">
