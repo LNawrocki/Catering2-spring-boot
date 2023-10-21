@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.catering2springboot.entity.Config;
 import pl.coderslab.catering2springboot.entity.Department;
 import pl.coderslab.catering2springboot.entity.NewOrder;
 import pl.coderslab.catering2springboot.entity.User;
@@ -21,6 +22,7 @@ import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -28,13 +30,13 @@ import java.util.List;
 public class AdminController {
 
     private  final DepartmentRepository departmentRepository;
-//    private final ConfigRepository configRepository;
+    private final ConfigRepository configRepository;
     private final NewOrderRepository newOrderRepository;
     private final UserRepository userRepository;
 
     public AdminController(DepartmentRepository departmentRepository, ConfigRepository configRepository, NewOrderRepository newOrderRepository, UserRepository userRepository) {
         this.departmentRepository = departmentRepository;
-//        this.configRepository = configRepository;
+        this.configRepository = configRepository;
         this.newOrderRepository = newOrderRepository;
         this.userRepository = userRepository;
     }
@@ -80,29 +82,33 @@ public class AdminController {
     }
 
     @GetMapping ("/config")
-    public String adminConfigView(HttpSession session){
+    public String adminConfigView(Model model, HttpSession session){
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            Config configValues = configRepository.findById(1).get();
+            model.addAttribute(configValues);
             return "/admin/admin-config";
         }
         return "redirect:/";
     }
 
     @PostMapping ("/config/editMenu")
-    public String adminEditMenu(@RequestParam Boolean editMode, HttpSession session){
+    public String adminEditMenu(Config config, HttpSession session){
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-//        configRepository.findAllById();
-
-        return "/admin/admin-config";
+            Config configValues = configRepository.findById(1).get();
+            configValues.setEditMode(config.getEditMode());
+            configRepository.save(configValues);
+            return "redirect:/admin/config";
         }
         return "redirect:/";
     }
 
     @PostMapping ("/config/newMenuAvaliable")
-    public String adminnewMenuAvaliable(@RequestParam Boolean editMode, HttpSession session){
+    public String adminNewMenuAvaliable(Config config, HttpSession session){
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-//        configRepository.findAllById();
-
-        return "/admin/admin-config";
+            Config configValues = configRepository.findById(1).get();
+            configValues.setNewMenuAvaliable(config.getNewMenuAvaliable());
+            configRepository.save(configValues);
+            return "redirect:/admin/config";
         }
         return "redirect:/";
     }

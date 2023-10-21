@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>--%>
 <html lang="pl">
 <head>
@@ -13,28 +14,29 @@
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
-<form method="post" action="/admin/config/editMenu">
+<form:form method="post" action="/admin/config/editMenu" modelAttribute="config">
     <div class="main-block">
         <div class="login-row">
             <label>Tryb edycji:
-                <input type="radio" name="editMode" value="true"/>Włączony
-                <input type="radio" name="editMode" value="falsy" checked/>Wyłączony
-                <button type="submit">Potwierdź</button>
+                <form:radiobutton path="editMode" value="true"/>Włączony
+                <form:radiobutton path="editMode" value="false"/>Wyłączony
+                <form:button>Potwierdź</form:button>
             </label>
         </div>
     </div>
-</form>
-<form method="post" action="/admin/config/newMenuAvaliabe">
+</form:form>
+
+<form:form method="post" action="/admin/config/newMenuAvaliable" modelAttribute="config">
     <div class="main-block">
         <div class="login-row">
             <label>Nowe MENU - podgląd i zamawianie:
-                <input type="radio" name="newMenuAvaliable" value="true"/>Nowe menu dostępne
-                <input type="radio" name="newMenuAvaliable" value="falsy" checked/>Nowe menu niedostępne
-                <button type="submit">Potwierdź</button>
+                <form:radiobutton path="newMenuAvaliable" value="true"/>Nowe menu dostępne
+                <form:radiobutton path="newMenuAvaliable" value="false"/>Nowe menu niedostępne
+                <form:button>Potwierdź</form:button>
             </label>
         </div>
     </div>
-</form>
+</form:form>
 
 <jsp:include page="../fragments/footer.jsp"/>
 </body>

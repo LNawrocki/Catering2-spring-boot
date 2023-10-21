@@ -29,7 +29,7 @@ Osoba będąca administratorem posiada dodatkowe możliwości:
 ![Catering2-spring-boot](https://github.com/LNawrocki/Catering2-spring-boot/blob/master/Catering2.gif)
 
 ### Funkcje do wdrożenia
-1. Panel konfiguracyjny, blokujący dostęp i możliwość zamawiania w trakcie tworzenia nowej listy dań,
+1. Panel konfiguracyjny, blokujący dostęp i możliwość zamawiania w trakcie tworzenia nowej listy dań, 
 2. Panel podsumowujący rozliczenia z firmą zewnętrzną dostarczającą posiłki,
 3. Obsługa nieaktywnych użytkowników,
 4. Spring Security,
