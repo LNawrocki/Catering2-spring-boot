@@ -49,19 +49,11 @@ public class NewOrderController {
     }
 
 
+    //TODO: Chce coś z tym zrobić ...
 
     @GetMapping("/admin/newOrder/list")
     public String orderListView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-//            List<NewOrder> newOrders = newOrderRepository.findAll(); // pobranie wszystkich nowych zamówień
-//            List<String> mealsNames = new ArrayList<>();
-//            for (NewOrder newOrder : newOrders) {
-//                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealName());
-//                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealTue()).getMealName());
-//                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealWed()).getMealName());
-//                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealThu()).getMealName());
-//                mealsNames.add(newMenuRepository.findByMealNo(newOrder.getMealFri()).getMealName());
-//            }
             model.addAttribute("newOrders", newOrderRepository.findAll());
             return "/menu/admin-new-order-list";
         }

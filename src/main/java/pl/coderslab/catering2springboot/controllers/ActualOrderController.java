@@ -24,8 +24,7 @@ public class ActualOrderController {
     @GetMapping("/user/actualOrder")
     public String actualOrderView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null) {
-            model.addAttribute("actualOrder", actualOrderRepository.getActualOrderByUserId((Long) session.getAttribute("userId")));
-
+            model.addAttribute("actualOrder", actualOrderRepository.getActualOrderByUser_UserId((Long) session.getAttribute("userId")));
             if ((Boolean) session.getAttribute("superAdmin")) {
                 return "/user/actual-order-admin";
             } else {

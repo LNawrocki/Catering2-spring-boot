@@ -7,8 +7,6 @@ import pl.coderslab.catering2springboot.entity.ActualOrder;
 
 public interface ActualOrderRepository extends JpaRepository<ActualOrder, Long> {
 
-    @Query(value = "SELECT * FROM actual_orders WHERE user_id = ?1", nativeQuery = true)
-    ActualOrder getActualOrderByUserId(Long userId);
+    ActualOrder getActualOrderByUser_UserId(Long userId);
 
-//    ActualOrder getActualOrderById(Long id);
 }

@@ -174,7 +174,7 @@ public class UserController {
                 return "/admin/admin-delete-info";
             }
 
-            ActualOrder actualOrderByUserId = actualOrderRepository.getActualOrderByUserId(deleteUserId);
+            ActualOrder actualOrderByUserId = actualOrderRepository.getActualOrderByUser_UserId(deleteUserId);
             NewOrder newOrder = newOrderRepository.getNewOrderByUserId(deleteUserId);
             if((actualOrderByUserId != null || newOrder != null) && Objects.isNull(confirm)){
                 model.addAttribute("deleteUserId", deleteUserId);
