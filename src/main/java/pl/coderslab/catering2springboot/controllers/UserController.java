@@ -172,6 +172,11 @@ public class UserController {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
 
             User user = userRepository.getByUserId(deleteUserId);
+
+            if (user.getUserId() == session.getAttribute("userId")) {
+                return "/admin/admin-delete-info";
+            }
+
             if (user.getSuperAdmin()) {
                 model.addAttribute("departments", departmentRepository.findAll());
                 return "/admin/admin-delete-info";
