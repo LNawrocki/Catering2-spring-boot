@@ -121,6 +121,14 @@
     </div>
 </div>
 
+<div class="main-block">
+    <div class="day-block">
+        <div class="day">
+            <button>Wyślij do pliku csv (jeszcze nie działa)</button>
+        </div>
+    </div>
+</div>
+
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>
