@@ -2,12 +2,12 @@
 use catering;
 
 INSERT INTO catering.config (id, edit_mode, new_menu_avaliable) VALUES (1, false, false);
-
+#
 INSERT INTO catering.department (id, name, payment_perc) VALUES (1, 'Biuro', 50);
 INSERT INTO catering.department (id, name, payment_perc) VALUES (2, 'Produkcja', 90);
 INSERT INTO catering.department (id, name, payment_perc) VALUES (3, 'Lakiernia', 10);
 INSERT INTO catering.department (id, name, payment_perc) VALUES (4, 'testowy', 40);
-
+#
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (1, true, 'admin', 'admin', 'admin', '$2a$10$t9EzBNHqNYOqRLVqt6YRAOkJ2FAfuK56/CNMbfZZreA4O82056X06', true, 1);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (2, true, 'biuro1', 'biuro1', 'biuro1', '$2a$10$Q546FSdLOsu2GL9zdtI02OwH18zmpMVIjN8oykkEIaTmrDO0A4.hG', false, 1);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (3, true, 'biuro2', 'biuro2', 'biuro2', '$2a$10$8lwNZHSknBj4xnhcw9wV6OBgtu9nz3LT1OyOZgN2q8yC3IBegKOu6', false, 1);
