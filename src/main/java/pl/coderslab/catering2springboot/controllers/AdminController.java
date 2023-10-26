@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +48,7 @@ public class AdminController {
         List<Department> allDepartments = departmentRepository.findAll();
         BigDecimal sumOfDepartmentFullPrice = new BigDecimal(0);
         BigDecimal sumOfDepartmentDiscountPrice = new BigDecimal(0);
+//        Integer notPaidOrders = 0;
         for (Department department : allDepartments) {
             FinancialDepartmentSummary financialDepartmentSummary = new FinancialDepartmentSummary();
             financialDepartmentSummary.setDepartmentName(department.getName());
@@ -56,6 +59,9 @@ public class AdminController {
             }
             for (Long id : usersId) {
                 NewOrder newOrder = newOrderRepository.getNewOrderByUserId(id);
+                if (!newOrder.getIsPaid()) {
+                   financialDepartmentSummary.setNotPAidOrders(financialDepartmentSummary.getNotPAidOrders() + 1);
+                }
                 if (newOrder != null) {
                     financialDepartmentSummary.setDepartmentSummaryDiscountPrice(financialDepartmentSummary.getDepartmentSummaryDiscountPrice().add(newOrder.getToPay()));;
                     financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealPrice()));
@@ -63,7 +69,6 @@ public class AdminController {
                     financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealWed()).getMealPrice()));
                     financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealThu()).getMealPrice()));
                     financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealFri()).getMealPrice()));
-
                 }
             }
             sumOfDepartmentDiscountPrice = sumOfDepartmentDiscountPrice.add(financialDepartmentSummary.getDepartmentSummaryDiscountPrice());
@@ -74,7 +79,8 @@ public class AdminController {
         model.addAttribute("financialDepartmentSummaryList", financialDepartmentSummaryList);
         model.addAttribute("sumOfDepartmentDiscountPrice", sumOfDepartmentDiscountPrice);
         model.addAttribute("sumOfDepartmentFullPrice", sumOfDepartmentFullPrice);
-
+        model.addAttribute("refundation", sumOfDepartmentFullPrice.subtract(sumOfDepartmentDiscountPrice));
+        model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
         return "/admin/admin-financial";
     }
 

@@ -15,22 +15,38 @@
 
 <div class="main-block">
     <div class="day-block">
+        <h3>Podsumowanie zamówień na tydzień KW: ${date}</h3>
+    </div>
+</div>
+<div class="main-block">
+    <div class="day-block">
         <table>
             <tr>
                 <td>
-
-                </td>
-                <td>
-                    <div class="day">
+                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
                         <div>
-                            Kwota z dopłatą
+                            Dział:
                         </div>
                     </div>
                 </td>
                 <td>
-                    <div class="day">
+                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
                         <div>
-                            Kwota bez dopłaty
+                            Łączna kwota za obiady z dofinansowaniem
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
+                        <div>
+                            Łączna kwota za obiady bez dofinansowania
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
+                        <div>
+                            Ilość nieopłacownych obiadów
                         </div>
                     </div>
                 </td>
@@ -58,11 +74,18 @@
                             </div>
                         </div>
                     </td>
+                    <td>
+                        <div class="day" style="color: #FF0000; font-weight: bold;">
+                            <div>
+                                    ${financialDepartmentSummary.notPAidOrders}
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             </c:forEach>
             <tr>
                 <td>
-                    <div class="day">
+                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
                         <div>
                             Podsumowanie:
                         </div>
@@ -71,14 +94,25 @@
                 <td>
                     <div class="day">
                         <div>
-                            ${sumOfDepartmentDiscountPrice} zł
+                            Od pracowników: ${sumOfDepartmentDiscountPrice} zł
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="day">
                         <div>
-                            ${sumOfDepartmentFullPrice} zł
+                            Dla dostawcy: ${sumOfDepartmentFullPrice} zł
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            Kwota dofinansowania: ${refundation} zł
                         </div>
                     </div>
                 </td>
