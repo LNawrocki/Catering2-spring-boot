@@ -50,7 +50,6 @@ public class AdminController {
             List<Department> allDepartments = departmentRepository.findAll();
             BigDecimal sumOfDepartmentFullPrice = new BigDecimal(0);
             BigDecimal sumOfDepartmentDiscountPrice = new BigDecimal(0);
-//        Integer notPaidOrders = 0;
             for (Department department : allDepartments) {
                 FinancialDepartmentSummary financialDepartmentSummary = new FinancialDepartmentSummary();
                 financialDepartmentSummary.setDepartmentName(department.getName());
@@ -62,11 +61,10 @@ public class AdminController {
                 for (Long id : usersId) {
                     NewOrder newOrder = newOrderRepository.getNewOrderByUserId(id);
                     if (!newOrder.getIsPaid()) {
-                        financialDepartmentSummary.setNotPAidOrders(financialDepartmentSummary.getNotPAidOrders() + 1);
+                        financialDepartmentSummary.setNotPaidOrders(financialDepartmentSummary.getNotPaidOrders() + 1);
                     }
                     if (newOrder != null) {
                         financialDepartmentSummary.setDepartmentSummaryDiscountPrice(financialDepartmentSummary.getDepartmentSummaryDiscountPrice().add(newOrder.getToPay()));
-                        ;
                         financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealPrice()));
                         financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealTue()).getMealPrice()));
                         financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealWed()).getMealPrice()));

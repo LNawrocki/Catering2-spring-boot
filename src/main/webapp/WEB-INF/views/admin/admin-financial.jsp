@@ -77,7 +77,7 @@
                     <td>
                         <div class="day" style="color: #FF0000; font-weight: bold;">
                             <div>
-                                    ${financialDepartmentSummary.notPAidOrders}
+                                    ${financialDepartmentSummary.notPaidOrders}
                             </div>
                         </div>
                     </td>
