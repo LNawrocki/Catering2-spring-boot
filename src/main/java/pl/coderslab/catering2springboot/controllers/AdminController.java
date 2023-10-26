@@ -69,7 +69,6 @@ public class AdminController {
             sumOfDepartmentDiscountPrice = sumOfDepartmentDiscountPrice.add(financialDepartmentSummary.getDepartmentSummaryDiscountPrice());
             sumOfDepartmentFullPrice = sumOfDepartmentFullPrice.add(financialDepartmentSummary.getDepartmentSummaryFullPrice());
             financialDepartmentSummaryList.add(financialDepartmentSummary);
-
         }
 
         model.addAttribute("financialDepartmentSummaryList", financialDepartmentSummaryList);

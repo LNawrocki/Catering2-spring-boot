@@ -64,7 +64,7 @@
                 <td>
                     <div class="day">
                         <div>
-                            Łączna kwota dla dostawcy:
+                            Podsumowanie:
                         </div>
                     </div>
                 </td>
