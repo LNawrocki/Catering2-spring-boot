@@ -13,19 +13,78 @@
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
-
 <div class="main-block">
+    <div class="day-block">
+        <table>
+            <tr>
+                <td>
 
-    <div class="login-row">
-        Dział X:
+                </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            Kwota z dopłatą
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            Kwota bez dopłaty
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <c:forEach var="financialDepartmentSummary" items="${financialDepartmentSummaryList}">
+                <tr>
+                    <td>
+                        <div class="day">
+                            <div>
+                                    ${financialDepartmentSummary.departmentName}
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="day">
+                            <div>
+                                    ${financialDepartmentSummary.departmentSummaryDiscountPrice} zł
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="day">
+                            <div>
+                                    ${financialDepartmentSummary.departmentSummaryFullPrice} zł
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </c:forEach>
+            <tr>
+                <td>
+                    <div class="day">
+                        <div>
+                            Łączna kwota dla dostawcy:
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            ${sumOfDepartmentDiscountPrice} zł
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day">
+                        <div>
+                            ${sumOfDepartmentFullPrice} zł
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
-    <div class="login-row">
-        Dział Y:
-    </div>
-    <div class="login-row">
-        Łączna kwota dla dostawcy:
-    </div>
-
 </div>
 
 <jsp:include page="../fragments/footer.jsp"/>
