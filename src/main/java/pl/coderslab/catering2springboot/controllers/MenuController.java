@@ -11,6 +11,7 @@ import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 
@@ -34,7 +35,9 @@ public class MenuController {
             model.addAttribute("mealsWednesday", newMenuRepository.findByDayId(3));
             model.addAttribute("mealsThursday", newMenuRepository.findByDayId(4));
             model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
-            model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY)) ;
+            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY)) ;
             return "/menu/menu-update";
         }
         return "redirect:/";

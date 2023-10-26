@@ -31,7 +31,7 @@
 </div>
 <div class="main-block">
     <div class="login-row">
-        Twoje zamówienia na KW ${date}
+        Twoje zamówienia na KW ${kw} ( ${weekStart} - ${weekEnd} )
     </div>
 </div>
 

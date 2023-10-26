@@ -15,6 +15,7 @@ import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.UserRepository;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -112,8 +113,9 @@ public class NewOrderController {
             User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
             NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
             model.addAttribute("newOrder", newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")));
-            model.addAttribute("date", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-            if (order != null && !order.getIsPaid()) {
+            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY)) ;
+            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY)) ;            if (order != null && !order.getIsPaid()) {
                 model.addAttribute("receivables", order.getToPay());
             } else {
                 model.addAttribute("receivables", 0);
@@ -179,7 +181,9 @@ public class NewOrderController {
             model.addAttribute("newMenuThursday", menuThursday);
             model.addAttribute("newMenuFriday", menuFriday);
             model.addAttribute("userId", user.getUserId());
-            model.addAttribute("date", kw);
+            model.addAttribute("kw", kw);
+            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY)) ;
+            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY)) ;
 
             NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
             if (order != null && !order.getIsPaid()) {

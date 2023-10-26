@@ -32,7 +32,7 @@
 </div>
 <div class="main-block">
     <div class="day-block">
-        <h3>Nowe menu na tydzień KW: ${date}</h3>
+        <h3>Nowe menu na tydzień KW: ${kw} ( ${weekStart} - ${weekEnd} )</h3>
     </div>
 </div>
 <div class="main-block">

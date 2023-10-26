@@ -64,7 +64,8 @@
                     <td>
                         <div class="day">
                             <div>
-                                Danie (KW ${date})
+                                Zamówienie na KW ${kw} <br>
+                                    ${weekStart}  -  ${weekEnd}
                             </div>
                         </div>
                     </td>

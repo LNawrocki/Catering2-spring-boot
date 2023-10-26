@@ -35,7 +35,7 @@
         <a href="${pageContext.request.contextPath}/admin/actualOrder/list">Lista zamówień</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/admin/financial" style="color: grey">Finanse</a>
+        <a href="${pageContext.request.contextPath}/admin/financial" style="color: grey">Rozliczenia</a>
     </div>
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/admin/config">Ustawienia</a>
