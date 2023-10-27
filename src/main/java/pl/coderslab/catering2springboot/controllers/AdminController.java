@@ -60,10 +60,10 @@ public class AdminController {
                 }
                 for (Long id : usersId) {
                     NewOrder newOrder = newOrderRepository.getNewOrderByUserId(id);
-                    if (!newOrder.getIsPaid()) {
-                        financialDepartmentSummary.setNotPaidOrders(financialDepartmentSummary.getNotPaidOrders() + 1);
-                    }
                     if (newOrder != null) {
+                        if (!newOrder.getIsPaid()) {
+                            financialDepartmentSummary.setNotPaidOrders(financialDepartmentSummary.getNotPaidOrders() + 1);
+                        }
                         financialDepartmentSummary.setDepartmentSummaryDiscountPrice(financialDepartmentSummary.getDepartmentSummaryDiscountPrice().add(newOrder.getToPay()));
                         financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealPrice()));
                         financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealTue()).getMealPrice()));
