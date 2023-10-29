@@ -38,6 +38,9 @@
         <a href="${pageContext.request.contextPath}/admin/financial" style="color: grey">Rozliczenia</a>
     </div>
     <div class="menu-links">
+        <a href="${pageContext.request.contextPath}/admin/financial/dinners" style="color: grey">Wykaz zamówień</a>
+    </div>
+    <div class="menu-links">
         <a href="${pageContext.request.contextPath}/admin/config">Ustawienia</a>
     </div>
 </div>
