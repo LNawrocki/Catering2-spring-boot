@@ -25,6 +25,20 @@
                 <td>
                     <div class="day" style="color: #C73EE0FF; font-weight: bold;">
                         <div>
+                            Dzień:
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
+                        <div>
+                            Nr Dania:
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
+                        <div>
                             Danie:
                         </div>
                     </div>
@@ -32,24 +46,67 @@
                 <td>
                     <div class="day" style="color: #C73EE0FF; font-weight: bold;">
                         <div>
-                            Użytkownicy (ID):
+                            Suma zamówień :
                         </div>
                     </div>
                 </td>
             </tr>
-            <c:forEach var="dinnerUser" items="${dinnerUsersMap}">
+            <c:forEach var="dinner" items="${actualMenuList}">
                 <tr>
                     <td>
+                        <div class="day" style="justify-content: center">
+                            <div>
+                                    ${dinner.dayId}
+                            </div>
+                        </div>
+
+                    </td>
+                    <td>
+                        <div class="day" style="justify-content: right; color: #3a7c25; font-weight: bold;">
+                            <div>
+                                    ${dinner.mealNo}
+                            </div>
+                        </div>
                         <div class="day" style="justify-content: left">
                             <div>
-                                    ${dinnerUser.key}
+                                Zmiana 1:
+                            </div>
+                        </div>
+                        <div class="day" style="justify-content: left">
+                            <div>
+                                Zmiana 2:
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="day" style="justify-content: left; color: #3a7c25; font-weight: bold;">
+                            <div>
+                                    ${dinner.mealName}
+                            </div>
+                        </div>
+                        <div class="day" style="justify-content: left">
+                            <div>
+                               ID: ${dinner.firstShiftUsersId}
+                            </div>
+                        </div>
+                        <div class="day" style="justify-content: left">
+                            <div>
+                               ID: ${dinner.secondShiftUsersId}
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="day" style="justify-content: left">
+                            Suma:
+                        </div>
+                        <div class="day" style="justify-content: left">
                             <div>
-                                    ${dinnerUser.value}
+                                    ${dinner.firstShiftQuantity}
+                            </div>
+                        </div>
+                        <div class="day" style="justify-content: left">
+                            <div>
+                                    ${dinner.secondShiftQuantity}
                             </div>
                         </div>
                     </td>

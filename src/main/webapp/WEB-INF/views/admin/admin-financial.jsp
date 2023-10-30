@@ -120,15 +120,33 @@
         </table>
     </div>
 </div>
-
-<div class="main-block">
-    <div class="day-block">
-        <div class="day">
-            <button>Wyślij do pliku csv (jeszcze nie działa)</button>
+<form method="post">
+    <div class="main-block">
+        <div class="day-block">
+            <div class="day">
+                <button>Wyślij do pliku csv (jeszcze nie działa)</button>
+            </div>
         </div>
     </div>
-</div>
-
+</form>
+<form action="/admin/actualMenu/update" method="post">
+    <div class="main-block">
+        <div class="day-block">
+            <div class="day">
+                <button>Przepisz nowe zamówienia na nowy tydzień</button>
+            </div>
+        </div>
+    </div>
+</form>
+<form method="post">
+    <div class="main-block">
+        <div class="day-block">
+            <div class="day">
+                <button>Zresetuj listę nowych zamówień (jeszcze nie działa)</button>
+            </div>
+        </div>
+    </div>
+</form>
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

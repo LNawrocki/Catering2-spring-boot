@@ -26,5 +26,12 @@ public class ActualMenu {
     private BigDecimal mealPrice;
     @Column(name = "day_id")
     private Integer dayId;
-
+    @Column(name = "first_shift_quantity")
+    private Integer firstShiftQuantity;
+    @Column(name = "first_shift_users_id")
+    private String firstShiftUsersId;
+    @Column(name = "second_shift_quantity")
+    private Integer secondShiftQuantity;
+    @Column(name = "second_shift_users_id")
+    private String secondShiftUsersId;
 }

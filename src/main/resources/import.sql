@@ -2,12 +2,12 @@
 use catering;
 
 INSERT INTO catering.config (id, edit_mode, new_menu_avaliable) VALUES (1, false, false);
-#
+
 INSERT INTO catering.department (id, name, payment_perc) VALUES (1, 'Biuro', 50);
-INSERT INTO catering.department (id, name, payment_perc) VALUES (2, 'Produkcja', 90);
-INSERT INTO catering.department (id, name, payment_perc) VALUES (3, 'Lakiernia', 10);
-INSERT INTO catering.department (id, name, payment_perc) VALUES (4, 'testowy', 40);
-#
+INSERT INTO catering.department (id, name, payment_perc) VALUES (2, 'Produkcja', 50);
+INSERT INTO catering.department (id, name, payment_perc) VALUES (3, 'Lakiernia', 50);
+
+
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (1, true, 'admin', 'admin', 'admin', '$2a$10$t9EzBNHqNYOqRLVqt6YRAOkJ2FAfuK56/CNMbfZZreA4O82056X06', true, 1);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (2, true, 'biuro1', 'biuro1', 'biuro1', '$2a$10$Q546FSdLOsu2GL9zdtI02OwH18zmpMVIjN8oykkEIaTmrDO0A4.hG', false, 1);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (3, true, 'biuro2', 'biuro2', 'biuro2', '$2a$10$8lwNZHSknBj4xnhcw9wV6OBgtu9nz3LT1OyOZgN2q8yC3IBegKOu6', false, 1);
@@ -110,6 +110,7 @@ INSERT INTO catering.new_orders (id, is_paid, kw, meal_fri, meal_fri_name, meal_
 INSERT INTO catering.new_orders (id, is_paid, kw, meal_fri, meal_fri_name, meal_mon, meal_mon_name, meal_thu, meal_thu_name, meal_tue, meal_tue_name, meal_wed, meal_wed_name, price_fri, price_mon, price_thu, price_tue, price_wed, qty_fri, qty_mon, qty_thu, qty_tue, qty_wed, shift_fri, shift_mon, shift_thu, shift_tue, shift_wed, to_pay, user_id) VALUES (9, false, 44, 34, 'Sałatka grecka z warzywami i jajkiem / pieczywo', 5, '"Danie voka" kurczak +  ryż + warzywa z  patelni', 26, 'Czeburaki ukraińskie z mięsem mielonym smażone', 9, 'Brak', 16, 'Brak', 1.44, 1.41, 1.44, 0.00, 0.00, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4.29, 9);
 INSERT INTO catering.new_orders (id, is_paid, kw, meal_fri, meal_fri_name, meal_mon, meal_mon_name, meal_thu, meal_thu_name, meal_tue, meal_tue_name, meal_wed, meal_wed_name, price_fri, price_mon, price_thu, price_tue, price_wed, qty_fri, qty_mon, qty_thu, qty_tue, qty_wed, shift_fri, shift_mon, shift_thu, shift_tue, shift_wed, to_pay, user_id) VALUES (10, false, 44, 31, 'Brak', 3, 'Bułka z szynką, serem i warzywami x2', 24, 'Bułka z pastą z kurczaka  i dodatkami', 15, 'Wegetariański kociołek warzywny + kluski gnioczki  + zestaw surówek', 18, 'Zestaw śniadaniowy z sałatką jajeczną , wędliną, serem, warzywami /pieczywo', 0.00, 1.41, 0.74, 1.82, 1.43, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 5.40, 10);
 INSERT INTO catering.new_orders (id, is_paid, kw, meal_fri, meal_fri_name, meal_mon, meal_mon_name, meal_thu, meal_thu_name, meal_tue, meal_tue_name, meal_wed, meal_wed_name, price_fri, price_mon, price_thu, price_tue, price_wed, qty_fri, qty_mon, qty_thu, qty_tue, qty_wed, shift_fri, shift_mon, shift_thu, shift_tue, shift_wed, to_pay, user_id) VALUES (11, true, 44, 31, 'Brak', 7, 'Shoarma drobiowa + frytki + kapusta pekińska z sosiem', 23, 'Brak', 9, 'Brak', 16, 'Brak', 0.00, 7.24, 0.00, 0.00, 0.00, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 7.24, 11);
+
 
 INSERT INTO catering.actual_orders (id, is_paid, kw, meal_fri, meal_fri_name, meal_mon, meal_mon_name, meal_thu, meal_thu_name, meal_tue, meal_tue_name, meal_wed, meal_wed_name, price_fri, price_mon, price_thu, price_tue, price_wed, qty_fri, qty_mon, qty_thu, qty_tue, qty_wed, shift_fri, shift_mon, shift_thu, shift_tue, shift_wed, to_pay, user_id) VALUES (1, true, 41, 34, 'Sałatka grecka z warzywami i jajkiem / pieczywo', 5, '"Danie voka" kurczak +  ryż + warzywa z  patelni', 25, 'Bułka z pastą z kurczaka  i dodatkami x2', 13, 'Szaszłyk drobiowy z warzywami , mix sałat , sos + ryż brązowy + zestaw surówek', 19, 'PILAV - ryż z warzywami i mięsem wieprzowym zapiekany w foremce', 7.20, 7.05, 7.20, 9.10, 7.15, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 37.70, 1);
 INSERT INTO catering.actual_orders (id, is_paid, kw, meal_fri, meal_fri_name, meal_mon, meal_mon_name, meal_thu, meal_thu_name, meal_tue, meal_tue_name, meal_wed, meal_wed_name, price_fri, price_mon, price_thu, price_tue, price_wed, qty_fri, qty_mon, qty_thu, qty_tue, qty_wed, shift_fri, shift_mon, shift_thu, shift_tue, shift_wed, to_pay, user_id) VALUES (2, true, 44, 35, 'Żurek z jakiem i kiełbasą / pieczywo', 4, 'Kartacze z mięsem ze skwarkami i cebulką', 26, 'Czeburaki ukraińskie z mięsem mielonym smażone', 13, 'Szaszłyk drobiowy z warzywami , mix sałat , sos + ryż brązowy + zestaw surówek', 18, 'Zestaw śniadaniowy z sałatką jajeczną , wędliną, serem, warzywami /pieczywo', 7.20, 7.05, 7.20, 9.10, 7.15, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 37.70, 2);
