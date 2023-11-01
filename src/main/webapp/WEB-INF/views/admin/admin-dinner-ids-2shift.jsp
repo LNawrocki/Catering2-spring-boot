@@ -18,7 +18,39 @@
         <h3>Podsumowanie zamówień na tydzień KW: ${kw} ( ${weekStart} - ${weekEnd} )</h3>
     </div>
 </div>
+<form action="/admin/actualMenu" method="get">
+    <div class="main-block">
+        <div class="day-block">
+            <div class="day">
+                <button name="shift" value="1" style="color: #dfdfdf">Zmiana 1</button>
+            </div>
+            <div class="day">
+                <button name="shift" value="2" style="font-weight:  bold">Zmiana 2</button>
+            </div>
+        </div>
+    </div>
+</form>
 <div class="main-block">
+    <div class="day-block">
+        <div class="day">
+            Podsumowanie:
+        </div>
+        <div class="day">
+            Poniedziałek: ${mealsQtyPerDaySecondShift[0]} dań
+        </div>
+        <div class="day">
+            Wtorek: ${mealsQtyPerDaySecondShift[1]} dań
+        </div>
+        <div class="day">
+            Środa: ${mealsQtyPerDaySecondShift[2]} dań
+        </div>
+        <div class="day">
+            Czwatrek: ${mealsQtyPerDaySecondShift[3]} dań
+        </div>
+        <div class="day">
+            Piątek: ${mealsQtyPerDaySecondShift[4]} dań
+        </div>
+    </div>
     <div class="day-block">
         <table>
             <tr>
@@ -56,20 +88,21 @@
                     <td>
                         <div class="day" style="justify-content: center">
                             <div>
-                                    ${dinner.dayId}
+                                <c:choose>
+                                    <c:when test="${dinner.dayId eq 1}">Poniedziałek</c:when>
+                                    <c:when test="${dinner.dayId eq 2}">Wtorek</c:when>
+                                    <c:when test="${dinner.dayId eq 3}">Środa</c:when>
+                                    <c:when test="${dinner.dayId eq 4}">Czwartek</c:when>
+                                    <c:when test="${dinner.dayId eq 5}">Piątek</c:when>
+                                </c:choose>
+
                             </div>
                         </div>
-
                     </td>
                     <td>
-                        <div class="day" style="justify-content: right; color: #3a7c25; font-weight: bold;">
+                        <div class="day" style="justify-content: right; font-weight: bold;">
                             <div>
-                                    ${dinner.mealNo}
-                            </div>
-                        </div>
-                        <div class="day" style="justify-content: left">
-                            <div>
-                                Zmiana 1:
+                                nr ${dinner.mealNo}
                             </div>
                         </div>
                         <div class="day" style="justify-content: left">
@@ -79,30 +112,20 @@
                         </div>
                     </td>
                     <td>
-                        <div class="day" style="justify-content: left; color: #3a7c25; font-weight: bold;">
+                        <div class="day" style="justify-content: left; font-weight: bold;">
                             <div>
                                     ${dinner.mealName}
                             </div>
                         </div>
                         <div class="day" style="justify-content: left">
                             <div>
-                               ID: ${dinner.firstShiftUsersId}
-                            </div>
-                        </div>
-                        <div class="day" style="justify-content: left">
-                            <div>
-                               ID: ${dinner.secondShiftUsersId}
+                                ID: ${dinner.secondShiftUsersId}
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="day" style="justify-content: left">
                             Suma:
-                        </div>
-                        <div class="day" style="justify-content: left">
-                            <div>
-                                    ${dinner.firstShiftQuantity}
-                            </div>
                         </div>
                         <div class="day" style="justify-content: left">
                             <div>
@@ -114,6 +137,7 @@
             </c:forEach>
         </table>
     </div>
+
 </div>
 
 <div class="main-block">

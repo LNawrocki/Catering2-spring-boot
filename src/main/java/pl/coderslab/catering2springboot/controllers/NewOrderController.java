@@ -49,9 +49,6 @@ public class NewOrderController {
         return newOrder;
     }
 
-
-    //TODO: Chce coś z tym zrobić ...
-
     @GetMapping("/admin/newOrder/list")
     public String orderListView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {

@@ -28,7 +28,6 @@ public class FinancialController {
     private final ActualMenuRepository actualMenuRepository;
     private final NewMenuRepository newMenuRepository;
 
-
     public FinancialController(DepartmentRepository departmentRepository, UserRepository userRepository, ActualOrderRepository actualOrderRepository, NewOrderRepository newOrderRepository, ActualMenuRepository actualMenuRepository, NewMenuRepository newMenuRepository) {
         this.departmentRepository = departmentRepository;
         this.userRepository = userRepository;
@@ -38,7 +37,6 @@ public class FinancialController {
         this.newMenuRepository = newMenuRepository;
     }
 
-    //TODO - move to financial controller
     @GetMapping("/financial")
     public String financialSummary(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
@@ -84,33 +82,4 @@ public class FinancialController {
         }
         return "redirect:/";
     }
-
-//    @GetMapping("/financial/dinners")
-//    public String financialDinnerSummary(Model model, HttpSession session) {
-////        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-//
-//            List<ActualMenu> allDinners = actualMenuRepository.findAll();
-//            List<ActualOrder> allNewOrders = actualOrderRepository.findAll();
-//            LinkedHashMap<String, String> dinnerUsersMap = new LinkedHashMap<>();
-//
-//            allDinners.forEach(dinner -> dinner.setMealName(String.valueOf(dinner.getMealNo()).concat(" ").concat(dinner.getMealName())));
-//
-//            for (ActualMenu dinner : allDinners) {
-//                String ids = "";
-//                for (ActualOrder newOrder : allNewOrders) {
-//                    if (dinner.getMealNo().equals(newOrder.getMealMon()) ||
-//                            dinner.getMealNo().equals(newOrder.getMealTue()) ||
-//                            dinner.getMealNo().equals(newOrder.getMealWed()) ||
-//                            dinner.getMealNo().equals(newOrder.getMealThu()) ||
-//                            dinner.getMealNo().equals(newOrder.getMealFri())) {
-//                        ids = ids + newOrder.getUser().getUserId() + ", ";
-//                    }
-//                }
-//                dinnerUsersMap.put(dinner.getMealName(), ids);
-//            }
-//            model.addAttribute("dinnerUsersMap", dinnerUsersMap);
-//            return "/admin/admin-dinner-ids";
-//        }
-//        return "redirect:/";
-//    }
 }
