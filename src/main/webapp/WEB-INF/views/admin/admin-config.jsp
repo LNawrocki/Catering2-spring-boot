@@ -14,7 +14,7 @@
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
-<form:form method="post" action="/admin/config/editMenu" modelAttribute="config">
+<form:form method="post" action="/admin/config/editMode" modelAttribute="config">
     <div class="main-block">
         <div class="login-row">
             <label>Tryb edycji:

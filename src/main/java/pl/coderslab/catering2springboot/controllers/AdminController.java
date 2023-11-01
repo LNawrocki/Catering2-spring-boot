@@ -65,7 +65,7 @@ public class AdminController {
         return "redirect:/";
     }
 
-    @PostMapping ("/config/editMenu")
+    @PostMapping ("/config/editode")
     public String adminEditMenu(Config config, HttpSession session){
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
             Config configValues = configRepository.findById(1).get();
@@ -97,4 +97,7 @@ public class AdminController {
         }
         return "redirect:/";
     }
+
+    //TODO - dodać obsługę editMode
+    //TODO - dodać przycisk w financjia do usunięcia danych nowych zamówień i menu
 }
