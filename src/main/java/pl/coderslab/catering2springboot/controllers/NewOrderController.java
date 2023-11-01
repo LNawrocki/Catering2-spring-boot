@@ -9,10 +9,8 @@ import pl.coderslab.catering2springboot.entity.ActualOrder;
 import pl.coderslab.catering2springboot.entity.NewMenu;
 import pl.coderslab.catering2springboot.entity.NewOrder;
 import pl.coderslab.catering2springboot.entity.User;
-import pl.coderslab.catering2springboot.repository.ActualOrderRepository;
-import pl.coderslab.catering2springboot.repository.NewMenuRepository;
-import pl.coderslab.catering2springboot.repository.NewOrderRepository;
-import pl.coderslab.catering2springboot.repository.UserRepository;
+import pl.coderslab.catering2springboot.repository.*;
+
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
@@ -27,12 +25,14 @@ public class NewOrderController {
     public final UserRepository userRepository;
     public final NewMenuRepository newMenuRepository;
     private final ActualOrderRepository actualOrderRepository;
+    private final ActualMenuRepository actualMenuRepository;
 
-    public NewOrderController(NewOrderRepository newOrderRepository, UserRepository userRepository, NewMenuRepository newMenuRepository, ActualOrderRepository actualOrderRepository) {
+    public NewOrderController(NewOrderRepository newOrderRepository, UserRepository userRepository, NewMenuRepository newMenuRepository, ActualOrderRepository actualOrderRepository, ActualMenuRepository actualMenuRepository) {
         this.newOrderRepository = newOrderRepository;
         this.userRepository = userRepository;
         this.newMenuRepository = newMenuRepository;
         this.actualOrderRepository = actualOrderRepository;
+        this.actualMenuRepository = actualMenuRepository;
     }
 
     private static NewOrder getNewOrder(int kw, User user) {
@@ -64,11 +64,11 @@ public class NewOrderController {
             List<ActualOrder> actualOrders = actualOrderRepository.findAll(); // pobranie wszystkich aktualnych zamówień
             List<String> mealsNames = new ArrayList<>();
             for (ActualOrder actualOrder : actualOrders) {
-                mealsNames.add(newMenuRepository.findByMealNo(actualOrder.getMealMon()).getMealName());
-                mealsNames.add(newMenuRepository.findByMealNo(actualOrder.getMealTue()).getMealName());
-                mealsNames.add(newMenuRepository.findByMealNo(actualOrder.getMealWed()).getMealName());
-                mealsNames.add(newMenuRepository.findByMealNo(actualOrder.getMealThu()).getMealName());
-                mealsNames.add(newMenuRepository.findByMealNo(actualOrder.getMealFri()).getMealName());
+                mealsNames.add(actualMenuRepository.findByMealNo(actualOrder.getMealMon()).getMealName());
+                mealsNames.add(actualMenuRepository.findByMealNo(actualOrder.getMealTue()).getMealName());
+                mealsNames.add(actualMenuRepository.findByMealNo(actualOrder.getMealWed()).getMealName());
+                mealsNames.add(actualMenuRepository.findByMealNo(actualOrder.getMealThu()).getMealName());
+                mealsNames.add(actualMenuRepository.findByMealNo(actualOrder.getMealFri()).getMealName());
             }
             model.addAttribute("actualOrders", actualOrderRepository.findAll());
             return "/menu/admin-actual-order-list";
@@ -86,7 +86,7 @@ public class NewOrderController {
         return "redirect:/admin/newOrder/list";
     }
 
-
+//TODO Zmienić obsługę usuwania zamówienia (get - POST)
                                     //DO poprawy - metoda get i zmiana
                                     @GetMapping("/user/newOrder/delete")
                                     public String newOrderDelete(@RequestParam Long id, HttpSession session) {

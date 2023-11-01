@@ -26,18 +26,6 @@
     </div>
 </form:form>
 
-<form:form method="post" action="/admin/config/newMenuAvaliable" modelAttribute="config">
-    <div class="main-block">
-        <div class="login-row">
-            <label>Nowe MENU - podgląd i zamawianie:
-                <form:radiobutton path="newMenuAvaliable" value="true"/>Nowe menu dostępne
-                <form:radiobutton path="newMenuAvaliable" value="false"/>Nowe menu niedostępne
-                <form:button>Potwierdź</form:button>
-            </label>
-        </div>
-    </div>
-</form:form>
-
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

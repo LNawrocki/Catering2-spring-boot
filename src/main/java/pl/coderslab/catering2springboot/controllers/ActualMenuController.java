@@ -6,14 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.coderslab.catering2springboot.entity.ActualMenu;
-import pl.coderslab.catering2springboot.entity.ActualOrder;
-import pl.coderslab.catering2springboot.entity.NewMenu;
-import pl.coderslab.catering2springboot.entity.NewOrder;
-import pl.coderslab.catering2springboot.repository.ActualMenuRepository;
-import pl.coderslab.catering2springboot.repository.ActualOrderRepository;
-import pl.coderslab.catering2springboot.repository.NewMenuRepository;
-import pl.coderslab.catering2springboot.repository.NewOrderRepository;
+import pl.coderslab.catering2springboot.entity.*;
+import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -26,15 +20,17 @@ public class ActualMenuController {
     private final ActualOrderRepository actualOrderRepository;
     private final NewMenuRepository newMenuRepository;
     private final NewOrderRepository newOrderRepository;
+    private final ConfigRepository configRepository;
 
     public ActualMenuController(ActualMenuRepository actualMenuRepository,
                                 ActualOrderRepository actualOrderRepository,
                                 NewMenuRepository newMenuRepository,
-                                NewOrderRepository newOrderRepository) {
+                                NewOrderRepository newOrderRepository, ConfigRepository configRepository) {
         this.actualMenuRepository = actualMenuRepository;
         this.actualOrderRepository = actualOrderRepository;
         this.newMenuRepository = newMenuRepository;
         this.newOrderRepository = newOrderRepository;
+        this.configRepository = configRepository;
     }
 
     @GetMapping("/admin/actualMenu")
@@ -123,6 +119,11 @@ public class ActualMenuController {
                 actualMenu.setSecondShiftUsersId(idsSecondShift);
                 actualMenuRepository.save(actualMenu);
             }
+            newOrderRepository.deleteAll();
+            newMenuRepository.deleteAll();
+            Config config = configRepository.findAll().get(0);
+            config.setEditMode(true);
+            configRepository.save(config);
             return "redirect:/admin/actualMenu";
         }
         return "redirect:/";

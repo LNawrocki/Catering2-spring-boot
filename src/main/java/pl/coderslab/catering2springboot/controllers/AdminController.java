@@ -1,14 +1,17 @@
 package pl.coderslab.catering2springboot.controllers;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.catering2springboot.entity.Config;
 import pl.coderslab.catering2springboot.entity.Department;
 
+import pl.coderslab.catering2springboot.entity.User;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
@@ -21,12 +24,14 @@ public class AdminController {
 
     private final DepartmentRepository departmentRepository;
     private final ConfigRepository configRepository;
+    private final UserRepository userRepository;
 
 
-    public AdminController(DepartmentRepository departmentRepository, ConfigRepository configRepository) {
+    public AdminController(DepartmentRepository departmentRepository, ConfigRepository configRepository, UserRepository userRepository) {
         this.departmentRepository = departmentRepository;
         this.configRepository = configRepository;
 
+        this.userRepository = userRepository;
     }
 
 
@@ -71,13 +76,24 @@ public class AdminController {
         return "redirect:/";
     }
 
-    @PostMapping ("/config/newMenuAvaliable")
-    public String adminNewMenuAvaliable(Config config, HttpSession session){
+    @GetMapping("/update")
+    public String updateView(@RequestParam Long editUserId, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            Config configValues = configRepository.findById(1).get();
-            configValues.setNewMenuAvaliable(config.getNewMenuAvaliable());
-            configRepository.save(configValues);
-            return "redirect:/admin/config";
+            User user = userRepository.getByUserId(editUserId);
+            user.setPassword("");
+            model.addAttribute("user", user);
+            model.addAttribute("departments", departmentRepository.findAll());
+            return "/user/user-update";
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/update")
+    public String update(User user, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+            userRepository.save(user);
+            return "redirect:/admin/list";
         }
         return "redirect:/";
     }

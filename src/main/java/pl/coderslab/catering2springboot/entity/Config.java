@@ -13,6 +13,4 @@ public class Config {
     private Integer id;
     @Column(name = "edit_mode")
     private Boolean editMode;
-    @Column(name = "new_menu_avaliable")
-    private Boolean newMenuAvaliable;
 }

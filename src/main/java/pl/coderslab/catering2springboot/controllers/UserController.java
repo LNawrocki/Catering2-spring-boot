@@ -145,28 +145,6 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/admin/update")
-    public String updateView(@RequestParam Long editUserId, Model model, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            User user = userRepository.getByUserId(editUserId);
-            user.setPassword("");
-            model.addAttribute("user", user);
-            model.addAttribute("departments", departmentRepository.findAll());
-            return "/user/user-update";
-        }
-        return "redirect:/";
-    }
-
-    @PostMapping("/admin/update")
-    public String update(User user, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-            userRepository.save(user);
-            return "redirect:/admin/list";
-        }
-        return "redirect:/";
-    }
-
     @PostMapping("/admin/delete/confirm")
     public String deleteConfirm(@RequestParam Long deleteUserId, @RequestParam(required = false) Boolean confirm , Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
@@ -285,6 +263,30 @@ public class UserController {
             model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY)) ;
             model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY)) ;
             return "/user/user-home";
+        }
+        return "redirect:/";
+    }
+
+
+    //TODO zmiana hasła przez uzytkownika
+    @GetMapping("/user/update")
+    public String updateView(@RequestParam Long editUserId, Model model, HttpSession session) {
+        if (session.getAttribute("userId") != null) {
+            User user = userRepository.getByUserId(editUserId);
+            user.setPassword("");
+            model.addAttribute("user", user);
+            model.addAttribute("departments", departmentRepository.findAll());
+            return "/user/user-update";
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/user/update")
+    public String update(User user, HttpSession session) {
+        if (session.getAttribute("userId") != null) {
+            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+            userRepository.save(user);
+            return "redirect:/admin/list";
         }
         return "redirect:/";
     }
