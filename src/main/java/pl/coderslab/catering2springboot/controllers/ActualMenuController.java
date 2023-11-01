@@ -27,7 +27,6 @@ public class ActualMenuController {
     private final NewMenuRepository newMenuRepository;
     private final NewOrderRepository newOrderRepository;
 
-
     public ActualMenuController(ActualMenuRepository actualMenuRepository,
                                 ActualOrderRepository actualOrderRepository,
                                 NewMenuRepository newMenuRepository,
@@ -40,34 +39,34 @@ public class ActualMenuController {
 
     @GetMapping("/admin/actualMenu")
     public String actualOrderView(@RequestParam(required = false) Integer shift, Model model, HttpSession session) {
-//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
 
-        List<ActualMenu> actualMenuList = actualMenuRepository.findAll();
-        List<Integer> mealsQtyPerDayFirstShift = new ArrayList<>();
-        List<Integer> mealsQtyPerDaySecondShift = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
-            Integer sumPerDayFirstShift = 0;
-            Integer sumPerDaySecondShift = 0;
-            for (ActualMenu actualMenu : actualMenuRepository.findActualMenusByDayId(i)) {
-                if (!actualMenu.getMealName().equals("Brak")) {
-                    sumPerDayFirstShift = sumPerDayFirstShift + actualMenu.getFirstShiftQuantity();
-                    sumPerDaySecondShift = sumPerDaySecondShift + actualMenu.getSecondShiftQuantity();
+            List<ActualMenu> actualMenuList = actualMenuRepository.findAll();
+            List<Integer> mealsQtyPerDayFirstShift = new ArrayList<>();
+            List<Integer> mealsQtyPerDaySecondShift = new ArrayList<>();
+            for (int i = 1; i <= 5; i++) {
+                Integer sumPerDayFirstShift = 0;
+                Integer sumPerDaySecondShift = 0;
+                for (ActualMenu actualMenu : actualMenuRepository.findActualMenusByDayId(i)) {
+                    if (!actualMenu.getMealName().equals("Brak")) {
+                        sumPerDayFirstShift = sumPerDayFirstShift + actualMenu.getFirstShiftQuantity();
+                        sumPerDaySecondShift = sumPerDaySecondShift + actualMenu.getSecondShiftQuantity();
+                    }
                 }
+                mealsQtyPerDayFirstShift.add(sumPerDayFirstShift);
+                mealsQtyPerDaySecondShift.add(sumPerDaySecondShift);
             }
-            mealsQtyPerDayFirstShift.add(sumPerDayFirstShift);
-            mealsQtyPerDaySecondShift.add(sumPerDaySecondShift);
+            model.addAttribute("mealsQtyPerDayFirstShift", mealsQtyPerDayFirstShift);
+            model.addAttribute("mealsQtyPerDaySecondShift", mealsQtyPerDaySecondShift);
+            model.addAttribute("actualMenuList", actualMenuList);
+            model.addAttribute("shift", shift);
+            if (shift == null || shift == 1) {
+                return "/admin/admin-dinner-ids-1shift";
+            } else {
+                return "/admin/admin-dinner-ids-2shift";
+            }
         }
-        model.addAttribute("mealsQtyPerDayFirstShift", mealsQtyPerDayFirstShift);
-        model.addAttribute("mealsQtyPerDaySecondShift", mealsQtyPerDaySecondShift);
-        model.addAttribute("actualMenuList", actualMenuList);
-        model.addAttribute("shift", shift);
-        if (shift == null || shift == 1) {
-            return "/admin/admin-dinner-ids-1shift";
-        } else {
-            return "/admin/admin-dinner-ids-2shift";
-        }
-//        }
-//        return "redirect:/";
+        return "redirect:/";
     }
 
     @PostMapping("/admin/actualMenu/update")

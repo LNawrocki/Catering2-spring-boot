@@ -32,22 +32,22 @@
 </form>
 <div class="main-block">
     <div class="day-block">
-        <div class="day">
+        <div class="day" style="font-weight: bold;">
             Podsumowanie:
         </div>
-        <div class="day">
+        <div class="day" style="font-weight: bold;">
             Poniedziałek: ${mealsQtyPerDaySecondShift[0]} dań
         </div>
-        <div class="day">
+        <div class="day" style="font-weight: bold;">
             Wtorek: ${mealsQtyPerDaySecondShift[1]} dań
         </div>
-        <div class="day">
+        <div class="day" style="font-weight: bold;">
             Środa: ${mealsQtyPerDaySecondShift[2]} dań
         </div>
-        <div class="day">
+        <div class="day" style="font-weight: bold;">
             Czwatrek: ${mealsQtyPerDaySecondShift[3]} dań
         </div>
-        <div class="day">
+        <div class="day" style="font-weight: bold;">
             Piątek: ${mealsQtyPerDaySecondShift[4]} dań
         </div>
     </div>
