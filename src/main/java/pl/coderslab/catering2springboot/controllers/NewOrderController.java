@@ -110,6 +110,9 @@ public class NewOrderController {
     public String NewOrderAdminCheckView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null) {
             User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
+            model.addAttribute("name", user.getName());
+            model.addAttribute("lastName", user.getLastName());
+            model.addAttribute("editUserId", user.getUserId());
             NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
             model.addAttribute("newOrder", newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")));
             model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
@@ -134,6 +137,10 @@ public class NewOrderController {
     public String newOrderView(Model model, HttpSession session) {
 
         if (session.getAttribute("userId") != null) {
+            User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
+            model.addAttribute("name", user.getName());
+            model.addAttribute("lastName", user.getLastName());
+            model.addAttribute("editUserId", user.getUserId());
             if (configRepository.findAll().get(0).getEditMode()) {
                 if ((Boolean) session.getAttribute("superAdmin")) {
                     return "/admin/admin-home-editmode";
@@ -146,7 +153,6 @@ public class NewOrderController {
             return "redirect:/user/newOrder/check";
         }
 
-        User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
         BigDecimal paymentPerc = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
 
         List<NewMenu> menuMonday = newMenuRepository.findByDayId(1);

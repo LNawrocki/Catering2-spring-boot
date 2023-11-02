@@ -17,11 +17,13 @@
 <form:form method="post" action="/admin/config/editMode" modelAttribute="config">
     <div class="main-block">
         <div class="login-row">
-            <label>Tryb edycji:
-                <form:radiobutton path="editMode" value="true"/>Włączony
-                <form:radiobutton path="editMode" value="false"/>Wyłączony
-                <form:button>Potwierdź</form:button>
-            </label>
+            <div class="day">
+                <label>Tryb edycji:
+                        <form:radiobutton path="editMode" value="true"/>Włączony
+                        <form:radiobutton path="editMode" value="false"/>Wyłączony
+                    <form:button>Potwierdź</form:button>
+                </label>
+            </div>
         </div>
     </div>
 </form:form>

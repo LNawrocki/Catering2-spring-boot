@@ -14,7 +14,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 @Controller
@@ -27,14 +26,16 @@ public class FinancialController {
     private final NewOrderRepository newOrderRepository;
     private final ActualMenuRepository actualMenuRepository;
     private final NewMenuRepository newMenuRepository;
+    private final ConfigRepository configRepository;
 
-    public FinancialController(DepartmentRepository departmentRepository, UserRepository userRepository, ActualOrderRepository actualOrderRepository, NewOrderRepository newOrderRepository, ActualMenuRepository actualMenuRepository, NewMenuRepository newMenuRepository) {
+    public FinancialController(DepartmentRepository departmentRepository, UserRepository userRepository, ActualOrderRepository actualOrderRepository, NewOrderRepository newOrderRepository, ActualMenuRepository actualMenuRepository, NewMenuRepository newMenuRepository, ConfigRepository configRepository) {
         this.departmentRepository = departmentRepository;
         this.userRepository = userRepository;
         this.actualOrderRepository = actualOrderRepository;
         this.newOrderRepository = newOrderRepository;
         this.actualMenuRepository = actualMenuRepository;
         this.newMenuRepository = newMenuRepository;
+        this.configRepository = configRepository;
     }
 
     @GetMapping("/financial")
@@ -78,6 +79,9 @@ public class FinancialController {
             model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
             model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
             model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+
+            Config configValues = configRepository.findById(1).get();
+            model.addAttribute(configValues);
             return "/admin/admin-financial";
         }
         return "redirect:/";

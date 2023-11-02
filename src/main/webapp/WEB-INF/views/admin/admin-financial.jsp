@@ -120,11 +120,26 @@
         </table>
     </div>
 </div>
+<form:form method="post" action="/admin/config/editMode" modelAttribute="config">
+    <div class="main-block">
+        <div class="day-block">
+            <div class="day">
+                <label>Tryb edycji:
+                    <form:radiobutton path="editMode" value="true"/>Włączony
+                    <form:radiobutton path="editMode" value="false"/>Wyłączony
+                    <form:button>Potwierdź</form:button>
+                </label>
+            </div>
+        </div>
+    </div>
+</form:form>
 <form action="/admin/actualMenu/update" method="post">
     <div class="main-block">
         <div class="day-block">
             <div class="day">
-                <button>Zamknij tydzień, przepisz dane zamówień, skasuj NOWE MENU i listę NOWYCH ZAMÓWIEŃ wraz z podliczeniami</button>
+                <button>Zamknij tydzień, przepisz dane zamówień, skasuj NOWE MENU i listę NOWYCH ZAMÓWIEŃ wraz z
+                    podliczeniami
+                </button>
             </div>
         </div>
     </div>

@@ -32,7 +32,7 @@
         </div>
         <div class="login-row">
             <label for="department">Dział:
-                <input name="department" value="${user.department.id}" readonly="true">${user.department.name}
+                <input name="department" value="${user.department.id}"  readonly="true" hidden="hidden">${user.department.name}</label>
             </label>
         </div>
         <div class="login-row">

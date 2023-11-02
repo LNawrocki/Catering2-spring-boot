@@ -52,7 +52,7 @@
     box-shadow: 0px 0px 15px rgb(170, 170, 170) inset;
     border-radius: 12px;
 }
-.login-row input, button {
+.login-row input, button, label {
     border-style: solid;
     border-width: 2px;
     font-size: 20px;
