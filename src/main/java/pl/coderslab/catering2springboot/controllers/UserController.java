@@ -32,13 +32,15 @@ public class UserController {
     private final UserRepository userRepository;
     private final NewMenuRepository newMenuRepository;
     private final ActualOrderRepository actualOrderRepository;
+    private final ConfigRepository configRepository;
 
-    public UserController(UserRepository userRepository, DepartmentRepository departmentRepository, NewMenuRepository newMenuRepository, NewOrderRepository newOrderRepository, ActualOrderRepository actualOrderRepository) {
+    public UserController(UserRepository userRepository, DepartmentRepository departmentRepository, NewMenuRepository newMenuRepository, NewOrderRepository newOrderRepository, ActualOrderRepository actualOrderRepository, ConfigRepository configRepository) {
         this.userRepository = userRepository;
         this.departmentRepository = departmentRepository;
         this.newMenuRepository = newMenuRepository;
         this.newOrderRepository = newOrderRepository;
         this.actualOrderRepository = actualOrderRepository;
+        this.configRepository = configRepository;
     }
 
     @GetMapping
@@ -49,8 +51,8 @@ public class UserController {
         model.addAttribute("mealsThursday", newMenuRepository.findByDayId(4));
         model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
         model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-        model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY)) ;
-        model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY)) ;
+        model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+        model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
         return "home";
     }
 
@@ -146,7 +148,7 @@ public class UserController {
     }
 
     @PostMapping("/admin/delete/confirm")
-    public String deleteConfirm(@RequestParam Long deleteUserId, @RequestParam(required = false) Boolean confirm , Model model, HttpSession session) {
+    public String deleteConfirm(@RequestParam Long deleteUserId, @RequestParam(required = false) Boolean confirm, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
 
             User user = userRepository.getByUserId(deleteUserId);
@@ -162,7 +164,7 @@ public class UserController {
 
             ActualOrder actualOrderByUserId = actualOrderRepository.getActualOrderByUser_UserId(deleteUserId);
             NewOrder newOrder = newOrderRepository.getNewOrderByUserId(deleteUserId);
-            if((actualOrderByUserId != null || newOrder != null) && Objects.isNull(confirm)){
+            if ((actualOrderByUserId != null || newOrder != null) && Objects.isNull(confirm)) {
                 model.addAttribute("deleteUserId", deleteUserId);
                 return "/user/user-list-delete-info";
             }
@@ -211,32 +213,6 @@ public class UserController {
         return "/user/user-auth";
     }
 
-    @GetMapping("/admin/home")
-    public String adminHomeView(Model model, HttpSession session) {
-
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-
-            User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
-            model.addAttribute("name", user.getName());
-            model.addAttribute("lastName", user.getLastName());
-
-            NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
-            if (order != null && !order.getIsPaid()) {
-                model.addAttribute("receivables", order.getToPay());
-            } else {
-                model.addAttribute("receivables", 0);
-            }
-            model.addAttribute("mealsMonday", newMenuRepository.findByDayId(1));
-            model.addAttribute("mealsTuesday", newMenuRepository.findByDayId(2));
-            model.addAttribute("mealsWednesday", newMenuRepository.findByDayId(3));
-            model.addAttribute("mealsThursday", newMenuRepository.findByDayId(4));
-            model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
-            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY)) ;
-            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY)) ;            return "/admin/admin-home";
-        }
-        return "redirect:/";
-    }
 
     @GetMapping("/user/home")
     public String userHomeView(Model model, HttpSession session) {
@@ -245,6 +221,11 @@ public class UserController {
             User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
             model.addAttribute("name", user.getName());
             model.addAttribute("lastName", user.getLastName());
+            model.addAttribute("editUserId", user.getUserId());
+            if (configRepository.findAll().get(0).getEditMode()) {
+                return "/user/user-home-editmode";
+            }
+
 
             NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
             if (order != null && !order.getIsPaid()) {
@@ -260,8 +241,8 @@ public class UserController {
             model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
 
             model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY)) ;
-            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY)) ;
+            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
             return "/user/user-home";
         }
         return "redirect:/";
@@ -269,8 +250,9 @@ public class UserController {
 
 
     //TODO zmiana hasła przez uzytkownika
+
     @GetMapping("/user/update")
-    public String updateView(@RequestParam Long editUserId, Model model, HttpSession session) {
+    public String userUpdateView(@RequestParam Long editUserId, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null) {
             User user = userRepository.getByUserId(editUserId);
             user.setPassword("");
@@ -282,19 +264,23 @@ public class UserController {
     }
 
     @PostMapping("/user/update")
-    public String update(User user, HttpSession session) {
+    public String userUpdate(User user, HttpSession session) {
+        System.out.println(user.toString());
         if (session.getAttribute("userId") != null) {
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
             userRepository.save(user);
-            return "redirect:/admin/list";
+            return "redirect:/logout";
         }
         return "redirect:/";
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
+        session.invalidate();
         return "redirect:/";
     }
+
+
 }
 
 

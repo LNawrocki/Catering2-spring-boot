@@ -17,12 +17,12 @@
     <div class="main-block">
         <div class="login-row">
             <label>Login:
-                <input type="text" name="login" placeholder="login" value="admin"> admin / user
+                <input type="text" name="login" placeholder="login" value="biuro1"> admin / biuro1
             </label>
         </div>
         <div class="login-row">
             <label>Hasło:
-                <input type="password" name="password" placeholder="hasło" value="Administrator"> Administrator / user
+                <input type="password" name="password" placeholder="hasło" value="biuro1"> Administrator / biuro1
             </label>
         </div>
         <c:if test="${msg != null}">

@@ -12,7 +12,7 @@
         <a href="${pageContext.request.contextPath}/user/actualOrder">Twój obiad</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/">Zmień hasło</a>
+        <a href="${pageContext.request.contextPath}/user/update?editUserId=${editUserId}">Zmień hasło</a>
     </div>
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/logout">Wyloguj</a>

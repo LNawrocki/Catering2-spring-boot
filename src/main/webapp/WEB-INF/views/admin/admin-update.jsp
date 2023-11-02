@@ -11,9 +11,9 @@
 
 <body>
 <jsp:include page="../fragments/header.jsp"/>
-<jsp:include page="../fragments/menu-user.jsp"/>
+<jsp:include page="../fragments/menu-admin.jsp"/>
 
-<form:form action="/user/update" method="post" modelAttribute="user">
+<form:form method="post" modelAttribute="user">
     <div class="main-block">
         <div class="login-row">
             <label for="userId">ID użytkownika:
@@ -22,22 +22,22 @@
         </div>
         <div class="login-row">
             <label for="name">Imię:
-                <form:input path="name" readonly="true"/>
+                <form:input path="name"/>
             </label>
         </div>
         <div class="login-row">
             <label for="lastName">Nazwisko:
-                <form:input path="lastName" readonly="true"/>
+                <form:input path="lastName"/>
             </label>
         </div>
         <div class="login-row">
             <label for="department">Dział:
-                <input name="department" value="${user.department.id}" readonly="true">${user.department.name}
+                <form:select path="department" items="${departments}" itemLabel="name" itemValue="id"/>
             </label>
         </div>
         <div class="login-row">
             <label for="login">Login:
-                <form:input path="login" readonly="true"/>
+                <form:input path="login"/>
             </label>
         </div>
         <div class="login-row">
@@ -46,8 +46,18 @@
             </label>
         </div>
         <div class="login-row">
-            <input name="superAdmin" value="${user.superAdmin}" hidden="hidden"/>
-            <input name="active" value="${user.active}" hidden="hidden"/>
+            <label>Admin:
+                <form:radiobutton path="superAdmin" value="true"/>TAK
+                <form:radiobutton path="superAdmin" value="false"/>NIE
+            </label>
+        </div>
+        <div class="login-row">
+            <label>
+                <form:radiobutton path="active" value="true"/>Użytkownik aktywny</br>
+                <form:radiobutton path="active" value="false"/>Użytkownik nieaktywny
+            </label>
+        </div>
+        <div class="login-row">
             <form:button>Edytuj</form:button>
         </div>
     </div>
