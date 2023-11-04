@@ -15,7 +15,7 @@
 
 <div class="main-block">
     <div class="day-block">
-        <h3>Podsumowanie zamówień na tydzień KW: ${kw} ( ${weekStart} - ${weekEnd} )</h3>
+        <h3>Podsumowanie zamówień na tydzień KW: ${kw} </h3>
     </div>
 </div>
 <form action="/admin/actualMenu" method="get">
@@ -28,122 +28,123 @@
                 <button name="shift" value="2" style="font-weight:  bold">Zmiana 2</button>
             </div>
         </div>
+        <div class="day-block">
+            <div class="day" style="font-size: large; font-weight: bold;">
+                Podsumowanie:
+            </div>
+            <div class="day" style="font-size: large; font-weight: bold;">
+                Poniedziałek: ${mealsQtyPerDaySecondShift[0]} dań
+            </div>
+            <div class="day" style="font-size: large; font-weight: bold;">
+                Wtorek: ${mealsQtyPerDaySecondShift[1]} dań
+            </div>
+            <div class="day" style="font-size: large; font-weight: bold;">
+                Środa: ${mealsQtyPerDaySecondShift[2]} dań
+            </div>
+            <div class="day" style="font-size: large; font-weight: bold;">
+                Czwatrek: ${mealsQtyPerDaySecondShift[3]} dań
+            </div>
+            <div class="day" style="font-size: large; font-weight: bold;">
+                Piątek: ${mealsQtyPerDaySecondShift[4]} dań
+            </div>
+        </div>
+        <div class="day-block">
+            <table>
+                <tr>
+                    <td>
+                        <div class="day" style="font-weight: bold;">
+                            <div>
+                                Dzień:
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="day" style="font-weight: bold;">
+                            <div>
+                                Nr Dania:
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="day" style="font-weight: bold;">
+                            <div>
+                                Danie:
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="day" style="font-weight: bold;">
+                            <div>
+                                Suma zamówień :
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <c:forEach var="meal" items="${actualMenuList}">
+                    <c:if test="${meal.mealName != 'Brak'}">
+                        <c:if test="${meal.secondShiftQuantity != 0 }">
+                            <tr>
+                                <td>
+                                    <div class="day" style="justify-content: center">
+                                        <div>
+                                            <c:choose>
+                                                <c:when test="${meal.dayId eq 1}">Poniedziałek</c:when>
+                                                <c:when test="${meal.dayId eq 2}">Wtorek</c:when>
+                                                <c:when test="${meal.dayId eq 3}">Środa</c:when>
+                                                <c:when test="${meal.dayId eq 4}">Czwartek</c:when>
+                                                <c:when test="${meal.dayId eq 5}">Piątek</c:when>
+                                            </c:choose>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="day" style="justify-content: right; font-weight: bold;">
+                                        <div>
+                                            nr ${meal.mealNo}
+                                        </div>
+                                    </div>
+                                    <div class="day" style="justify-content: left">
+                                        <div>
+                                            Zmiana 2:
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="day" style="justify-content: left; font-weight: bold;">
+                                        <div>
+                                                ${meal.mealName}
+                                        </div>
+                                    </div>
+                                    <div class="day" style="justify-content: left">
+                                        <div>
+                                            ID: ${meal.secondShiftUsersId}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="day" style="justify-content: left">
+                                        <div>
+                                                ${meal.secondShiftQuantity}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div>
+                                        -
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:if>
+                    </c:if>
+                </c:forEach>
+            </table>
+        </div>
     </div>
 </form>
-<div class="main-block">
-    <div class="day-block">
-        <div class="day" style="font-weight: bold;">
-            Podsumowanie:
-        </div>
-        <div class="day" style="font-weight: bold;">
-            Poniedziałek: ${mealsQtyPerDaySecondShift[0]} dań
-        </div>
-        <div class="day" style="font-weight: bold;">
-            Wtorek: ${mealsQtyPerDaySecondShift[1]} dań
-        </div>
-        <div class="day" style="font-weight: bold;">
-            Środa: ${mealsQtyPerDaySecondShift[2]} dań
-        </div>
-        <div class="day" style="font-weight: bold;">
-            Czwatrek: ${mealsQtyPerDaySecondShift[3]} dań
-        </div>
-        <div class="day" style="font-weight: bold;">
-            Piątek: ${mealsQtyPerDaySecondShift[4]} dań
-        </div>
-    </div>
-    <div class="day-block">
-        <table>
-            <tr>
-                <td>
-                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
-                        <div>
-                            Dzień:
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
-                        <div>
-                            Nr Dania:
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
-                        <div>
-                            Danie:
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
-                        <div>
-                            Suma zamówień :
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <c:forEach var="meal" items="${actualMenuList}">
-                <c:if test="${meal.mealName != 'Brak'}">
-                    <c:if test="${meal.secondShiftQuantity != 0 }">
-                        <tr>
-                            <td>
-                                <div class="day" style="justify-content: center">
-                                    <div>
-                                        <c:choose>
-                                            <c:when test="${meal.dayId eq 1}">Poniedziałek</c:when>
-                                            <c:when test="${meal.dayId eq 2}">Wtorek</c:when>
-                                            <c:when test="${meal.dayId eq 3}">Środa</c:when>
-                                            <c:when test="${meal.dayId eq 4}">Czwartek</c:when>
-                                            <c:when test="${meal.dayId eq 5}">Piątek</c:when>
-                                        </c:choose>
-
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="day" style="justify-content: right; font-weight: bold;">
-                                    <div>
-                                        nr ${meal.mealNo}
-                                    </div>
-                                </div>
-                                <div class="day" style="justify-content: left">
-                                    <div>
-                                        Zmiana 2:
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="day" style="justify-content: left; font-weight: bold;">
-                                    <div>
-                                            ${meal.mealName}
-                                    </div>
-                                </div>
-                                <div class="day" style="justify-content: left">
-                                    <div>
-                                        ID: ${meal.secondShiftUsersId}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="day" style="justify-content: left">
-                                    Suma:
-                                </div>
-                                <div class="day" style="justify-content: left">
-                                    <div>
-                                            ${meal.secondShiftQuantity}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </c:if>
-                </c:if>
-            </c:forEach>
-        </table>
-    </div>
-
-</div>
-
 <div class="main-block">
     <div class="day-block">
         <div class="day">
