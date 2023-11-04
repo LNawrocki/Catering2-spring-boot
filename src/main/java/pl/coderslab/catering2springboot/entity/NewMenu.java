@@ -26,5 +26,6 @@ public class NewMenu {
     private BigDecimal mealPrice;
     @Column(name = "day_id")
     private Integer dayId;
+    private Integer kw;
 
 }

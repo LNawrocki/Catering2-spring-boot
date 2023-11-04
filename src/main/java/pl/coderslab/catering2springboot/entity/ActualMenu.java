@@ -34,4 +34,5 @@ public class ActualMenu {
     private Integer secondShiftQuantity;
     @Column(name = "second_shift_users_id")
     private String secondShiftUsersId;
+    private Integer kw;
 }

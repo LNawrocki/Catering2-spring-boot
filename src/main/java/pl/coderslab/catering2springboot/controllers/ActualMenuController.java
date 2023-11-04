@@ -11,6 +11,8 @@ import pl.coderslab.catering2springboot.entity.*;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +58,7 @@ public class ActualMenuController {
             model.addAttribute("mealsQtyPerDaySecondShift", mealsQtyPerDaySecondShift);
             model.addAttribute("actualMenuList", actualMenuList);
             model.addAttribute("shift", shift);
+            model.addAttribute("kw", actualMenuRepository.findAll().get(0).getKw());
             if (shift == null || shift == 1) {
                 return "/admin/admin-dinner-ids-1shift";
             } else {
@@ -73,46 +76,47 @@ public class ActualMenuController {
             List<NewOrder> newOrdersList = newOrderRepository.findAll();
 
             for (NewOrder newOrder : newOrdersList) {
-                ActualOrder actualOrder = new ActualOrder();
+                ActualOrder actualOrder;
                 actualOrder = modelMapper.map(newOrder, ActualOrder.class);
                 actualOrderRepository.save(actualOrder);
             }
 
-            List<NewMenu> allDinners = newMenuRepository.findAll();
-            List<ActualOrder> allNewOrders = actualOrderRepository.findAll();
+            List<NewMenu> newMenuMeals = newMenuRepository.findAll();
+            List<ActualOrder> actualOrderMeals = actualOrderRepository.findAll();
 
-            for (NewMenu dinner : allDinners) {
+            for (NewMenu newMenuMeal : newMenuMeals) {
                 String idsFirstShift = "";
                 Integer idsFirstShiftQty = 0;
                 String idsSecondShift = "";
                 Integer idsSecondShiftQty = 0;
-                for (ActualOrder newOrder : allNewOrders) {
-                    if (dinner.getMealNo().equals(newOrder.getMealMon())
-                            || dinner.getMealNo().equals(newOrder.getMealTue())
-                            || dinner.getMealNo().equals(newOrder.getMealWed())
-                            || dinner.getMealNo().equals(newOrder.getMealThu())
-                            || dinner.getMealNo().equals(newOrder.getMealFri())) {
-                        if (newOrder.getShiftMon() == 1
-                                || newOrder.getShiftTue() == 1
-                                || newOrder.getShiftWed() == 1
-                                || newOrder.getShiftThu() == 1
-                                || newOrder.getShiftFri() == 1) {
-                            idsFirstShift = idsFirstShift + newOrder.getUser().getUserId() + ", ";
+                for (ActualOrder actualOrderMeal : actualOrderMeals) {
+                    if (newMenuMeal.getMealNo().equals(actualOrderMeal.getMealMon())
+                            || newMenuMeal.getMealNo().equals(actualOrderMeal.getMealTue())
+                            || newMenuMeal.getMealNo().equals(actualOrderMeal.getMealWed())
+                            || newMenuMeal.getMealNo().equals(actualOrderMeal.getMealThu())
+                            || newMenuMeal.getMealNo().equals(actualOrderMeal.getMealFri())) {
+                        if (actualOrderMeal.getShiftMon() == 1
+                                || actualOrderMeal.getShiftTue() == 1
+                                || actualOrderMeal.getShiftWed() == 1
+                                || actualOrderMeal.getShiftThu() == 1
+                                || actualOrderMeal.getShiftFri() == 1) {
+                            idsFirstShift = idsFirstShift + actualOrderMeal.getUser().getUserId() + ", ";
                             idsFirstShiftQty++;
-                        } else if (newOrder.getShiftMon() == 2
-                                || newOrder.getShiftTue() == 2
-                                || newOrder.getShiftWed() == 2
-                                || newOrder.getShiftThu() == 2
-                                || newOrder.getShiftFri() == 2) {
-                            idsSecondShift = idsSecondShift + newOrder.getUser().getUserId() + ", ";
+                        } else if (actualOrderMeal.getShiftMon() == 2
+                                || actualOrderMeal.getShiftTue() == 2
+                                || actualOrderMeal.getShiftWed() == 2
+                                || actualOrderMeal.getShiftThu() == 2
+                                || actualOrderMeal.getShiftFri() == 2) {
+                            idsSecondShift = idsSecondShift + actualOrderMeal.getUser().getUserId() + ", ";
                             idsSecondShiftQty++;
                         }
                     }
                 }
                 ActualMenu actualMenu = new ActualMenu();
-                actualMenu.setMealNo(dinner.getMealNo());
-                actualMenu.setMealName(dinner.getMealName());
-                actualMenu.setDayId(dinner.getDayId());
+                actualMenu.setMealNo(newMenuMeal.getMealNo());
+                actualMenu.setMealName(newMenuMeal.getMealName());
+                actualMenu.setDayId(newMenuMeal.getDayId());
+                actualMenu.setKw(newMenuMeal.getKw());
                 actualMenu.setFirstShiftQuantity(idsFirstShiftQty);
                 actualMenu.setFirstShiftUsersId(idsFirstShift);
                 actualMenu.setSecondShiftQuantity(idsSecondShiftQty);

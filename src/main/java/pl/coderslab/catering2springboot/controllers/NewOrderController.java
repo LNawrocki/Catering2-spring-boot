@@ -239,6 +239,8 @@ public class NewOrderController {
             newOrder.setToPay(newOrder.getPriceMon().add(newOrder.getPriceTue()).add(newOrder.getPriceWed())
                     .add(newOrder.getPriceThu()).add(newOrder.getPriceFri()));
 
+            newOrder.setKw(LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+
             newOrderRepository.save(newOrder);
             return "redirect:/user/newOrder/check";
         }

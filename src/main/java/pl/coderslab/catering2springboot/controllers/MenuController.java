@@ -8,22 +8,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.catering2springboot.entity.NewMenu;
 import pl.coderslab.catering2springboot.repository.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.NewOrderRepository;
-import pl.coderslab.catering2springboot.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
+import java.util.Objects;
 
 
 @Controller
 
 public class MenuController {
     private final NewMenuRepository newMenuRepository;
+    private final NewOrderRepository newOrderRepository;
 
 
-    public MenuController(NewMenuRepository newMenuRepository) {
+    public MenuController(NewMenuRepository newMenuRepository, NewOrderRepository newOrderRepository) {
         this.newMenuRepository = newMenuRepository;
+        this.newOrderRepository = newOrderRepository;
     }
 
     @GetMapping("/admin/menu/update")
@@ -38,6 +40,12 @@ public class MenuController {
             model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
             model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY)) ;
             model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY)) ;
+
+            if (newOrderRepository.findAll().isEmpty()) {
+                model.addAttribute("deleteButtonVisible", true);
+            } else {
+                model.addAttribute("deleteButtonVisible", false);
+            }
             return "/menu/menu-update";
         }
         return "redirect:/";
