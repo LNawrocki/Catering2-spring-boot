@@ -141,6 +141,7 @@ public class UserController {
         return "redirect:/";
     }
 
+    //TODO - zabezpieczenie przed nadpisaniem istniejącego użytkownika
     @PostMapping("/admin/add")
     public String add(@Valid User user, BindingResult bindingResult, HttpSession session, Model model) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {

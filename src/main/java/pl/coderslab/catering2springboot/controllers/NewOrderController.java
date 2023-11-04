@@ -247,10 +247,11 @@ public class NewOrderController {
 
     @PostMapping("/admin/newOrder/clear")
     public String newOrderClear() {
-        newOrderRepository.deleteAll();
         Config config = configRepository.findAll().get(0);
         config.setEditMode(true);
         configRepository.save(config);
+        newOrderRepository.deleteAll();
+        newMenuRepository.deleteAll();
         return "redirect:/admin/financial";
     }
 }
