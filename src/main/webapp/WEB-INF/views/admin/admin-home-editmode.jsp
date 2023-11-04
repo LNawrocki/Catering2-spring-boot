@@ -22,7 +22,7 @@
     </div>
     <div class="main-block">
         <div class="day-block">
-            <div class="day" style="color: red">
+            <div class="day" style="color: red; font-size: larger; font-weight: bold">
                 Trwa edytowanie danych. Proszę spróbować później.
             </div>
         </div>

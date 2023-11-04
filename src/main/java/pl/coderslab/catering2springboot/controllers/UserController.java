@@ -45,6 +45,12 @@ public class UserController {
 
     @GetMapping
     public String mealsView(Model model) {
+        if (configRepository.findAll().get(0).getEditMode()) {
+            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+            return "home-editmode";
+        }
         model.addAttribute("mealsMonday", newMenuRepository.findByDayId(1));
         model.addAttribute("mealsTuesday", newMenuRepository.findByDayId(2));
         model.addAttribute("mealsWednesday", newMenuRepository.findByDayId(3));
@@ -58,37 +64,40 @@ public class UserController {
 
     @GetMapping("/admin/list")
     public String userList(Model model, HttpSession session) {
-        model.addAttribute("departments", departmentRepository.findAll());
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            model.addAttribute("departments", departmentRepository.findAll());
 
-        if (session.getAttribute("searchId") != null && session.getAttribute("searchId") != "") {
-            Long id = Long.parseLong((String) session.getAttribute("searchId"));
-            User user = userRepository.getByUserId(id);
-            List<User> users = new ArrayList<>();
-            users.add(user);
-            model.addAttribute("usersList", users);
-            model.addAttribute("searchId", null);
+            if (session.getAttribute("searchId") != null && session.getAttribute("searchId") != "") {
+                Long id = Long.parseLong((String) session.getAttribute("searchId"));
+                User user = userRepository.getByUserId(id);
+                List<User> users = new ArrayList<>();
+                users.add(user);
+                model.addAttribute("usersList", users);
+                model.addAttribute("searchId", null);
+                return "/user/user-list";
+            }
+
+            if (session.getAttribute("searchLogin") != null && session.getAttribute("searchLogin") != "") {
+                String login = (String) session.getAttribute("searchLogin");
+                User user = userRepository.getByLogin(login);
+                System.out.println(user);
+                List<User> users = new ArrayList<>();
+                users.add(user);
+                model.addAttribute("usersList", users);
+                model.addAttribute("searchLogin", null);
+                return "/user/user-list";
+            }
+
+            if (session.getAttribute("searchDepartmentId") != null && session.getAttribute("searchDepartmentId") != "") {
+                List<User> users = userRepository.findAllByDepartment(departmentRepository.findById((Integer) session.getAttribute("searchDepartmentId")).get());
+                model.addAttribute("usersList", users);
+                return "/user/user-list";
+            }
+
+            model.addAttribute("usersList", userRepository.findAll());
             return "/user/user-list";
         }
-
-        if (session.getAttribute("searchLogin") != null && session.getAttribute("searchLogin") != "") {
-            String login = (String) session.getAttribute("searchLogin");
-            User user = userRepository.getByLogin(login);
-            System.out.println(user);
-            List<User> users = new ArrayList<>();
-            users.add(user);
-            model.addAttribute("usersList", users);
-            model.addAttribute("searchLogin", null);
-            return "/user/user-list";
-        }
-
-        if (session.getAttribute("searchDepartmentId") != null && session.getAttribute("searchDepartmentId") != "") {
-            List<User> users = userRepository.findAllByDepartment(departmentRepository.findById((Integer) session.getAttribute("searchDepartmentId")).get());
-            model.addAttribute("usersList", users);
-            return "/user/user-list";
-        }
-
-        model.addAttribute("usersList", userRepository.findAll());
-        return "/user/user-list";
+        return "redirect:/";
     }
 
     @PostMapping("/admin/list/searchId")
@@ -195,6 +204,10 @@ public class UserController {
 
         User user = userRepository.getByLogin(login);
         if (Objects.nonNull(user)) {
+            if (user.getActive() == false && BCrypt.checkpw(password, user.getPassword())) {
+                model.addAttribute("login", user.getLogin());
+                return "user-not-active";
+            }
             if (BCrypt.checkpw(password, user.getPassword())) {
                 model.addAttribute("name", user.getName());
                 model.addAttribute("lastname", user.getLastName());
@@ -248,13 +261,11 @@ public class UserController {
         return "redirect:/";
     }
 
-
-    //TODO zmiana hasła przez uzytkownika
-
     @GetMapping("/user/update")
     public String userUpdateView(@RequestParam Long editUserId, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null) {
             User user = userRepository.getByUserId(editUserId);
+            System.out.println(user.getPassword());
             user.setPassword("");
             model.addAttribute("user", user);
             model.addAttribute("departments", departmentRepository.findAll());

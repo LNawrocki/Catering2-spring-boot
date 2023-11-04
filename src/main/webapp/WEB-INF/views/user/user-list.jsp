@@ -43,7 +43,6 @@
             </tr>
             <tr>
                 <td></td>
-
                 <form action="/admin/list/searchClean" method="post">
                     <td>
                         <button type="submit">Wyczyść</button>
@@ -54,8 +53,6 @@
         </table>
     </div>
 </div>
-
-
 <div class="main-block">
     <div class="day-block">
         <table>
@@ -92,6 +89,13 @@
                     <div class="day" style="color: darkorange; font-weight: bold;">
                         <div>
                             Dział
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day" style="color: darkorange; font-weight: bold;">
+                        <div>
+                            Konto
                         </div>
                     </div>
                 </td>
@@ -141,6 +145,25 @@
                         </div>
                     </td>
                     <td>
+                        <c:if test="${user.active == false}">
+                        <div class="day" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;">
+                            </c:if>
+                            <c:if test="${user.active == true}">
+                            <div class="day" style="box-shadow: 0px 0px 15px rgb(166,229,135) inset;">
+                                </c:if>
+                            <div>
+                                <c:choose>
+                                    <c:when test="${user.active eq true}">
+                                        Aktywne
+                                    </c:when>
+                                    <c:when test="${user.active eq false}">
+                                        Nieaktywne
+                                    </c:when>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
                         <div class="day" >
                             <div >
                                 <form action="/admin/update" method="get" style="padding: 1px; margin: 1px">
@@ -157,8 +180,6 @@
         </table>
     </div>
 </div>
-
-
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

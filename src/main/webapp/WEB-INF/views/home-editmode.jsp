@@ -4,21 +4,16 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8"/>
-    <jsp:include page="../fragments/title.jsp"/>
+    <jsp:include page="fragments/title.jsp"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_user_home_editmode.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_home.css">
 </head>
 
 <body>
-<jsp:include page="../fragments/header.jsp"/>
-<jsp:include page="../fragments/menu-user.jsp"/>
+<jsp:include page="fragments/header.jsp"/>
+<jsp:include page="fragments/menu.jsp"/>
 
 <div class="main-block">
-    <div class="login-row">
-        <div class="day">
-            Witaj ${name} ${lastName}
-        </div>
-    </div>
     <div class="main-block">
         <div class="day-block">
             <div class="day" style="color: red; font-size: larger; font-weight: bold">
@@ -27,6 +22,6 @@
         </div>
     </div>
 </div>
-<jsp:include page="../fragments/footer.jsp"/>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

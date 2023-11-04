@@ -120,39 +120,31 @@
         </table>
     </div>
 </div>
-<form:form method="post" action="/admin/config/editMode" modelAttribute="config">
-    <div class="main-block">
+
+<div class="main-block">
+    <form action="/admin/actualMenu/update" method="post">
         <div class="day-block">
             <div class="day">
-                <label>Tryb edycji:
-                    <form:radiobutton path="editMode" value="true"/>Włączony
-                    <form:radiobutton path="editMode" value="false"/>Wyłączony
-                    <form:button>Potwierdź</form:button>
-                </label>
+                <button>Zamknij tydzień, przepisz nowe zamówienia na pzyszły tydzień</button>
             </div>
         </div>
-    </div>
-</form:form>
-<form action="/admin/actualMenu/update" method="post">
-    <div class="main-block">
+    </form>
+    <form action="/admin/newOrder/clear" method="post">
         <div class="day-block">
             <div class="day">
-                <button>Zamknij tydzień, przepisz dane zamówień, skasuj NOWE MENU i listę NOWYCH ZAMÓWIEŃ wraz z
-                    podliczeniami
-                </button>
+                <button>Wyczyść LISTĘ NOWYCH ZAMÓWIEŃ wraz z podliczeniami</button>
             </div>
         </div>
-    </div>
-</form>
-<form method="post">
-    <div class="main-block">
+    </form>
+    <form action="/admin/financial/saveToScv" method="post">
         <div class="day-block">
             <div class="day">
                 <button>Wyślij do pliku csv (jeszcze nie działa)</button>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
+
 
 <jsp:include page="../fragments/footer.jsp"/>
 </body>

@@ -5,10 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.coderslab.catering2springboot.entity.ActualOrder;
-import pl.coderslab.catering2springboot.entity.NewMenu;
-import pl.coderslab.catering2springboot.entity.NewOrder;
-import pl.coderslab.catering2springboot.entity.User;
+import pl.coderslab.catering2springboot.entity.*;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
@@ -75,7 +72,6 @@ public class NewOrderController {
             model.addAttribute("actualOrders", actualOrderRepository.findAll());
             return "/menu/admin-actual-order-list";
         }
-        session.invalidate();
         return "redirect:/";
     }
 
@@ -149,71 +145,71 @@ public class NewOrderController {
                 }
             }
 
-        if (newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")) != null) {
-            return "redirect:/user/newOrder/check";
+            if (newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")) != null) {
+                return "redirect:/user/newOrder/check";
+            }
+
+            BigDecimal paymentPerc = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
+
+            List<NewMenu> menuMonday = newMenuRepository.findByDayId(1);
+            List<NewMenu> menuTuesday = newMenuRepository.findByDayId(2);
+            List<NewMenu> menuWednesday = newMenuRepository.findByDayId(3);
+            List<NewMenu> menuThursday = newMenuRepository.findByDayId(4);
+            List<NewMenu> menuFriday = newMenuRepository.findByDayId(5);
+
+            menuMonday
+                    .forEach(e -> {
+                        e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                        e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                    });
+            menuTuesday
+                    .forEach(e -> {
+                        e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                        e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                    });
+            menuWednesday
+                    .forEach(e -> {
+                        e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                        e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                    });
+            menuThursday
+                    .forEach(e -> {
+                        e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                        e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                    });
+            menuFriday
+                    .forEach(e -> {
+                        e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
+                        e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
+                    });
+
+            int kw = LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1;
+            NewOrder newOrder = getNewOrder(kw, user);
+            model.addAttribute("newOrder", newOrder);
+            model.addAttribute("newMenuMonday", menuMonday);
+            model.addAttribute("newMenuTuesday", menuTuesday);
+            model.addAttribute("newMenuWednesday", menuWednesday);
+            model.addAttribute("newMenuThursday", menuThursday);
+            model.addAttribute("newMenuFriday", menuFriday);
+            model.addAttribute("userId", user.getUserId());
+            model.addAttribute("kw", kw);
+            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+
+            NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
+            if (order != null && !order.getIsPaid()) {
+                model.addAttribute("receivables", order.getToPay());
+            } else {
+                model.addAttribute("receivables", 0);
+            }
+            if ((Boolean) session.getAttribute("superAdmin")) {
+                return "/menu/new-order-admin";
+            } else {
+                return "/menu/new-order-user";
+            }
         }
-
-        BigDecimal paymentPerc = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
-
-        List<NewMenu> menuMonday = newMenuRepository.findByDayId(1);
-        List<NewMenu> menuTuesday = newMenuRepository.findByDayId(2);
-        List<NewMenu> menuWednesday = newMenuRepository.findByDayId(3);
-        List<NewMenu> menuThursday = newMenuRepository.findByDayId(4);
-        List<NewMenu> menuFriday = newMenuRepository.findByDayId(5);
-
-        menuMonday
-                .forEach(e -> {
-                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                });
-        menuTuesday
-                .forEach(e -> {
-                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                });
-        menuWednesday
-                .forEach(e -> {
-                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                });
-        menuThursday
-                .forEach(e -> {
-                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                });
-        menuFriday
-                .forEach(e -> {
-                    e.setMealPrice(e.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
-                    e.setMealName(e.getMealName().concat(" ").concat(String.valueOf(e.getMealPrice())).concat(" zł"));
-                });
-
-        int kw = LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1;
-        NewOrder newOrder = getNewOrder(kw, user);
-        model.addAttribute("newOrder", newOrder);
-        model.addAttribute("newMenuMonday", menuMonday);
-        model.addAttribute("newMenuTuesday", menuTuesday);
-        model.addAttribute("newMenuWednesday", menuWednesday);
-        model.addAttribute("newMenuThursday", menuThursday);
-        model.addAttribute("newMenuFriday", menuFriday);
-        model.addAttribute("userId", user.getUserId());
-        model.addAttribute("kw", kw);
-        model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
-        model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
-
-        NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
-        if (order != null && !order.getIsPaid()) {
-            model.addAttribute("receivables", order.getToPay());
-        } else {
-            model.addAttribute("receivables", 0);
-        }
-        if ((Boolean) session.getAttribute("superAdmin")) {
-            return "/menu/new-order-admin";
-        } else {
-            return "/menu/new-order-user";
-        }
+        return "redirect:/";
     }
-        return"redirect:/";
-}
 
     @PostMapping("/menu/newOrder")
     public String newOrder(NewOrder newOrder, HttpSession session) {
@@ -247,5 +243,14 @@ public class NewOrderController {
             return "redirect:/user/newOrder/check";
         }
         return "redirect:/";
+    }
+
+    @PostMapping("/admin/newOrder/clear")
+    public String newOrderClear() {
+        newOrderRepository.deleteAll();
+        Config config = configRepository.findAll().get(0);
+        config.setEditMode(true);
+        configRepository.save(config);
+        return "redirect:/admin/financial";
     }
 }

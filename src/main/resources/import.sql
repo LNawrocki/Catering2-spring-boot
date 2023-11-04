@@ -18,7 +18,7 @@ INSERT INTO catering.users (user_id, active, last_name, login, name, password, s
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (8, true, 'lakiernia1', 'lakiernia1', 'lakiernia1', '$2a$10$R5bZWu/JRlMabhZmH4iNU.gu6FdBCKkp31y1JSrXihyUZo8OM6cfK', false, 3);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (9, true, 'lakiernia2', 'lakiernia2', 'lakiernia2', '$2a$10$0xAfsYbqws.r/e13Ubw1F.MkvF8mPOdgL2ABiWOFfFvDBx6J5TTCy', false, 3);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (10, true, 'lakiernia3', 'lakiernia3', 'lakiernia3', '$2a$10$ppuSKOTM/YtBbYkORoeKru2yC6pgF5YJ/oF8ahsAvGkgU.0BHWO.C', false, 3);
-INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (11, true, 'test', 'test', 'test', '$2a$10$0tt/1WqsJTqWTTgbcBe2ZOgO6XsqoXolOwCOuDQEigul.hpBlt5K.', false, 4);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (12, false, 'Ryrych', 'DRyrych', 'Damian', '$2a$10$JsNlrE0foTL68hYbthxg..Ywo2NlIQ8h8gHG/S9LIxNFD5x5nzmfa', false, 1);
 
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (1, 1, 'Brak', 0.00);
 INSERT INTO catering.new_menu (meal_no, day_id, meal_name, meal_price) VALUES (2, 1, 'Bułka z szynką, serem i warzywami', 7.10);

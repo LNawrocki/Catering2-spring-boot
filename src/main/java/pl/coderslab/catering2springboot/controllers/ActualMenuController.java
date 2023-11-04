@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.catering2springboot.entity.*;
 import pl.coderslab.catering2springboot.repository.*;
@@ -14,26 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class ActualMenuController {
 
     private final ActualMenuRepository actualMenuRepository;
     private final ActualOrderRepository actualOrderRepository;
     private final NewMenuRepository newMenuRepository;
     private final NewOrderRepository newOrderRepository;
-    private final ConfigRepository configRepository;
 
     public ActualMenuController(ActualMenuRepository actualMenuRepository,
                                 ActualOrderRepository actualOrderRepository,
                                 NewMenuRepository newMenuRepository,
-                                NewOrderRepository newOrderRepository, ConfigRepository configRepository) {
+                                NewOrderRepository newOrderRepository) {
         this.actualMenuRepository = actualMenuRepository;
         this.actualOrderRepository = actualOrderRepository;
         this.newMenuRepository = newMenuRepository;
         this.newOrderRepository = newOrderRepository;
-        this.configRepository = configRepository;
     }
 
-    @GetMapping("/admin/actualMenu")
+    @GetMapping("/actualMenu")
     public String actualOrderView(@RequestParam(required = false) Integer shift, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
 
@@ -65,7 +65,7 @@ public class ActualMenuController {
         return "redirect:/";
     }
 
-    @PostMapping("/admin/actualMenu/update")
+    @PostMapping("/actualMenu/update")
     public String actualOrderUpdate(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
 
@@ -119,11 +119,6 @@ public class ActualMenuController {
                 actualMenu.setSecondShiftUsersId(idsSecondShift);
                 actualMenuRepository.save(actualMenu);
             }
-            newOrderRepository.deleteAll();
-            newMenuRepository.deleteAll();
-            Config config = configRepository.findAll().get(0);
-            config.setEditMode(true);
-            configRepository.save(config);
             return "redirect:/admin/actualMenu";
         }
         return "redirect:/";

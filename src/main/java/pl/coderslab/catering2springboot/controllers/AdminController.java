@@ -117,7 +117,6 @@ public class AdminController {
     public String adminUpdateView(@RequestParam Long editUserId, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
             User user = userRepository.getByUserId(editUserId);
-            user.setPassword("");
             model.addAttribute("user", user);
             model.addAttribute("departments", departmentRepository.findAll());
             return "/admin/admin-update";
@@ -128,6 +127,10 @@ public class AdminController {
     @PostMapping("/update")
     public String adminUpdate(User user, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            if (userRepository.getByUserId(user.getUserId()).getPassword().equals(user.getPassword())){
+                userRepository.save(user);
+                return "redirect:/admin/list";
+            }
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
             userRepository.save(user);
             return "redirect:/admin/list";
@@ -135,6 +138,5 @@ public class AdminController {
         return "redirect:/";
     }
 
-    //TODO - dodać obsługę editMode
     //TODO - dodać przycisk w financjia do usunięcia danych nowych zamówień i menu
 }
