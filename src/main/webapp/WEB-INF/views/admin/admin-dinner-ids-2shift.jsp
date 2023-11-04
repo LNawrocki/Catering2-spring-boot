@@ -83,57 +83,61 @@
                     </div>
                 </td>
             </tr>
-            <c:forEach var="dinner" items="${actualMenuList}">
-                <tr>
-                    <td>
-                        <div class="day" style="justify-content: center">
-                            <div>
-                                <c:choose>
-                                    <c:when test="${dinner.dayId eq 1}">Poniedziałek</c:when>
-                                    <c:when test="${dinner.dayId eq 2}">Wtorek</c:when>
-                                    <c:when test="${dinner.dayId eq 3}">Środa</c:when>
-                                    <c:when test="${dinner.dayId eq 4}">Czwartek</c:when>
-                                    <c:when test="${dinner.dayId eq 5}">Piątek</c:when>
-                                </c:choose>
+            <c:forEach var="meal" items="${actualMenuList}">
+                <c:if test="${meal.mealName != 'Brak'}">
+                    <c:if test="${meal.secondShiftQuantity != 0 }">
+                        <tr>
+                            <td>
+                                <div class="day" style="justify-content: center">
+                                    <div>
+                                        <c:choose>
+                                            <c:when test="${meal.dayId eq 1}">Poniedziałek</c:when>
+                                            <c:when test="${meal.dayId eq 2}">Wtorek</c:when>
+                                            <c:when test="${meal.dayId eq 3}">Środa</c:when>
+                                            <c:when test="${meal.dayId eq 4}">Czwartek</c:when>
+                                            <c:when test="${meal.dayId eq 5}">Piątek</c:when>
+                                        </c:choose>
 
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day" style="justify-content: right; font-weight: bold;">
-                            <div>
-                                nr ${dinner.mealNo}
-                            </div>
-                        </div>
-                        <div class="day" style="justify-content: left">
-                            <div>
-                                Zmiana 2:
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day" style="justify-content: left; font-weight: bold;">
-                            <div>
-                                    ${dinner.mealName}
-                            </div>
-                        </div>
-                        <div class="day" style="justify-content: left">
-                            <div>
-                                ID: ${dinner.secondShiftUsersId}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="day" style="justify-content: left">
-                            Suma:
-                        </div>
-                        <div class="day" style="justify-content: left">
-                            <div>
-                                    ${dinner.secondShiftQuantity}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="day" style="justify-content: right; font-weight: bold;">
+                                    <div>
+                                        nr ${meal.mealNo}
+                                    </div>
+                                </div>
+                                <div class="day" style="justify-content: left">
+                                    <div>
+                                        Zmiana 2:
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="day" style="justify-content: left; font-weight: bold;">
+                                    <div>
+                                            ${meal.mealName}
+                                    </div>
+                                </div>
+                                <div class="day" style="justify-content: left">
+                                    <div>
+                                        ID: ${meal.secondShiftUsersId}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="day" style="justify-content: left">
+                                    Suma:
+                                </div>
+                                <div class="day" style="justify-content: left">
+                                    <div>
+                                            ${meal.secondShiftQuantity}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:if>
             </c:forEach>
         </table>
     </div>

@@ -20,6 +20,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -145,6 +146,18 @@ public class UserController {
     @PostMapping("/admin/add")
     public String add(@Valid User user, BindingResult bindingResult, HttpSession session, Model model) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+
+
+            if (Objects.nonNull(userRepository.getByUserId(user.getUserId()))) {
+                model.addAttribute("msg", "Użytkownik o podanym numere już istnieje");
+                return "admin/admin-user-add-info-exist";
+            }
+
+            if (Objects.nonNull(userRepository.getByLogin(user.getLogin()))) {
+                model.addAttribute("msg", "Użytkownik o podanym loginie już istnieje");
+                return "admin/admin-user-add-info-exist";
+            }
+
             if (bindingResult.hasErrors()) {
                 model.addAttribute("errors", bindingResult.getFieldErrors().stream()
                         .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
