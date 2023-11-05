@@ -26,18 +26,20 @@ import java.time.temporal.WeekFields;
 @RequestMapping("/admin")
 public class AdminController {
 
+    public final ActualMenuRepository actualMenuRepository;
     private final DepartmentRepository departmentRepository;
     private final ConfigRepository configRepository;
     private final UserRepository userRepository;
     private final NewOrderRepository newOrderRepository;
     private final NewMenuRepository newMenuRepository;
 
-    public AdminController(DepartmentRepository departmentRepository, ConfigRepository configRepository, UserRepository userRepository, NewOrderRepository newOrderRepository, NewMenuRepository newMenuRepository) {
+    public AdminController(DepartmentRepository departmentRepository, ConfigRepository configRepository, UserRepository userRepository, NewOrderRepository newOrderRepository, NewMenuRepository newMenuRepository, ActualMenuRepository actualMenuRepository) {
         this.departmentRepository = departmentRepository;
         this.configRepository = configRepository;
         this.userRepository = userRepository;
         this.newOrderRepository = newOrderRepository;
         this.newMenuRepository = newMenuRepository;
+        this.actualMenuRepository = actualMenuRepository;
     }
 
     @GetMapping("/home")
@@ -74,7 +76,7 @@ public class AdminController {
     }
 
     @GetMapping("/department")
-    public String addDepartmentView(Model model){
+    public String addDepartmentView(Model model) {
         model.addAttribute("department", new Department());
         model.addAttribute("departments", departmentRepository.findAll());
         model.addAttribute("nextId", departmentRepository.count() + 1);
@@ -82,7 +84,7 @@ public class AdminController {
     }
 
     @PostMapping("/department")
-    public String addDepartment(@Valid Department department, BindingResult bindingResult, Model model){
+    public String addDepartment(@Valid Department department, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", departmentRepository.findAll());
             model.addAttribute("nextId", departmentRepository.count() + 1);
@@ -92,26 +94,44 @@ public class AdminController {
         return "redirect:/admin/department";
     }
 
-    @GetMapping ("/config")
-    public String adminConfigView(Model model, HttpSession session){
+    @GetMapping("/config")
+    public String configView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            Config configValues = configRepository.findById(1).get();
-            model.addAttribute(configValues);
+            Config config = configRepository.findById(1).get();
+            model.addAttribute(config);
             return "/admin/admin-config";
         }
         return "redirect:/";
     }
 
-    @PostMapping ("/config/editMode")
-    public String adminEditMenu(Config config, HttpSession session){
+    @PostMapping("/config/editMode")
+    public String configEditMenu(@RequestParam Boolean editMode, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
             Config configValues = configRepository.findById(1).get();
-            configValues.setEditMode(config.getEditMode());
+            configValues.setEditMode(editMode);
             configRepository.save(configValues);
             return "redirect:/admin/config";
         }
         return "redirect:/";
     }
+
+    @PostMapping("/config/clearActualMenu")
+    public String configClearActualMenu(HttpSession session) {
+//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+        actualMenuRepository.deleteAll();
+        return "redirect:/admin/config";
+    }
+//        return "redirect:/";
+//    }
+
+    @PostMapping("/config/clearNewOrders")
+    public String configClearNewOrders(HttpSession session) {
+//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+        newOrderRepository.deleteAll();
+        return "redirect:/admin/config";
+    }
+//        return "redirect:/";
+//    }
 
     @GetMapping("/update")
     public String adminUpdateView(@RequestParam Long editUserId, Model model, HttpSession session) {
@@ -127,7 +147,7 @@ public class AdminController {
     @PostMapping("/update")
     public String adminUpdate(User user, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            if (userRepository.getByUserId(user.getUserId()).getPassword().equals(user.getPassword())){
+            if (userRepository.getByUserId(user.getUserId()).getPassword().equals(user.getPassword())) {
                 userRepository.save(user);
                 return "redirect:/admin/list";
             }

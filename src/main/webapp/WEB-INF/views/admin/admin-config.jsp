@@ -14,20 +14,56 @@
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
-<form:form method="post" action="/admin/config/editMode" modelAttribute="config">
-    <div class="main-block">
-        <div class="login-row">
+<div class="main-block">
+    <div class="login-row">
+        <form:form method="post" action="/admin/config/editMode" modelAttribute="config">
+        <c:if test="${config.editMode eq false}">
             <div class="day">
                 <label>Tryb edycji:
-                        <form:radiobutton path="editMode" value="true"/>Włączony
-                        <form:radiobutton path="editMode" value="false"/>Wyłączony
-                    <form:button>Potwierdź</form:button>
+                    <button name="editMode" value="true" style="box-shadow: 0px 0px 15px rgb(166,229,135) inset;"/>
+                    Włącz tryb edycji administratora
                 </label>
             </div>
-        </div>
+            <div class="day">
+                Mowe menu i możliwość zamawiania są dostepne.
+            </div>
+        </c:if>
+        <c:if test="${config.editMode eq true}">
+            <div class="day">
+                <label>Tryb edycji:
+                    <button name="editMode" value="false" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;"/>
+                    Wyłącz tryb edycji administratora
+                </label>
+            </div>
+            <div class="day">
+                Mowe menu i możliwość zamawiania są zablokowane.
+            </div>
+        </c:if>
     </div>
-</form:form>
+    </form:form>
+</div>
 
+<div class="main-block">
+    <div class="login-row">
+        <form:form method="post" action="/admin/config/clearActualMenu" modelAttribute="config">
+            <button name="editMode" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;"/>
+            <div>
+                Wyczyść Listę zamówień
+            </div>
+        </form:form>
+    </div>
+</div>
+
+<div class="main-block">
+    <div class="login-row">
+        <form:form method="post" action="/admin/config/clearNewOrders" modelAttribute="config">
+            <button name="editMode" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;"/>
+            <div>
+                Wyczyść Listę nowych zamówień złożonych prze użytkowników na przyszły tydzień
+            </div>
+        </form:form>
+    </div>
+</div>
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

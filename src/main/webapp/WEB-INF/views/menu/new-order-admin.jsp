@@ -47,12 +47,17 @@
             <form:hidden path="priceFri"/>
             <form:hidden path="toPay"/>
             <form:hidden path="isPaid"/>
-
         </div>
     </div>
     <div class="main-block">
         <div class="day-block">
             <table>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="number" name="user.userId" placeholder="ID uśytkownika" value="${user.userId}"/>
+                    </td>
+                </tr>
                 <tr style="font-weight: bold">
                     <td>
                         <div class="day">

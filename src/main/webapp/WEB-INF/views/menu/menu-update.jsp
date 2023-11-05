@@ -43,7 +43,7 @@
         </div>
         <div class="login-row">
             <label>Nazwa:
-                <input name="mealName" type="text" size="100"/>
+                <input name="mealName" placeholder="Pierwsza pozycja dnia musi się nazywać 'Brak'." type="text" size="100"/>
             </label>
         </div>
         <div class="login-row">

@@ -11,11 +11,8 @@ import pl.coderslab.catering2springboot.entity.*;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
-import java.time.LocalDate;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,15 +22,17 @@ public class ActualMenuController {
     private final ActualOrderRepository actualOrderRepository;
     private final NewMenuRepository newMenuRepository;
     private final NewOrderRepository newOrderRepository;
+    private final ConfigRepository configRepository;
 
     public ActualMenuController(ActualMenuRepository actualMenuRepository,
                                 ActualOrderRepository actualOrderRepository,
                                 NewMenuRepository newMenuRepository,
-                                NewOrderRepository newOrderRepository) {
+                                NewOrderRepository newOrderRepository, ConfigRepository configRepository) {
         this.actualMenuRepository = actualMenuRepository;
         this.actualOrderRepository = actualOrderRepository;
         this.newMenuRepository = newMenuRepository;
         this.newOrderRepository = newOrderRepository;
+        this.configRepository = configRepository;
     }
 
     @GetMapping("/actualMenu")
@@ -129,6 +128,9 @@ public class ActualMenuController {
                 actualMenu.setSecondShiftUsersId(idsSecondShift);
                 actualMenuRepository.save(actualMenu);
             }
+            Config config = configRepository.findAll().get(0);
+            config.setEditMode(true);
+            configRepository.save(config);
             return "redirect:/admin/actualMenu";
         }
         return "redirect:/";

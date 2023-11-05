@@ -263,9 +263,10 @@ public class NewOrderController {
 
         if (session.getAttribute("userId") != null) {
             User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
+            model.addAttribute("user", user);
             model.addAttribute("name", user.getName());
             model.addAttribute("lastName", user.getLastName());
-            model.addAttribute("editUserId", user.getUserId());
+//            model.addAttribute("editUserId", user.getUserId());
             if (configRepository.findAll().get(0).getEditMode()) {
                 if ((Boolean) session.getAttribute("superAdmin")) {
                     return "/admin/admin-home-editmode";
@@ -274,6 +275,7 @@ public class NewOrderController {
                 }
             }
 
+            //TODO Zmienić działanie zamawiania obiadu dla admina, opcja zawsze dostepna ze sprawdzeniem czy admin już nie zamówił dania
             if (newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")) != null) {
                 return "redirect:/user/newOrder/check";
             }
@@ -371,7 +373,7 @@ public class NewOrderController {
             newOrder.setKw(LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
 
             newOrderRepository.save(newOrder);
-            return "redirect:/user/newOrder/check";
+            return "redirect:/admin/newOrder/list";
         }
         return "redirect:/";
     }
