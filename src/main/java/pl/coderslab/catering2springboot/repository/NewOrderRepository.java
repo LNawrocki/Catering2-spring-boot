@@ -17,5 +17,4 @@ public interface NewOrderRepository extends JpaRepository<NewOrder, Long> {
     NewOrder getNewOrderById(Long id);
     List<NewOrder> findNewOrderByIsPaid(Boolean isPaid);
 
-
 }

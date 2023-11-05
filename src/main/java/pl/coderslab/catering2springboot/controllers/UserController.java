@@ -81,7 +81,6 @@ public class UserController {
             if (session.getAttribute("searchLogin") != null && session.getAttribute("searchLogin") != "") {
                 String login = (String) session.getAttribute("searchLogin");
                 User user = userRepository.getByLogin(login);
-                System.out.println(user);
                 List<User> users = new ArrayList<>();
                 users.add(user);
                 model.addAttribute("usersList", users);
