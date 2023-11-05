@@ -54,87 +54,85 @@ public class NewOrderController {
 
     @GetMapping("/admin/newOrder/list")
     public String orderListView(Model model, HttpSession session) {
-//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-        model.addAttribute("departments", departmentRepository.findAll());
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            model.addAttribute("departments", departmentRepository.findAll());
 
-        if (session.getAttribute("searchNewOrderId") != null && session.getAttribute("searchNewOrderId") != "") {
-            Long searchNewOrderId = Long.parseLong((String) session.getAttribute("searchNewOrderId"));
-            NewOrder newOrder = newOrderRepository.getNewOrderById(searchNewOrderId);
-            List<NewOrder> newOrders = new ArrayList<>();
-            newOrders.add(newOrder);
-            model.addAttribute("newOrders", newOrders);
-            model.addAttribute("searchNewOrderId", null);
-            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
-            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
-            return "/menu/admin-new-order-list";
-        }
-
-        if (session.getAttribute("searchIsPaid") != null && session.getAttribute("searchIsPaid") != "") {
-            model.addAttribute("newOrders",
-                    newOrderRepository.findNewOrderByIsPaid(Boolean.valueOf(String.valueOf(session.getAttribute("searchIsPaid")))));
-            model.addAttribute("searchNewOrderId", null);
-            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
-            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
-            return "/menu/admin-new-order-list";
-        }
-
-        if (session.getAttribute("searchDepartmentId") != null && session.getAttribute("searchDepartmentId") != "") {
-            List<User> users = userRepository.findAllByDepartment(departmentRepository.findById((Integer) session.getAttribute("searchDepartmentId")).get());
-            List<NewOrder> newOrders = new ArrayList<>();
-
-            for (User user : users) {
-                if (newOrderRepository.getNewOrderByUserId(user.getUserId()) != null) {
-                    newOrders.add(newOrderRepository.getNewOrderByUserId(user.getUserId()));
-                }
+            if (session.getAttribute("searchNewOrderId") != null && session.getAttribute("searchNewOrderId") != "") {
+                Long searchNewOrderId = Long.parseLong((String) session.getAttribute("searchNewOrderId"));
+                NewOrder newOrder = newOrderRepository.getNewOrderById(searchNewOrderId);
+                List<NewOrder> newOrders = new ArrayList<>();
+                newOrders.add(newOrder);
+                model.addAttribute("newOrders", newOrders);
+                model.addAttribute("searchNewOrderId", null);
+                model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+                model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+                model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+                return "/menu/admin-new-order-list";
             }
-            model.addAttribute("newOrders", newOrders);
+
+            if (session.getAttribute("searchIsPaid") != null && session.getAttribute("searchIsPaid") != "") {
+                model.addAttribute("newOrders",
+                        newOrderRepository.findNewOrderByIsPaid(Boolean.valueOf(String.valueOf(session.getAttribute("searchIsPaid")))));
+                model.addAttribute("searchNewOrderId", null);
+                model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+                model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+                model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+                return "/menu/admin-new-order-list";
+            }
+
+            if (session.getAttribute("searchDepartmentId") != null && session.getAttribute("searchDepartmentId") != "") {
+                List<User> users = userRepository.findAllByDepartment(departmentRepository.findById((Integer) session.getAttribute("searchDepartmentId")).get());
+                List<NewOrder> newOrders = new ArrayList<>();
+
+                for (User user : users) {
+                    if (newOrderRepository.getNewOrderByUserId(user.getUserId()) != null) {
+                        newOrders.add(newOrderRepository.getNewOrderByUserId(user.getUserId()));
+                    }
+                }
+                model.addAttribute("newOrders", newOrders);
+                model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+                model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+                model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+                return "/menu/admin-new-order-list";
+            }
+
+            if (session.getAttribute("searchLogin") != null && session.getAttribute("searchLogin") != "") {
+                String login = (String) session.getAttribute("searchLogin");
+                List<NewOrder> newOrders = new ArrayList<>();
+                newOrders.add(newOrderRepository.getNewOrderByUserId(userRepository.getByLogin(login).getUserId()));
+                model.addAttribute("newOrders", newOrders);
+                model.addAttribute("searchLogin", null);
+                model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+                model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+                model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+                return "/menu/admin-new-order-list";
+            }
+
+            if (session.getAttribute("searchUserId") != null && session.getAttribute("searchUserId") != "") {
+
+                Long searchUserId = Long.parseLong((String) session.getAttribute("searchUserId"));
+                List<NewOrder> newOrders = new ArrayList<>();
+                newOrders.add(newOrderRepository.getNewOrderByUserId(searchUserId));
+                model.addAttribute("newOrders", newOrders);
+                model.addAttribute("searchUserId", null);
+                model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+                model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+                model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+                return "/menu/admin-new-order-list";
+            }
+
+            model.addAttribute("newOrders", newOrderRepository.findAll());
             model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
             model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
             model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
             return "/menu/admin-new-order-list";
         }
-
-        if (session.getAttribute("searchLogin") != null && session.getAttribute("searchLogin") != "") {
-            String login = (String) session.getAttribute("searchLogin");
-            List<NewOrder> newOrders = new ArrayList<>();
-            newOrders.add(newOrderRepository.getNewOrderByUserId(userRepository.getByLogin(login).getUserId()));
-            model.addAttribute("newOrders", newOrders);
-            model.addAttribute("searchLogin", null);
-            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
-            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
-            return "/menu/admin-new-order-list";
-        }
-
-        if (session.getAttribute("searchUserId") != null && session.getAttribute("searchUserId") != "") {
-
-            Long searchUserId = Long.parseLong((String) session.getAttribute("searchUserId"));
-            List<NewOrder> newOrders = new ArrayList<>();
-            newOrders.add(newOrderRepository.getNewOrderByUserId(searchUserId));
-            model.addAttribute("newOrders", newOrders);
-            model.addAttribute("searchUserId", null);
-            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
-            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
-            return "/menu/admin-new-order-list";
-        }
-
-        //TODO newOrder wyszukiwanie po loginie i id użytkownika
-
-        model.addAttribute("newOrders", newOrderRepository.findAll());
-        model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-        model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
-        model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
-            return "/menu/admin-new-order-list";
-        }
-//        return "redirect:/";
-//    }
+        return "redirect:/";
+    }
 
     @PostMapping("/admin/newOrder/searchNewOrderId")
     public String searchNewOrderId(@RequestParam String searchNewOrderId,
-                             Model model) {
+                                   Model model) {
         model.addAttribute("searchNewOrderId", searchNewOrderId);
         model.addAttribute("searchIsPaid", "");
         model.addAttribute("searchDepartmentId", "");
@@ -145,7 +143,7 @@ public class NewOrderController {
 
     @PostMapping("/admin/newOrder/searchIsPaid")
     public String searchIdPaid(@RequestParam String searchIsPaid,
-                                   Model model) {
+                               Model model) {
         model.addAttribute("searchIsPaid", searchIsPaid);
         model.addAttribute("searchNewOrderId", "");
         model.addAttribute("searchDepartmentId", "");
@@ -155,7 +153,7 @@ public class NewOrderController {
 
     @PostMapping("/admin/newOrder/searchDepartment")
     public String searchDepartment(@RequestParam Integer searchDepartmentId,
-                                     Model model) {
+                                   Model model) {
         model.addAttribute("searchDepartmentId", searchDepartmentId);
         model.addAttribute("searchNewOrderId", "");
         model.addAttribute("searchIsPaid", "");
@@ -165,7 +163,7 @@ public class NewOrderController {
 
     @PostMapping("/admin/newOrder/searchLogin")
     public String searchLogin(@RequestParam String searchLogin,
-                                Model model) {
+                              Model model) {
         model.addAttribute("searchLogin", searchLogin);
         model.addAttribute("searchNewOrderId", "");
         model.addAttribute("searchIsPaid", "");
