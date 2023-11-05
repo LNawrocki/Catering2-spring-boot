@@ -14,6 +14,77 @@
 
 <div class="main-block">
     <div class="day-block">
+        <h3>Lista zamówień na tydzień KW: ${kw} ( ${weekStart} - ${weekEnd} )</h3>
+    </div>
+</div>
+
+<div class="main-block">
+    <div class="day-block">
+        <table>
+            <tr>
+                <form action="/admin/newOrder/searchNewOrderId" method="post">
+                    <td style="margin-right: 50px; text-align: center">
+                        <div class="day">
+                            <input type="number" name="searchNewOrderId" placeholder="ID zamówienia"
+                                   style="width: 170px; text-align: center"> </br>
+                            <button type="submit">Wyszukaj</button>
+                        </div>
+                    </td>
+                </form>
+                <form action="/admin/newOrder/searchIsPaid" method="post">
+                    <td>
+                        <div class="day">
+                            <select name="searchIsPaid" style="width: 200px; text-align: center">
+                                <option value="">Status</option>
+                                <option value="false">Nie zapłacono</option>
+                                <option value="true">Zapłacono</option>
+                            </select>
+                            <button type="submit">Wyszukaj</button>
+                        </div>
+                    </td>
+                </form>
+                <form action="/admin/newOrder/searchDepartment" method="post">
+                    <td>
+                        <div class="day">
+                            <select name="searchDepartmentId" style="text-align: center">
+                                <c:forEach var="department" items="${departments}">
+                                    <option value="${department.id}">${department.name}</option>
+                                </c:forEach>
+                            </select>
+                            <button type="submit">Wyszukaj</button>
+                        </div>
+                    </td>
+                </form>
+                <form action="/admin/newOrder/searchLogin" method="post">
+                    <td>
+                        <div class="day">
+                            <input type="text" name="searchLogin" placeholder="Login:"
+                                   style="width: 150px; text-align: center">
+                            <button type="submit">Wyszukaj</button>
+                        </div>
+                    </td>
+                </form>
+                <form action="/admin/newOrder/searchUserId" method="post">
+                    <td>
+                        <div class="day">
+                            <input type="number" name="searchUserId" placeholder="ID użytkownika"
+                                   style="width: 170px; text-align: center">
+                            <button type="submit">Wyszukaj</button>
+                        </div>
+                    </td>
+                </form>
+                <form action="/admin/newOrder/searchClean" method="post">
+                    <td>
+                        <button type="submit" style="background-color: green">Wyczyść</button>
+                    </td>
+                </form>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="main-block">
+    <div class="day-block">
         <table>
             <tr>
                 <td>
@@ -160,11 +231,15 @@
 
                                         <input name="userIdUpdate" value="${newOrder.user.userId}" hidden>
                                         <div class="day">
-                                            <button type="submit" name="paid" value="true" style="border-radius: 10px">wpłata</button>
+                                            <button type="submit" name="paid" value="true" style="border-radius: 10px">
+                                                wpłata
+                                            </button>
                                             <br>
                                         </div>
                                         <div class="day">
-                                            <button type="submit" name="paid" value="false" style="border-radius: 10px">nie zpałacono</button>
+                                            <button type="submit" name="paid" value="false" style="border-radius: 10px">
+                                                nie zpałacono
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

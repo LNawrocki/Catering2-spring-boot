@@ -138,5 +138,4 @@ public class AdminController {
         return "redirect:/";
     }
 
-    //TODO - dodać przycisk w financjia do usunięcia danych nowych zamówień i menu
 }

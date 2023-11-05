@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.coderslab.catering2springboot.entity.*;
 import pl.coderslab.catering2springboot.repository.*;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@SessionAttributes({"searchNewOrderId", "searchIsPaid", "searchLogin", "searchDepartmentId"})
 public class NewOrderController {
     public final NewOrderRepository newOrderRepository;
     public final UserRepository userRepository;
@@ -24,14 +26,16 @@ public class NewOrderController {
     private final ActualOrderRepository actualOrderRepository;
     private final ActualMenuRepository actualMenuRepository;
     private final ConfigRepository configRepository;
+    private final DepartmentRepository departmentRepository;
 
-    public NewOrderController(NewOrderRepository newOrderRepository, UserRepository userRepository, NewMenuRepository newMenuRepository, ActualOrderRepository actualOrderRepository, ActualMenuRepository actualMenuRepository, ConfigRepository configRepository) {
+    public NewOrderController(NewOrderRepository newOrderRepository, UserRepository userRepository, NewMenuRepository newMenuRepository, ActualOrderRepository actualOrderRepository, ActualMenuRepository actualMenuRepository, ConfigRepository configRepository, DepartmentRepository departmentRepository) {
         this.newOrderRepository = newOrderRepository;
         this.userRepository = userRepository;
         this.newMenuRepository = newMenuRepository;
         this.actualOrderRepository = actualOrderRepository;
         this.actualMenuRepository = actualMenuRepository;
         this.configRepository = configRepository;
+        this.departmentRepository = departmentRepository;
     }
 
     private static NewOrder getNewOrder(int kw, User user) {
@@ -50,11 +54,92 @@ public class NewOrderController {
 
     @GetMapping("/admin/newOrder/list")
     public String orderListView(Model model, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            model.addAttribute("newOrders", newOrderRepository.findAll());
+//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+        model.addAttribute("departments", departmentRepository.findAll());
+
+        if (session.getAttribute("searchNewOrderId") != null && session.getAttribute("searchNewOrderId") != "") {
+            Long searchNewOrderId = Long.parseLong((String) session.getAttribute("searchNewOrderId"));
+            NewOrder newOrder = newOrderRepository.getNewOrderById(searchNewOrderId);
+            List<NewOrder> newOrders = new ArrayList<>();
+            newOrders.add(newOrder);
+            model.addAttribute("newOrders", newOrders);
+            model.addAttribute("searchNewOrderId", null);
+            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
             return "/menu/admin-new-order-list";
         }
-        return "redirect:/";
+
+        if (session.getAttribute("searchIsPaid") != null && session.getAttribute("searchIsPaid") != "") {
+            model.addAttribute("newOrders",
+                    newOrderRepository.findNewOrderByIsPaid(Boolean.valueOf(String.valueOf(session.getAttribute("searchIsPaid")))));
+            model.addAttribute("searchNewOrderId", null);
+            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+            return "/menu/admin-new-order-list";
+        }
+
+        if (session.getAttribute("searchDepartmentId") != null && session.getAttribute("searchDepartmentId") != "") {
+            List<User> users = userRepository.findAllByDepartment(departmentRepository.findById((Integer) session.getAttribute("searchDepartmentId")).get());
+            List<NewOrder> newOrders = new ArrayList<>(0);
+
+            for (User user : users) {
+                if (newOrderRepository.getNewOrderByUserId(user.getUserId()) != null) {
+                    newOrders.add(newOrderRepository.getNewOrderByUserId(user.getUserId()));
+                }
+            }
+            model.addAttribute("newOrders", newOrders);
+            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+            return "/menu/admin-new-order-list";
+        }
+
+        //TODO newOrder wyszukiwanie po loginie i id użytkownika
+
+        model.addAttribute("newOrders", newOrderRepository.findAll());
+        model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+        model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+        model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+            return "/menu/admin-new-order-list";
+        }
+//        return "redirect:/";
+//    }
+
+    @PostMapping("/admin/newOrder/searchNewOrderId")
+    public String searchNewOrderId(@RequestParam String searchNewOrderId,
+                             Model model) {
+        model.addAttribute("searchNewOrderId", searchNewOrderId);
+        model.addAttribute("searchIsPaid", "");
+        model.addAttribute("searchDepartmentId", "");
+        return "redirect:/admin/newOrder/list";
+    }
+
+    @PostMapping("/admin/newOrder/searchIsPaid")
+    public String searchIdPaid(@RequestParam String searchIsPaid,
+                                   Model model) {
+        model.addAttribute("searchIsPaid", searchIsPaid);
+        model.addAttribute("searchNewOrderId", "");
+        model.addAttribute("searchDepartmentId", "");
+        return "redirect:/admin/newOrder/list";
+    }
+
+    @PostMapping("/admin/newOrder/searchDepartment")
+    public String searchDepartment(@RequestParam Integer searchDepartmentId,
+                                     Model model) {
+        model.addAttribute("searchDepartmentId", searchDepartmentId);
+        model.addAttribute("searchNewOrderId", "");
+        model.addAttribute("searchIsPaid", "");
+        return "redirect:/admin/newOrder/list";
+    }
+
+    @PostMapping("/admin/newOrder/searchClean")
+    public String newOrderListClean(Model model) {
+        model.addAttribute("searchNewOrderId", "");
+        model.addAttribute("searchIsPaid", "");
+        model.addAttribute("searchDepartmentId", "");
+        return "redirect:/admin/newOrder/list";
     }
 
     @GetMapping("/admin/actualOrder/list")

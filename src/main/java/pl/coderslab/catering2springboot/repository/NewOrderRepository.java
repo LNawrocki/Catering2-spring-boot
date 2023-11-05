@@ -2,7 +2,9 @@ package pl.coderslab.catering2springboot.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import pl.coderslab.catering2springboot.entity.Department;
 import pl.coderslab.catering2springboot.entity.NewOrder;
+import pl.coderslab.catering2springboot.entity.User;
 
 import java.util.List;
 
@@ -13,8 +15,7 @@ public interface NewOrderRepository extends JpaRepository<NewOrder, Long> {
     NewOrder getNewOrderByUserId(Long userId);
 
     NewOrder getNewOrderById(Long id);
+    List<NewOrder> findNewOrderByIsPaid(Boolean isPaid);
 
-
-//    NewOrder getNewOrderByUserId_AndIsPaid(Long userId, Boolean isPaid);
 
 }

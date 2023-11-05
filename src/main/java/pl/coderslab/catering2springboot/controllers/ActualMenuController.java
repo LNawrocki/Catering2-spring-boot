@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -58,7 +59,12 @@ public class ActualMenuController {
             model.addAttribute("mealsQtyPerDaySecondShift", mealsQtyPerDaySecondShift);
             model.addAttribute("actualMenuList", actualMenuList);
             model.addAttribute("shift", shift);
-            model.addAttribute("kw", actualMenuRepository.findAll().get(0).getKw());
+
+            if (actualMenuRepository.findAll().isEmpty()) {
+                model.addAttribute("kw", "");
+            } else {
+                model.addAttribute("kw", actualMenuRepository.findAll().get(0).getKw());
+            }
             if (shift == null || shift == 1) {
                 return "/admin/admin-dinner-ids-1shift";
             } else {

@@ -69,8 +69,8 @@ public class UserController {
             model.addAttribute("departments", departmentRepository.findAll());
 
             if (session.getAttribute("searchId") != null && session.getAttribute("searchId") != "") {
-                Long id = Long.parseLong((String) session.getAttribute("searchId"));
-                User user = userRepository.getByUserId(id);
+                Long searchUserId = Long.parseLong((String) session.getAttribute("searchId"));
+                User user = userRepository.getByUserId(searchUserId);
                 List<User> users = new ArrayList<>();
                 users.add(user);
                 model.addAttribute("usersList", users);
@@ -123,7 +123,7 @@ public class UserController {
     }
 
     @PostMapping("/admin/list/searchClean")
-    public String userListClean(Model model, HttpSession session) {
+    public String userListClean(Model model) {
         model.addAttribute("searchId", "");
         model.addAttribute("searchLogin", "");
         model.addAttribute("searchDepartmentId", "");
