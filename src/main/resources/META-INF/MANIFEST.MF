@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: pl.coderslab.catering2springboot.Catering2SpringBootApplicat
+ ion
+

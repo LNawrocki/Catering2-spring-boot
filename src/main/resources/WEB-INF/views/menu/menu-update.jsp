@@ -27,11 +27,7 @@
         </div>
         <div class="login-row">
             <label>Cena:
-                <select name="mealPrice">
-                    <c:forEach var="price" items="${prices}">
-                        <option value="${price.price}">${price.price}</option>
-                    </c:forEach>
-                </select>
+                <input type="number" name="mealPrice" placeholder="np. 14.5" step="0.01"/> zł
             </label>
         </div>
         <div class="login-row">
@@ -47,12 +43,7 @@
         </div>
         <div class="login-row">
             <label>Nazwa:
-                <select name="mealName">
-                    <option value="Brak" name="mealName">Pierwsza pozycja dnia musi się nazywać "Brak".</option>
-                    <c:forEach var="dish" items="${dishes}">
-                        <option value="${dish.name}" placeholder="Pierwsza pozycja dnia musi się nazywać 'Brak'.">${dish.name}</option>
-                    </c:forEach>
-                </select>
+                <input name="mealName" placeholder="Pierwsza pozycja dnia musi się nazywać 'Brak'." type="text" size="100"/>
             </label>
         </div>
         <div class="login-row">

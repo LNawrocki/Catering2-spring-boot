@@ -13,23 +13,16 @@
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
-<form:form method="post" modelAttribute="department">
+<form:form method="post" modelAttribute="price">
     <div class="main-block">
         <div class="login-row">
-            <label>ID:
-<%--                <form:input path="id"/>--%>
-                <input type="number" name="id" value="${nextId}">
+            <label>Nr ceny:
+                <form:input type="number" path="priceId" value="${priceId}"/>
             </label>
         </div>
         <div class="login-row">
-            <label for="name">Nazwa:
-                <form:input path="name"/>
-            </label>
-        </div>
-        <div class="login-row">
-            <label for="paymentPerc">Płatność (%):
-                <form:input path="paymentPerc"/><br>
-                <form:errors path="paymentPerc" cssStyle="color: red"/>
+            <label for="price">Wartość:
+                <form:input path="price"/>
             </label>
         </div>
         <div class="login-row">
@@ -45,21 +38,14 @@
                 <td>
                     <div class="day">
                         <div>
-                            ID
+                            Nr ceny
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="day">
                         <div>
-                            Nazwa
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Płatność (%)
+                            Wartość
                         </div>
                     </div>
                 </td>
@@ -67,26 +53,19 @@
                     Akcja
                 </td>
             </tr>
-            <c:forEach items="${departments}" var="dish">
+            <c:forEach items="${prices}" var="price">
             <tr>
                 <td>
                     <div class="day">
                         <div>
-                            <c:out value="${dish.id}"/>
+                            <c:out value="${price.priceId}"/>
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="day">
                         <div>
-                            <c:out value="${dish.name}"/>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            <c:out value="${dish.paymentPerc}"/>
+                            <c:out value="${price.price}"/>
                         </div>
                     </div>
                 </td>

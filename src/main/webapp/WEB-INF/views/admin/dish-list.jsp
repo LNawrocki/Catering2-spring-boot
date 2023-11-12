@@ -13,23 +13,16 @@
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
-<form:form method="post" modelAttribute="department">
+<form:form method="post" modelAttribute="dish">
     <div class="main-block">
         <div class="login-row">
-            <label>ID:
-<%--                <form:input path="id"/>--%>
-                <input type="number" name="id" value="${nextId}">
+            <label>Nr dania:
+                <form:input type="number" path="dishId"/>
             </label>
         </div>
         <div class="login-row">
-            <label for="name">Nazwa:
+            <label for="name">Nazwa dania:
                 <form:input path="name"/>
-            </label>
-        </div>
-        <div class="login-row">
-            <label for="paymentPerc">Płatność (%):
-                <form:input path="paymentPerc"/><br>
-                <form:errors path="paymentPerc" cssStyle="color: red"/>
             </label>
         </div>
         <div class="login-row">
@@ -45,7 +38,7 @@
                 <td>
                     <div class="day">
                         <div>
-                            ID
+                            Nr dania
                         </div>
                     </div>
                 </td>
@@ -57,22 +50,15 @@
                     </div>
                 </td>
                 <td>
-                    <div class="day">
-                        <div>
-                            Płatność (%)
-                        </div>
-                    </div>
-                </td>
-                <td>
                     Akcja
                 </td>
             </tr>
-            <c:forEach items="${departments}" var="dish">
+            <c:forEach items="${dishes}" var="dish">
             <tr>
                 <td>
                     <div class="day">
                         <div>
-                            <c:out value="${dish.id}"/>
+                            <c:out value="${dish.dishId}"/>
                         </div>
                     </div>
                 </td>
@@ -80,13 +66,6 @@
                     <div class="day">
                         <div>
                             <c:out value="${dish.name}"/>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            <c:out value="${dish.paymentPerc}"/>
                         </div>
                     </div>
                 </td>

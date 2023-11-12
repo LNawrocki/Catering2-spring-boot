@@ -385,6 +385,15 @@ public class NewOrderController {
         configRepository.save(config);
         newOrderRepository.deleteAll();
         newMenuRepository.deleteAll();
+        for (int i = 1; i <= 5; i++) {
+            NewMenu newMenu = new NewMenu();
+            newMenu.setMealNo(i);
+            newMenu.setMealName("Brak");
+            newMenu.setDayId(i);
+            newMenu.setKw(LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+            newMenu.setMealPrice(BigDecimal.valueOf(0.00));
+            newMenuRepository.save(newMenu);
+        }
         return "redirect:/admin/financial";
     }
 }

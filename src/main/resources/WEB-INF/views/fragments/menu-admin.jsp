@@ -43,10 +43,4 @@
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/admin/config">Ustawienia</a>
     </div>
-    <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/admin/dish">Lista dań</a>
-    </div>
-    <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/admin/price">Lista cen</a>
-    </div>
 </div>

@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.coderslab.catering2springboot.entity.Config;
-import pl.coderslab.catering2springboot.entity.Department;
+import pl.coderslab.catering2springboot.entity.*;
 
-import pl.coderslab.catering2springboot.entity.NewOrder;
-import pl.coderslab.catering2springboot.entity.User;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
@@ -32,14 +29,18 @@ public class AdminController {
     private final UserRepository userRepository;
     private final NewOrderRepository newOrderRepository;
     private final NewMenuRepository newMenuRepository;
+    private final DishRepository dishRepository;
+    private final PriceRepository priceRepository;
 
-    public AdminController(DepartmentRepository departmentRepository, ConfigRepository configRepository, UserRepository userRepository, NewOrderRepository newOrderRepository, NewMenuRepository newMenuRepository, ActualMenuRepository actualMenuRepository) {
+    public AdminController(DepartmentRepository departmentRepository, ConfigRepository configRepository, UserRepository userRepository, NewOrderRepository newOrderRepository, NewMenuRepository newMenuRepository, ActualMenuRepository actualMenuRepository, DishRepository dishRepository, PriceRepository priceRepository) {
         this.departmentRepository = departmentRepository;
         this.configRepository = configRepository;
         this.userRepository = userRepository;
         this.newOrderRepository = newOrderRepository;
         this.newMenuRepository = newMenuRepository;
         this.actualMenuRepository = actualMenuRepository;
+        this.dishRepository = dishRepository;
+        this.priceRepository = priceRepository;
     }
 
     @GetMapping("/home")
@@ -157,5 +158,20 @@ public class AdminController {
         }
         return "redirect:/";
     }
+
+    @GetMapping("/dish")
+    public String dishesView(Model model) {
+        model.addAttribute("dish", new Dish());
+        model.addAttribute("dishes", dishRepository.findAll());
+        return "/admin/dish-list";
+    }
+
+    @GetMapping("/price")
+    public String pricesView(Model model) {
+        model.addAttribute("price", new Price());
+        model.addAttribute("prices", priceRepository.findAll());
+        return "/admin/price-list";
+    }
+
 
 }
