@@ -17,8 +17,7 @@
     <div class="main-block">
         <div class="login-row">
             <label>ID:
-<%--                <form:input path="id"/>--%>
-                <input type="number" name="id" value="${nextId}">
+                <form:input type="number" path="id"/>
             </label>
         </div>
         <div class="login-row">
@@ -33,10 +32,18 @@
             </label>
         </div>
         <div class="login-row">
-            <form:button>Dodaj</form:button>
+            <form:button>Dodaj / Zastąp</form:button>
         </div>
     </div>
 </form:form>
+
+<c:if test="${msg ne null && msg ne ''}">
+<div class="main-block">
+    <div class="login-row" style="color: red; font-size: larger; font-weight: bold">
+        ${msg}
+    </div>
+</div>
+</c:if>
 
 <div class="main-block">
     <div class="login-row">
@@ -67,33 +74,37 @@
                     Akcja
                 </td>
             </tr>
-            <c:forEach items="${departments}" var="dish">
-            <tr>
-                <td>
-                    <div class="day">
-                        <div>
-                            <c:out value="${dish.id}"/>
+            <c:forEach items="${departments}" var="department">
+                <tr>
+                    <td>
+                        <div class="day">
+                            <div>
+                                <c:out value="${department.id}"/>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            <c:out value="${dish.name}"/>
+                    </td>
+                    <td>
+                        <div class="day">
+                            <div>
+                                <c:out value="${department.name}"/>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            <c:out value="${dish.paymentPerc}"/>
+                    </td>
+                    <td>
+                        <div class="day">
+                            <div>
+                                <c:out value="${department.paymentPerc}"/>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td>
-                    Do zrobienia :)
-                </td>
-            </tr>
+                    </td>
+                    <td>
+                        <form action="/admin/department/delete" method="post">
+                            <button name="deleteDepartmentId" value="${department.id}"
+                                    style="font-size: small; border-radius: 5px; border-width: 1px; color: red">Usuń
+                            </button>
+                        </form>
+                    </td>
+                </tr>
             </c:forEach>
         </table>
     </div>

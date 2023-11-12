@@ -189,15 +189,6 @@ public class NewOrderController {
     @GetMapping("/admin/actualOrder/list")
     public String actualOrderListView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            List<ActualOrder> actualOrders = actualOrderRepository.findAll(); // pobranie wszystkich aktualnych zamówień
-            List<String> mealsNames = new ArrayList<>();
-            for (ActualOrder actualOrder : actualOrders) {
-                mealsNames.add(actualMenuRepository.findByMealNo(actualOrder.getMealMon()).getMealName());
-                mealsNames.add(actualMenuRepository.findByMealNo(actualOrder.getMealTue()).getMealName());
-                mealsNames.add(actualMenuRepository.findByMealNo(actualOrder.getMealWed()).getMealName());
-                mealsNames.add(actualMenuRepository.findByMealNo(actualOrder.getMealThu()).getMealName());
-                mealsNames.add(actualMenuRepository.findByMealNo(actualOrder.getMealFri()).getMealName());
-            }
             model.addAttribute("actualOrders", actualOrderRepository.findAll());
             return "/menu/admin-actual-order-list";
         }

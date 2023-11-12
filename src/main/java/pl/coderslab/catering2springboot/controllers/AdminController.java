@@ -4,10 +4,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.catering2springboot.entity.*;
 
 import pl.coderslab.catering2springboot.repository.*;
@@ -17,10 +14,12 @@ import javax.validation.Valid;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
+import java.util.Optional;
 
 
 @Controller
 @RequestMapping("/admin")
+@SessionAttributes({"msg"})
 public class AdminController {
 
     public final ActualMenuRepository actualMenuRepository;
@@ -77,22 +76,45 @@ public class AdminController {
     }
 
     @GetMapping("/department")
-    public String addDepartmentView(Model model) {
-        model.addAttribute("department", new Department());
-        model.addAttribute("departments", departmentRepository.findAll());
-        model.addAttribute("nextId", departmentRepository.count() + 1);
-        return "/admin/department-edit";
+    public String addDepartmentView(Model model, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            model.addAttribute("department", new Department());
+            model.addAttribute("departments", departmentRepository.findAll());
+            model.addAttribute("msg", session.getAttribute("msg"));
+            return "/admin/department-edit";
+        }
+        return "redirect:/";
     }
 
     @PostMapping("/department")
-    public String addDepartment(@Valid Department department, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("departments", departmentRepository.findAll());
-            model.addAttribute("nextId", departmentRepository.count() + 1);
-            return "admin/department-edit";
+    public String addDepartment(@Valid Department department, BindingResult bindingResult, Model model, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("departments", departmentRepository.findAll());
+                return "admin/department-edit";
+            }
+            departmentRepository.save(department);
+            model.addAttribute("msg", "");
+            return "redirect:/admin/department";
         }
-        departmentRepository.save(department);
-        return "redirect:/admin/department";
+        return "redirect:/";
+    }
+
+    @PostMapping("/department/delete")
+    public String deleteDepartment(@RequestParam Integer deleteDepartmentId, Model model, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            if (userRepository.getByDepartmentId(deleteDepartmentId).isEmpty()){
+                departmentRepository.delete(departmentRepository.findById(deleteDepartmentId).get());
+                model.addAttribute("msg", "");
+
+            } else {
+                model.addAttribute("msg", "Odmowa -nie możesz usunąć działu, do którego należą użytkownicy");
+            }
+
+            return "redirect:/admin/department";
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/config")
