@@ -70,7 +70,7 @@
                     </div>
                 </td>
                 <td>
-                    Do zrobienia :)
+                    Do zrobienia
                 </td>
             </tr>
             </c:forEach>
