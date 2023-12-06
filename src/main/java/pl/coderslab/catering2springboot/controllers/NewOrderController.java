@@ -1,12 +1,17 @@
 package pl.coderslab.catering2springboot.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import pl.coderslab.catering2springboot.config.Config;
+import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.entity.*;
+import pl.coderslab.catering2springboot.newMenu.NewMenu;
+import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 @SessionAttributes({"searchNewOrderId", "searchIsPaid", "searchLogin", "searchDepartmentId", "searchUserId"})
 public class NewOrderController {
     public final NewOrderRepository newOrderRepository;
@@ -25,18 +31,9 @@ public class NewOrderController {
     public final NewMenuRepository newMenuRepository;
     private final ActualOrderRepository actualOrderRepository;
     private final ActualMenuRepository actualMenuRepository;
-    private final ConfigRepository configRepository;
+    private final ConfigService configService;
     private final DepartmentRepository departmentRepository;
 
-    public NewOrderController(NewOrderRepository newOrderRepository, UserRepository userRepository, NewMenuRepository newMenuRepository, ActualOrderRepository actualOrderRepository, ActualMenuRepository actualMenuRepository, ConfigRepository configRepository, DepartmentRepository departmentRepository) {
-        this.newOrderRepository = newOrderRepository;
-        this.userRepository = userRepository;
-        this.newMenuRepository = newMenuRepository;
-        this.actualOrderRepository = actualOrderRepository;
-        this.actualMenuRepository = actualMenuRepository;
-        this.configRepository = configRepository;
-        this.departmentRepository = departmentRepository;
-    }
 
     private static NewOrder getNewOrder(int kw, User user) {
         NewOrder newOrder = new NewOrder();
@@ -258,7 +255,7 @@ public class NewOrderController {
             model.addAttribute("name", user.getName());
             model.addAttribute("lastName", user.getLastName());
 //            model.addAttribute("editUserId", user.getUserId());
-            if (configRepository.findAll().get(0).getEditMode()) {
+            if (configService.getConfig().getEditMode()) {
                 if ((Boolean) session.getAttribute("superAdmin")) {
                     return "/admin/admin-home-editmode";
                 } else {
@@ -371,9 +368,9 @@ public class NewOrderController {
 
     @PostMapping("/admin/newOrder/clear")
     public String newOrderClear() {
-        Config config = configRepository.findAll().get(0);
+        Config config = configService.getConfig();
         config.setEditMode(true);
-        configRepository.save(config);
+        configService.save(config);
         newOrderRepository.deleteAll();
         newMenuRepository.deleteAll();
         for (int i = 1; i <= 5; i++) {

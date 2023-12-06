@@ -1,5 +1,6 @@
 package pl.coderslab.catering2springboot.controllers;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.catering2springboot.config.Config;
+import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.entity.*;
+import pl.coderslab.catering2springboot.newMenu.NewMenu;
+import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/admin")
 public class ActualMenuController {
 
@@ -22,18 +28,8 @@ public class ActualMenuController {
     private final ActualOrderRepository actualOrderRepository;
     private final NewMenuRepository newMenuRepository;
     private final NewOrderRepository newOrderRepository;
-    private final ConfigRepository configRepository;
+    private final ConfigService configService;
 
-    public ActualMenuController(ActualMenuRepository actualMenuRepository,
-                                ActualOrderRepository actualOrderRepository,
-                                NewMenuRepository newMenuRepository,
-                                NewOrderRepository newOrderRepository, ConfigRepository configRepository) {
-        this.actualMenuRepository = actualMenuRepository;
-        this.actualOrderRepository = actualOrderRepository;
-        this.newMenuRepository = newMenuRepository;
-        this.newOrderRepository = newOrderRepository;
-        this.configRepository = configRepository;
-    }
 
     @GetMapping("/actualMenu")
     public String actualOrderView(@RequestParam(required = false) Integer shift, Model model, HttpSession session) {
@@ -128,9 +124,9 @@ public class ActualMenuController {
                 actualMenu.setSecondShiftUsersId(idsSecondShift);
                 actualMenuRepository.save(actualMenu);
             }
-            Config config = configRepository.findAll().get(0);
+            Config config = configService.getConfig();
             config.setEditMode(true);
-            configRepository.save(config);
+            configService.save(config);
             return "redirect:/admin/actualMenu";
         }
         return "redirect:/";

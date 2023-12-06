@@ -1,7 +1,7 @@
-package pl.coderslab.catering2springboot.repository;
+package pl.coderslab.catering2springboot.config;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.coderslab.catering2springboot.entity.Config;
 
 public interface ConfigRepository extends JpaRepository<Config, Integer> {
+    Config getConfigById(Integer id);
 }

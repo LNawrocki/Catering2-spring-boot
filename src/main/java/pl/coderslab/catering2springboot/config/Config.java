@@ -1,4 +1,4 @@
-package pl.coderslab.catering2springboot.entity;
+package pl.coderslab.catering2springboot.config;
 
 import lombok.Data;
 import javax.persistence.*;

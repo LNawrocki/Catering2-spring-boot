@@ -1,5 +1,6 @@
 package pl.coderslab.catering2springboot.controllers;
 
+import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,9 +8,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.entity.ActualOrder;
 import pl.coderslab.catering2springboot.entity.NewOrder;
 import pl.coderslab.catering2springboot.entity.User;
+import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
@@ -20,11 +23,11 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 @Controller
+@AllArgsConstructor
 @SessionAttributes({"userId", "name", "lastName", "superAdmin", "searchId", "searchLogin", "searchDepartmentId"})
 public class UserController {
 
@@ -33,35 +36,8 @@ public class UserController {
     private final UserRepository userRepository;
     private final NewMenuRepository newMenuRepository;
     private final ActualOrderRepository actualOrderRepository;
-    private final ConfigRepository configRepository;
+    private final ConfigService configService;
 
-    public UserController(UserRepository userRepository, DepartmentRepository departmentRepository, NewMenuRepository newMenuRepository, NewOrderRepository newOrderRepository, ActualOrderRepository actualOrderRepository, ConfigRepository configRepository) {
-        this.userRepository = userRepository;
-        this.departmentRepository = departmentRepository;
-        this.newMenuRepository = newMenuRepository;
-        this.newOrderRepository = newOrderRepository;
-        this.actualOrderRepository = actualOrderRepository;
-        this.configRepository = configRepository;
-    }
-
-    @GetMapping
-    public String mealsView(Model model) {
-        if (configRepository.findAll().get(0).getEditMode()) {
-            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
-            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
-            return "home-editmode";
-        }
-        model.addAttribute("mealsMonday", newMenuRepository.findByDayId(1));
-        model.addAttribute("mealsTuesday", newMenuRepository.findByDayId(2));
-        model.addAttribute("mealsWednesday", newMenuRepository.findByDayId(3));
-        model.addAttribute("mealsThursday", newMenuRepository.findByDayId(4));
-        model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
-        model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-        model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
-        model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
-        return "home";
-    }
 
     @GetMapping("/admin/list")
     public String userList(Model model, HttpSession session) {
@@ -248,7 +224,7 @@ public class UserController {
             model.addAttribute("name", user.getName());
             model.addAttribute("lastName", user.getLastName());
             model.addAttribute("editUserId", user.getUserId());
-            if (configRepository.findAll().get(0).getEditMode()) {
+            if (configService.getConfig().getEditMode()) {
                 return "/user/user-home-editmode";
             }
 

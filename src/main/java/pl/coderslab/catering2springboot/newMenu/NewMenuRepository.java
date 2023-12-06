@@ -1,9 +1,9 @@
-package pl.coderslab.catering2springboot.repository;
+package pl.coderslab.catering2springboot.newMenu;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import pl.coderslab.catering2springboot.entity.NewMenu;
+import pl.coderslab.catering2springboot.newMenu.NewMenu;
 
 import javax.transaction.Transactional;
 import java.util.List;

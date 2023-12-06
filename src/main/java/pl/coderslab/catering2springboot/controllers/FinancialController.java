@@ -1,11 +1,15 @@
 package pl.coderslab.catering2springboot.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.catering2springboot.config.Config;
+import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.entity.*;
 import pl.coderslab.catering2springboot.financial.FinancialDepartmentSummary;
+import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/admin")
 public class FinancialController {
 
@@ -26,17 +31,8 @@ public class FinancialController {
     private final NewOrderRepository newOrderRepository;
     private final ActualMenuRepository actualMenuRepository;
     private final NewMenuRepository newMenuRepository;
-    private final ConfigRepository configRepository;
+    private final ConfigService configService;
 
-    public FinancialController(DepartmentRepository departmentRepository, UserRepository userRepository, ActualOrderRepository actualOrderRepository, NewOrderRepository newOrderRepository, ActualMenuRepository actualMenuRepository, NewMenuRepository newMenuRepository, ConfigRepository configRepository) {
-        this.departmentRepository = departmentRepository;
-        this.userRepository = userRepository;
-        this.actualOrderRepository = actualOrderRepository;
-        this.newOrderRepository = newOrderRepository;
-        this.actualMenuRepository = actualMenuRepository;
-        this.newMenuRepository = newMenuRepository;
-        this.configRepository = configRepository;
-    }
 
     @GetMapping("/financial")
     public String financialSummary(Model model, HttpSession session) {
@@ -84,7 +80,7 @@ public class FinancialController {
             model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
             model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
 
-            Config configValues = configRepository.findById(1).get();
+            Config configValues = configService.getConfig();
             model.addAttribute(configValues);
             return "/admin/admin-financial";
         }

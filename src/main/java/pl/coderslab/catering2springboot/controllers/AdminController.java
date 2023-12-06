@@ -1,12 +1,16 @@
 package pl.coderslab.catering2springboot.controllers;
 
+import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.catering2springboot.config.Config;
+import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.entity.*;
 
+import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
@@ -14,33 +18,23 @@ import javax.validation.Valid;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
-import java.util.Optional;
 
 
 @Controller
 @RequestMapping("/admin")
 @SessionAttributes({"msg"})
+@AllArgsConstructor
 public class AdminController {
 
     public final ActualMenuRepository actualMenuRepository;
     private final DepartmentRepository departmentRepository;
-    private final ConfigRepository configRepository;
+    private final ConfigService configService;
     private final UserRepository userRepository;
     private final NewOrderRepository newOrderRepository;
     private final NewMenuRepository newMenuRepository;
     private final DishRepository dishRepository;
     private final PriceRepository priceRepository;
 
-    public AdminController(DepartmentRepository departmentRepository, ConfigRepository configRepository, UserRepository userRepository, NewOrderRepository newOrderRepository, NewMenuRepository newMenuRepository, ActualMenuRepository actualMenuRepository, DishRepository dishRepository, PriceRepository priceRepository) {
-        this.departmentRepository = departmentRepository;
-        this.configRepository = configRepository;
-        this.userRepository = userRepository;
-        this.newOrderRepository = newOrderRepository;
-        this.newMenuRepository = newMenuRepository;
-        this.actualMenuRepository = actualMenuRepository;
-        this.dishRepository = dishRepository;
-        this.priceRepository = priceRepository;
-    }
 
     @GetMapping("/home")
     public String adminHomeView(Model model, HttpSession session) {
@@ -49,7 +43,7 @@ public class AdminController {
             User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
             model.addAttribute("name", user.getName());
             model.addAttribute("lastName", user.getLastName());
-            if (configRepository.findAll().get(0).getEditMode()) {
+            if (configService.editModeStatus()) {
                 return "/admin/admin-home-editmode";
             }
 
@@ -120,7 +114,7 @@ public class AdminController {
     @GetMapping("/config")
     public String configView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            Config config = configRepository.findById(1).get();
+            Config config = configService.getConfig();
             model.addAttribute(config);
             return "/admin/admin-config";
         }
@@ -130,9 +124,9 @@ public class AdminController {
     @PostMapping("/config/editMode")
     public String configEditMenu(@RequestParam Boolean editMode, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            Config configValues = configRepository.findById(1).get();
+            Config configValues = configService.getConfig();
             configValues.setEditMode(editMode);
-            configRepository.save(configValues);
+            configService.save(configValues);
             return "redirect:/admin/config";
         }
         return "redirect:/";

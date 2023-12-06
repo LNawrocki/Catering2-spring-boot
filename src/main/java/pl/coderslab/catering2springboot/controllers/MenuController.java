@@ -5,9 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.coderslab.catering2springboot.entity.NewMenu;
+import pl.coderslab.catering2springboot.newMenu.NewMenu;
 import pl.coderslab.catering2springboot.repository.DishRepository;
-import pl.coderslab.catering2springboot.repository.NewMenuRepository;
+import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.PriceRepository;
 
