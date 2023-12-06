@@ -13,6 +13,8 @@ import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.entity.*;
 import pl.coderslab.catering2springboot.newMenu.NewMenu;
 import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
+import pl.coderslab.catering2springboot.newOrder.NewOrder;
+import pl.coderslab.catering2springboot.newOrder.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;

@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.entity.ActualOrder;
-import pl.coderslab.catering2springboot.entity.NewOrder;
+import pl.coderslab.catering2springboot.newOrder.NewOrder;
 import pl.coderslab.catering2springboot.newMenu.NewMenuService;
+import pl.coderslab.catering2springboot.newOrder.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;

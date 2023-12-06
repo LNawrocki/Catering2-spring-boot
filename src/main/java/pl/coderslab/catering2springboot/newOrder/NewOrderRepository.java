@@ -1,8 +1,7 @@
-package pl.coderslab.catering2springboot.repository;
+package pl.coderslab.catering2springboot.newOrder;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import pl.coderslab.catering2springboot.entity.NewOrder;
 
 import java.util.List;
 

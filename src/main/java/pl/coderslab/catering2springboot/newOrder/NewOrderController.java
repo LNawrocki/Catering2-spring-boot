@@ -1,4 +1,4 @@
-package pl.coderslab.catering2springboot.controllers;
+package pl.coderslab.catering2springboot.newOrder;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.coderslab.catering2springboot.config.Config;
 import pl.coderslab.catering2springboot.config.ConfigService;
-import pl.coderslab.catering2springboot.entity.*;
 import pl.coderslab.catering2springboot.newMenu.NewMenu;
 import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.*;
@@ -32,7 +31,6 @@ public class NewOrderController {
     public final UserRepository userRepository;
     public final NewMenuRepository newMenuRepository;
     private final ActualOrderRepository actualOrderRepository;
-    private final ActualMenuRepository actualMenuRepository;
     private final ConfigService configService;
     private final DepartmentRepository departmentRepository;
 
@@ -365,6 +363,7 @@ public class NewOrderController {
             newOrderRepository.save(newOrder);
             return "redirect:/admin/newOrder/list";
         }
+        //TODO: poprawić przekirowanie user / admin - admin zamawianie dla usera
         return "redirect:/";
     }
 

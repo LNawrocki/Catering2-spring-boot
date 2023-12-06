@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.catering2springboot.newMenu.NewMenu;
 import pl.coderslab.catering2springboot.repository.DishRepository;
 import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
-import pl.coderslab.catering2springboot.repository.NewOrderRepository;
+import pl.coderslab.catering2springboot.newOrder.NewOrderRepository;
 import pl.coderslab.catering2springboot.repository.PriceRepository;
 
 import javax.servlet.http.HttpSession;
