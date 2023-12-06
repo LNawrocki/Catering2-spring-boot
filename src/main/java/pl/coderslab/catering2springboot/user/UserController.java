@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.entity.ActualOrder;
 import pl.coderslab.catering2springboot.entity.NewOrder;
-import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.newMenu.NewMenuService;
 import pl.coderslab.catering2springboot.repository.*;
 
@@ -50,6 +49,7 @@ public class UserController {
                 return "/user/user-home-editmode";
             }
 
+//            TODO: refactor na serwisy
             NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
             if (order != null && !order.getIsPaid()) {
                 model.addAttribute("receivables", order.getToPay());
