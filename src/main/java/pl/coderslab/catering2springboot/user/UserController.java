@@ -82,15 +82,6 @@ public class UserController {
 
 
 
-
-
-
-
-
-
-
-
-
     @GetMapping("/admin/list")
     public String userList(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
