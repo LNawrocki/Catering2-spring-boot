@@ -2,6 +2,7 @@ package pl.coderslab.catering2springboot.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.catering2springboot.user.User;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

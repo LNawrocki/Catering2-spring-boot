@@ -13,6 +13,8 @@ import pl.coderslab.catering2springboot.entity.*;
 import pl.coderslab.catering2springboot.newMenu.NewMenu;
 import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.*;
+import pl.coderslab.catering2springboot.user.User;
+import pl.coderslab.catering2springboot.user.UserRepository;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;

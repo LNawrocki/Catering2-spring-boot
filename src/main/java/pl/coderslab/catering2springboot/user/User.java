@@ -1,9 +1,10 @@
-package pl.coderslab.catering2springboot.entity;
+package pl.coderslab.catering2springboot.user;
 
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import pl.coderslab.catering2springboot.entity.Department;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

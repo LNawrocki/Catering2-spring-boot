@@ -1,8 +1,7 @@
-package pl.coderslab.catering2springboot.repository;
+package pl.coderslab.catering2springboot.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import pl.coderslab.catering2springboot.entity.Department;
-import pl.coderslab.catering2springboot.entity.User;
 
 import java.util.List;
 
