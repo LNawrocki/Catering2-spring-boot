@@ -9,7 +9,7 @@ import pl.coderslab.catering2springboot.newMenu.NewMenu;
 import pl.coderslab.catering2springboot.dish.DishRepository;
 import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.newOrder.NewOrderRepository;
-import pl.coderslab.catering2springboot.repository.PriceRepository;
+import pl.coderslab.catering2springboot.price.PriceRepository;
 
 import javax.servlet.http.HttpSession;
 import java.time.DayOfWeek;

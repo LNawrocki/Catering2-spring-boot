@@ -70,7 +70,9 @@
                     </div>
                 </td>
                 <td>
-                    Do zrobienia
+                    <form action="/admin/price/delete" method="post" style="padding: 1px; margin: 1px">
+                        <button name="deletePriceId" value="${price.priceId}" style="font-size: small; border-radius: 5px; border-width: 1px; color: red">Usuń</button>
+                    </form>
                 </td>
             </tr>
             </c:forEach>

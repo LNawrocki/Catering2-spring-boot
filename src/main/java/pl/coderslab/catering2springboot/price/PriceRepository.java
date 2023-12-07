@@ -1,7 +1,6 @@
-package pl.coderslab.catering2springboot.repository;
+package pl.coderslab.catering2springboot.price;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.coderslab.catering2springboot.entity.Price;
 
 public interface PriceRepository extends JpaRepository<Price, Integer> {
 }
