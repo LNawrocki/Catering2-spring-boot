@@ -8,6 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.catering2springboot.config.Config;
 import pl.coderslab.catering2springboot.config.ConfigService;
+import pl.coderslab.catering2springboot.dish.Dish;
+import pl.coderslab.catering2springboot.dish.DishRepository;
 import pl.coderslab.catering2springboot.entity.*;
 
 import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
@@ -179,12 +181,7 @@ public class AdminController {
         return "redirect:/";
     }
 
-    @GetMapping("/dish")
-    public String dishesView(Model model) {
-        model.addAttribute("dish", new Dish());
-        model.addAttribute("dishes", dishRepository.findAll());
-        return "/admin/dish-list";
-    }
+
 
     @GetMapping("/price")
     public String pricesView(Model model) {
