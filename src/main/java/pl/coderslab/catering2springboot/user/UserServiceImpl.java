@@ -2,7 +2,7 @@ package pl.coderslab.catering2springboot.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.coderslab.catering2springboot.entity.Department;
+import pl.coderslab.catering2springboot.department.Department;
 
 import java.util.List;
 

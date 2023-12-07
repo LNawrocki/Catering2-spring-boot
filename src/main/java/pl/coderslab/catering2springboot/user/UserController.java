@@ -9,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import pl.coderslab.catering2springboot.config.ConfigService;
+import pl.coderslab.catering2springboot.department.DepartmentRepository;
 import pl.coderslab.catering2springboot.entity.ActualOrder;
 import pl.coderslab.catering2springboot.newOrder.NewOrder;
 import pl.coderslab.catering2springboot.newMenu.NewMenuService;

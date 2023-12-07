@@ -1,4 +1,4 @@
-package pl.coderslab.catering2springboot.entity;
+package pl.coderslab.catering2springboot.department;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;

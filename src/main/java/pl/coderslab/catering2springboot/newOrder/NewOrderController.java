@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.coderslab.catering2springboot.config.Config;
 import pl.coderslab.catering2springboot.config.ConfigService;
+import pl.coderslab.catering2springboot.department.DepartmentRepository;
 import pl.coderslab.catering2springboot.newMenu.NewMenu;
 import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.repository.*;

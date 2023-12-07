@@ -1,6 +1,6 @@
 package pl.coderslab.catering2springboot.user;
 
-import pl.coderslab.catering2springboot.entity.Department;
+import pl.coderslab.catering2springboot.department.Department;
 
 import java.util.List;
 
