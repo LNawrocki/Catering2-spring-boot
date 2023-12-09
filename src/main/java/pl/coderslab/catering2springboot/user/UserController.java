@@ -11,14 +11,12 @@ import pl.coderslab.catering2springboot.department.DepartmentRepository;
 import pl.coderslab.catering2springboot.newOrder.NewOrder;
 import pl.coderslab.catering2springboot.newMenu.NewMenuService;
 import pl.coderslab.catering2springboot.newOrder.NewOrderService;
-import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 
 @Controller
@@ -65,15 +63,6 @@ public class UserController {
         return "redirect:/";
     }
 
-
-
-
-
-
-
-
-
-
     @GetMapping("/auth")
     public String authenticate() {
         return "/user/user-auth";
@@ -106,9 +95,6 @@ public class UserController {
         return "/user/user-auth";
     }
 
-
-
-
     @GetMapping("/update")
     public String userUpdateView(@RequestParam Long editUserId, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null) {
@@ -132,9 +118,6 @@ public class UserController {
         }
         return "redirect:/";
     }
-
-
-
 
 }
 
