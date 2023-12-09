@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import pl.coderslab.catering2springboot.newMenu.NewMenu;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface NewMenuRepository extends JpaRepository<NewMenu, Integer> {
     @Modifying
     @Transactional
     void deleteNewMenuByMealNo(Integer mealNo);
+
+    List<NewMenu> findNewMenusByDayId(Integer id);
 }

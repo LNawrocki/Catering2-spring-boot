@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import pl.coderslab.catering2springboot.actualOrder.ActualOrderRepository;
+import pl.coderslab.catering2springboot.actualOrder.ActualOrderService;
 import pl.coderslab.catering2springboot.config.Config;
 import pl.coderslab.catering2springboot.config.ConfigService;
-import pl.coderslab.catering2springboot.department.DepartmentRepository;
+import pl.coderslab.catering2springboot.department.DepartmentService;
 import pl.coderslab.catering2springboot.newMenu.NewMenu;
-import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
+import pl.coderslab.catering2springboot.newMenu.NewMenuService;
 import pl.coderslab.catering2springboot.user.User;
-import pl.coderslab.catering2springboot.user.UserRepository;
+import pl.coderslab.catering2springboot.user.UserService;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -28,12 +28,12 @@ import java.util.List;
 @AllArgsConstructor
 @SessionAttributes({"searchNewOrderId", "searchIsPaid", "searchLogin", "searchDepartmentId", "searchUserId"})
 public class NewOrderController {
-    public final NewOrderRepository newOrderRepository;
-    public final UserRepository userRepository;
-    public final NewMenuRepository newMenuRepository;
-    private final ActualOrderRepository actualOrderRepository;
+    public final NewOrderService newOrderService;
+    public final UserService userService;
+    public final NewMenuService newMenuService;
+    private final ActualOrderService actualOrderService;
     private final ConfigService configService;
-    private final DepartmentRepository departmentRepository;
+    private final DepartmentService departmentService;
 
 
     private static NewOrder getNewOrder(int kw, User user) {
@@ -53,11 +53,11 @@ public class NewOrderController {
     @GetMapping("/admin/newOrder/list")
     public String orderListView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            model.addAttribute("departments", departmentRepository.findAll());
+            model.addAttribute("departments", departmentService.findAll());
 
             if (session.getAttribute("searchNewOrderId") != null && session.getAttribute("searchNewOrderId") != "") {
                 Long searchNewOrderId = Long.parseLong((String) session.getAttribute("searchNewOrderId"));
-                NewOrder newOrder = newOrderRepository.getNewOrderById(searchNewOrderId);
+                NewOrder newOrder = newOrderService.getNewOrderById(searchNewOrderId);
                 List<NewOrder> newOrders = new ArrayList<>();
                 newOrders.add(newOrder);
                 model.addAttribute("newOrders", newOrders);
@@ -70,7 +70,7 @@ public class NewOrderController {
 
             if (session.getAttribute("searchIsPaid") != null && session.getAttribute("searchIsPaid") != "") {
                 model.addAttribute("newOrders",
-                        newOrderRepository.findNewOrderByIsPaid(Boolean.valueOf(String.valueOf(session.getAttribute("searchIsPaid")))));
+                        newOrderService.findNewOrderByIsPaid(Boolean.valueOf(String.valueOf(session.getAttribute("searchIsPaid")))));
                 model.addAttribute("searchNewOrderId", null);
                 model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
                 model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
@@ -79,12 +79,12 @@ public class NewOrderController {
             }
 
             if (session.getAttribute("searchDepartmentId") != null && session.getAttribute("searchDepartmentId") != "") {
-                List<User> users = userRepository.findAllByDepartment(departmentRepository.findById((Integer) session.getAttribute("searchDepartmentId")).get());
+                List<User> users = userService.findUsersByDepartment(departmentService.getDepartmentById((Integer) session.getAttribute("searchDepartmentId")));
                 List<NewOrder> newOrders = new ArrayList<>();
 
                 for (User user : users) {
-                    if (newOrderRepository.getNewOrderByUserId(user.getUserId()) != null) {
-                        newOrders.add(newOrderRepository.getNewOrderByUserId(user.getUserId()));
+                    if (newOrderService.getNewOrderByUserId(user.getUserId()) != null) {
+                        newOrders.add(newOrderService.getNewOrderByUserId(user.getUserId()));
                     }
                 }
                 model.addAttribute("newOrders", newOrders);
@@ -97,7 +97,7 @@ public class NewOrderController {
             if (session.getAttribute("searchLogin") != null && session.getAttribute("searchLogin") != "") {
                 String login = (String) session.getAttribute("searchLogin");
                 List<NewOrder> newOrders = new ArrayList<>();
-                newOrders.add(newOrderRepository.getNewOrderByUserId(userRepository.getByLogin(login).getUserId()));
+                newOrders.add(newOrderService.getNewOrderByUserId(userService.getUserByLogin(login).getUserId()));
                 model.addAttribute("newOrders", newOrders);
                 model.addAttribute("searchLogin", null);
                 model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
@@ -110,7 +110,7 @@ public class NewOrderController {
 
                 Long searchUserId = Long.parseLong((String) session.getAttribute("searchUserId"));
                 List<NewOrder> newOrders = new ArrayList<>();
-                newOrders.add(newOrderRepository.getNewOrderByUserId(searchUserId));
+                newOrders.add(newOrderService.getNewOrderByUserId(searchUserId));
                 model.addAttribute("newOrders", newOrders);
                 model.addAttribute("searchUserId", null);
                 model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
@@ -119,7 +119,7 @@ public class NewOrderController {
                 return "/menu/admin-new-order-list";
             }
 
-            model.addAttribute("newOrders", newOrderRepository.findAll());
+            model.addAttribute("newOrders", newOrderService.findAll());
             model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
             model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
             model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
@@ -187,7 +187,7 @@ public class NewOrderController {
     @GetMapping("/admin/actualOrder/list")
     public String actualOrderListView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            model.addAttribute("actualOrders", actualOrderRepository.findAll());
+            model.addAttribute("actualOrders", actualOrderService.findAll());
             return "/menu/admin-actual-order-list";
         }
         return "redirect:/";
@@ -196,19 +196,19 @@ public class NewOrderController {
     @PostMapping("/admin/newOrder/list/paid")
     public String orderListPaidButtonForm(@RequestParam Boolean paid,
                                           @RequestParam Long userIdUpdate) {
-        NewOrder newOrder = newOrderRepository.getNewOrderByUserId(userIdUpdate);
+        NewOrder newOrder = newOrderService.getNewOrderByUserId(userIdUpdate);
         newOrder.setIsPaid(paid);
-        newOrderRepository.save(newOrder);
+        newOrderService.save(newOrder);
         return "redirect:/admin/newOrder/list";
     }
 
     //TODO Zmienić obsługę usuwania zamówienia (get - POST)
-    //DO poprawy - metoda get i zmiana
+
     @GetMapping("/user/newOrder/delete")
     public String newOrderDelete(@RequestParam Long id, HttpSession session) {
         if (session.getAttribute("userId") != null) {
-            NewOrder newOrder = newOrderRepository.getNewOrderById(id);
-            newOrderRepository.delete(newOrder);
+            NewOrder newOrder = newOrderService.getNewOrderById(id);
+            newOrderService.delete(newOrder);
 
             if ((Boolean) session.getAttribute("superAdmin")) {
                 return "redirect:/admin/newOrder/list";
@@ -223,12 +223,12 @@ public class NewOrderController {
     @GetMapping("/user/newOrder/check")
     public String NewOrderAdminCheckView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null) {
-            User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
+            User user = userService.getUserById((Long) session.getAttribute("userId"));
             model.addAttribute("name", user.getName());
             model.addAttribute("lastName", user.getLastName());
             model.addAttribute("editUserId", user.getUserId());
-            NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
-            model.addAttribute("newOrder", newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")));
+            NewOrder order = newOrderService.getNewOrderByUserId(user.getUserId());
+            model.addAttribute("newOrder", newOrderService.getNewOrderByUserId((Long) session.getAttribute("userId")));
             model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
             model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
             model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
@@ -251,7 +251,7 @@ public class NewOrderController {
     public String newOrderView(Model model, HttpSession session) {
 
         if (session.getAttribute("userId") != null) {
-            User user = userRepository.getByUserId((Long) session.getAttribute("userId"));
+            User user = userService.getUserById((Long) session.getAttribute("userId"));
             model.addAttribute("user", user);
             model.addAttribute("name", user.getName());
             model.addAttribute("lastName", user.getLastName());
@@ -265,17 +265,17 @@ public class NewOrderController {
             }
 
             //TODO Zmienić działanie zamawiania obiadu dla admina, opcja zawsze dostepna ze sprawdzeniem czy admin już nie zamówił dania
-            if (newOrderRepository.getNewOrderByUserId((Long) session.getAttribute("userId")) != null) {
+            if (newOrderService.getNewOrderByUserId((Long) session.getAttribute("userId")) != null) {
                 return "redirect:/user/newOrder/check";
             }
 
             BigDecimal paymentPerc = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
 
-            List<NewMenu> menuMonday = newMenuRepository.findByDayId(1);
-            List<NewMenu> menuTuesday = newMenuRepository.findByDayId(2);
-            List<NewMenu> menuWednesday = newMenuRepository.findByDayId(3);
-            List<NewMenu> menuThursday = newMenuRepository.findByDayId(4);
-            List<NewMenu> menuFriday = newMenuRepository.findByDayId(5);
+            List<NewMenu> menuMonday = newMenuService.findNewMenusByDayId(1);
+            List<NewMenu> menuTuesday = newMenuService.findNewMenusByDayId(2);
+            List<NewMenu> menuWednesday = newMenuService.findNewMenusByDayId(3);
+            List<NewMenu> menuThursday = newMenuService.findNewMenusByDayId(4);
+            List<NewMenu> menuFriday = newMenuService.findNewMenusByDayId(5);
 
             menuMonday
                     .forEach(e -> {
@@ -316,7 +316,7 @@ public class NewOrderController {
             model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
             model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
 
-            NewOrder order = newOrderRepository.getNewOrderByUserId(user.getUserId());
+            NewOrder order = newOrderService.getNewOrderByUserId(user.getUserId());
             if (order != null && !order.getIsPaid()) {
                 model.addAttribute("receivables", order.getToPay());
             } else {
@@ -335,14 +335,14 @@ public class NewOrderController {
     public String newOrder(NewOrder newOrder, HttpSession session) {
         if (session.getAttribute("userId") != null) {
 
-            User user = userRepository.getByUserId(newOrder.getUser().getUserId());
+            User user = userService.getUserById(newOrder.getUser().getUserId());
             BigDecimal paymentPerc = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
 
-            NewMenu mealMonday = newMenuRepository.findByMealNo(newOrder.getMealMon());
-            NewMenu mealTuesday = newMenuRepository.findByMealNo(newOrder.getMealTue());
-            NewMenu mealWednesday = newMenuRepository.findByMealNo(newOrder.getMealWed());
-            NewMenu mealThursday = newMenuRepository.findByMealNo(newOrder.getMealThu());
-            NewMenu mealFriday = newMenuRepository.findByMealNo(newOrder.getMealFri());
+            NewMenu mealMonday = newMenuService.findByMealNo(newOrder.getMealMon());
+            NewMenu mealTuesday = newMenuService.findByMealNo(newOrder.getMealTue());
+            NewMenu mealWednesday = newMenuService.findByMealNo(newOrder.getMealWed());
+            NewMenu mealThursday = newMenuService.findByMealNo(newOrder.getMealThu());
+            NewMenu mealFriday = newMenuService.findByMealNo(newOrder.getMealFri());
 
             newOrder.setPriceMon(mealMonday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
             newOrder.setPriceTue(mealTuesday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
@@ -350,18 +350,18 @@ public class NewOrderController {
             newOrder.setPriceThu(mealThursday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
             newOrder.setPriceFri(mealFriday.getMealPrice().multiply(paymentPerc).divide(BigDecimal.valueOf(100)));
 
-            newOrder.setMealMonName(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealName());
-            newOrder.setMealTueName(newMenuRepository.findByMealNo(newOrder.getMealTue()).getMealName());
-            newOrder.setMealWedName(newMenuRepository.findByMealNo(newOrder.getMealWed()).getMealName());
-            newOrder.setMealThuName(newMenuRepository.findByMealNo(newOrder.getMealThu()).getMealName());
-            newOrder.setMealFriName(newMenuRepository.findByMealNo(newOrder.getMealFri()).getMealName());
+            newOrder.setMealMonName(newMenuService.findByMealNo(newOrder.getMealMon()).getMealName());
+            newOrder.setMealTueName(newMenuService.findByMealNo(newOrder.getMealTue()).getMealName());
+            newOrder.setMealWedName(newMenuService.findByMealNo(newOrder.getMealWed()).getMealName());
+            newOrder.setMealThuName(newMenuService.findByMealNo(newOrder.getMealThu()).getMealName());
+            newOrder.setMealFriName(newMenuService.findByMealNo(newOrder.getMealFri()).getMealName());
 
             newOrder.setToPay(newOrder.getPriceMon().add(newOrder.getPriceTue()).add(newOrder.getPriceWed())
                     .add(newOrder.getPriceThu()).add(newOrder.getPriceFri()));
 
             newOrder.setKw(LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
 
-            newOrderRepository.save(newOrder);
+            newOrderService.save(newOrder);
             return "redirect:/admin/newOrder/list";
         }
         //TODO: poprawić przekirowanie user / admin - admin zamawianie dla usera
@@ -373,8 +373,8 @@ public class NewOrderController {
         Config config = configService.getConfig();
         config.setEditMode(true);
         configService.save(config);
-        newOrderRepository.deleteAll();
-        newMenuRepository.deleteAll();
+        newOrderService.deleteAll();
+        newMenuService.deleteAll();
         for (int i = 1; i <= 5; i++) {
             NewMenu newMenu = new NewMenu();
             newMenu.setMealNo(i);
@@ -382,7 +382,7 @@ public class NewOrderController {
             newMenu.setDayId(i);
             newMenu.setKw(LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
             newMenu.setMealPrice(BigDecimal.valueOf(0.00));
-            newMenuRepository.save(newMenu);
+            newMenuService.save(newMenu);
         }
         return "redirect:/admin/financial";
     }

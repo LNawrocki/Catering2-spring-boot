@@ -8,8 +8,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class NewMenuServiceImpl implements NewMenuService{
-    public final NewMenuRepository newMenuRepository;
 
+    public final NewMenuRepository newMenuRepository;
 
     @Override
     public List<NewMenu> newMenuFindByDayId(Integer id) {
@@ -39,6 +39,16 @@ public class NewMenuServiceImpl implements NewMenuService{
     @Override
     public Boolean newMenuListNotEmpty() {
         return !newMenuRepository.findAll().isEmpty();
+    }
+
+    @Override
+    public List<NewMenu> findNewMenusByDayId(Integer id) {
+        return newMenuRepository.findNewMenusByDayId(id);
+    }
+
+    @Override
+    public void deleteAll() {
+        newMenuRepository.deleteAll();
     }
 
 

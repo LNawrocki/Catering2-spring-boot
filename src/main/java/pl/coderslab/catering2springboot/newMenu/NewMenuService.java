@@ -11,4 +11,8 @@ public interface NewMenuService {
     NewMenu findByMealNo(Integer mealNo);
 
     Boolean newMenuListNotEmpty();
+
+    List<NewMenu> findNewMenusByDayId(Integer id);
+    void deleteAll();
+
 }

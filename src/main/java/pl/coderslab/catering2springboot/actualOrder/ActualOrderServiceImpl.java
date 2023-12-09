@@ -3,6 +3,8 @@ package pl.coderslab.catering2springboot.actualOrder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ActualOrderServiceImpl implements ActualOrderService{
@@ -17,5 +19,10 @@ public class ActualOrderServiceImpl implements ActualOrderService{
     @Override
     public void delete(ActualOrder actualOrder) {
         actualOrderRepository.delete(actualOrder);
+    }
+
+    @Override
+    public List<ActualOrder> findAll() {
+        return actualOrderRepository.findAll();
     }
 }

@@ -37,4 +37,9 @@ public class DepartmentServiceImpl implements DepartmentService{
     public Boolean isUserByDepartmentId(Integer id){
         return userRepository.getByDepartmentId(id).isEmpty();
     }
+
+    @Override
+    public Department getDepartmentById(Integer id) {
+        return departmentRepository.getDepartmentById(id);
+    }
 }

@@ -14,4 +14,6 @@ public interface DepartmentService {
 
     Department getById(Integer departmentId);
     Boolean isUserByDepartmentId(Integer id);
+
+    Department getDepartmentById(Integer id);
 }
