@@ -384,7 +384,7 @@ public class NewOrderController {
         }
 
 
-        //TODO przekazać dane użytkownika, dla którego zamawiamy obiad - strona check
+        //TODO przekazać dane użytkownika, dla którego zamawiamy obiad - strona check - czyszczenmie danych usera
         if (newOrderService.getNewOrderByUserId(user.getUserId()) != null) {
             return "redirect:/user/newOrder/check";
         }
