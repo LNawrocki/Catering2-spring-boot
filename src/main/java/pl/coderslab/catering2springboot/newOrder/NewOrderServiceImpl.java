@@ -2,7 +2,6 @@ package pl.coderslab.catering2springboot.newOrder;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.coderslab.catering2springboot.user.UserRepository;
 
 @Service
 @AllArgsConstructor
@@ -18,5 +17,10 @@ public class NewOrderServiceImpl implements NewOrderService{
     @Override
     public void delete(NewOrder newOrder) {
         newOrderRepository.delete(newOrder);
+    }
+
+    @Override
+    public void deleteAll() {
+        newOrderRepository.deleteAll();
     }
 }

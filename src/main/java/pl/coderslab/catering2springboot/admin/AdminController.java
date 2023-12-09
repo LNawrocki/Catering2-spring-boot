@@ -6,13 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.catering2springboot.actualMenu.ActualMenuService;
 import pl.coderslab.catering2springboot.actualOrder.ActualOrderService;
+import pl.coderslab.catering2springboot.config.Config;
+import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.department.DepartmentService;
 import pl.coderslab.catering2springboot.actualOrder.ActualOrder;
+import pl.coderslab.catering2springboot.newMenu.NewMenuService;
 import pl.coderslab.catering2springboot.newOrder.NewOrder;
 import pl.coderslab.catering2springboot.newOrder.NewOrderService;
 import pl.coderslab.catering2springboot.user.User;
@@ -20,6 +21,9 @@ import pl.coderslab.catering2springboot.user.UserService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,12 +32,90 @@ import java.util.stream.Collectors;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/admin")
+@SessionAttributes({"msg"})
 public class AdminController {
 
     private final DepartmentService departmentService;
     private final UserService userService;
     private final NewOrderService newOrderService;
     private final ActualOrderService actualOrderService;
+    private final ConfigService configService;
+    private final NewMenuService newMenuService;
+    private final ActualMenuService actualMenuService;
+
+    @GetMapping("/home")
+    public String adminHomeView(Model model, HttpSession session) {
+
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            User user = userService.getUserById((Long) session.getAttribute("userId"));
+            model.addAttribute("name", user.getName());
+            model.addAttribute("lastName", user.getLastName());
+            if (configService.editModeStatus()) {
+                return "/admin/admin-home-editmode";
+            }
+
+            model.addAttribute("name", user.getName());
+            model.addAttribute("lastName", user.getLastName());
+
+            NewOrder order = newOrderService.getNewOrderByUserId(user.getUserId());
+            if (order != null && !order.getIsPaid()) {
+                model.addAttribute("receivables", order.getToPay());
+            } else {
+                model.addAttribute("receivables", 0);
+            }
+            model.addAttribute("mealsMonday", newMenuService.newMenuFindByDayId(1));
+            model.addAttribute("mealsTuesday", newMenuService.newMenuFindByDayId(2));
+            model.addAttribute("mealsWednesday", newMenuService.newMenuFindByDayId(3));
+            model.addAttribute("mealsThursday", newMenuService.newMenuFindByDayId(4));
+            model.addAttribute("mealsFriday", newMenuService.newMenuFindByDayId(5));
+            model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
+            model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
+            model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
+            return "/admin/admin-home";
+        }
+        return "redirect:/";
+    }
+
+
+
+    @GetMapping("/config")
+    public String configView(Model model, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            Config config = configService.getConfig();
+            model.addAttribute(config);
+            return "/admin/admin-config";
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/config/editMode")
+    public String configEditMenu(@RequestParam Boolean editMode, HttpSession session) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+            Config configValues = configService.getConfig();
+            configValues.setEditMode(editMode);
+            configService.save(configValues);
+            return "redirect:/admin/config";
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/config/clearActualMenu")
+    public String configClearActualMenu(HttpSession session) {
+//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+        actualMenuService.deleteAll();
+        return "redirect:/admin/config";
+    }
+//        return "redirect:/";
+//    }
+
+    @PostMapping("/config/clearNewOrders")
+    public String configClearNewOrders(HttpSession session) {
+//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+        newOrderService.deleteAll();
+        return "redirect:/admin/config";
+    }
+//        return "redirect:/";
+//    }
 
     @GetMapping("/userList")
     public String userList(Model model, HttpSession session) {

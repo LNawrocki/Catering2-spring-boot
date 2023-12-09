@@ -4,4 +4,5 @@ public interface NewOrderService {
 
     NewOrder getNewOrderByUserId(Long userId);
     void delete(NewOrder newOrder);
+    void deleteAll();
 }

@@ -1,4 +1,4 @@
-package pl.coderslab.catering2springboot.controllers;
+package pl.coderslab.catering2springboot.actualMenu;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -17,7 +17,6 @@ import pl.coderslab.catering2springboot.newMenu.NewMenu;
 import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.newOrder.NewOrder;
 import pl.coderslab.catering2springboot.newOrder.NewOrderRepository;
-import pl.coderslab.catering2springboot.repository.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
