@@ -14,4 +14,7 @@ public interface NewOrderRepository extends JpaRepository<NewOrder, Long> {
     NewOrder getNewOrderById(Long id);
     List<NewOrder> findNewOrderByIsPaid(Boolean isPaid);
 
+    @Query(value ="SELECT COUNT(no) FROM NewOrder no")
+    Integer getQuantityOfNewOrders();
+
 }

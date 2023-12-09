@@ -1,7 +1,6 @@
 package pl.coderslab.catering2springboot.actualMenu;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.coderslab.catering2springboot.entity.ActualMenu;
 
 import java.util.List;
 

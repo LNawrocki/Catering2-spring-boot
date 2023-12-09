@@ -6,7 +6,7 @@
     <meta charset="UTF-8"/>
     <jsp:include page="../fragments/title.jsp"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_menu_update.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_new_menu_edit.css">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
         <h3>Nowe menu na tydzień KW: ${kw} ( ${weekStart} - ${weekEnd} )</h3>
     </div>
 </div>
-<form:form method="post" modelAttribute="newMenu">
+<form:form action="/admin/newMenu/addMeal" method="post" modelAttribute="newMenu">
     <div class="main-block">
         <div class="login-row">
             <label for="mealNo">Numer potrawy:
@@ -29,7 +29,7 @@
             <label>Cena:
                 <select name="mealPrice">
                     <c:forEach var="price" items="${prices}">
-                        <option value="${price.price}">${price.price}</option>
+                        <option value="${price.price}">${price.price} zł</option>
                     </c:forEach>
                 </select>
             </label>
@@ -80,15 +80,22 @@
                             <c:forEach var="mealMonday" items="${mealsMonday}">
                                 <li> ${mealMonday.mealNo} ${mealMonday.mealName} ${mealMonday.mealPrice} zł
                                 <c:if test="${deleteButtonVisible == true}">
-                                    <a href="/menu/delete?mealNo=${mealMonday.mealNo}">Usuń</a></li>
+                                    <form action="/admin/newMenu/deleteMeal" method="post">
+                                        <input name="mealNo" value="${mealMonday.mealNo}" hidden="hidden"/>
+                                        <button>Usuń</button>
+                                    </form>
                                 </c:if>
+                                </li>
                             </c:forEach>
                         </ul>
                     </div>
                 </td>
                 <c:if test="${deleteButtonVisible == true}">
-                    <td class="day">
-                        <a href="/menu/deleteDay?dayId=1">Usuń dzień</a></li>
+                    <td>
+                        <form action="/admin/newMenu/deleteDayMeals" method="post">
+                            <input name="dayId" value="1" hidden="hidden"/>
+                            <button>Usuń dzień</button>
+                        </form>
                     </td>
                 </c:if>
             </tr>
@@ -106,15 +113,22 @@
                             <c:forEach var="mealTuesday" items="${mealsTuesday}">
                                 <li> ${mealTuesday.mealNo} ${mealTuesday.mealName} ${mealTuesday.mealPrice} zł
                                 <c:if test="${deleteButtonVisible == true}">
-                                    <a href="/menu/delete?mealNo=${mealTuesday.mealNo}">Usuń</a></li>
+                                    <form action="/admin/newMenu/deleteMeal" method="post">
+                                        <input name="mealNo" value="${mealTuesday.mealNo}" hidden="hidden"/>
+                                        <button>Usuń</button>
+                                    </form>
                                 </c:if>
+                                </li>
                             </c:forEach>
                         </ul>
                     </div>
                 </td>
                 <c:if test="${deleteButtonVisible == true}">
-                    <td class="day">
-                        <a href="/menu/deleteDay?dayId=2">Usuń dzień</a></li>
+                    <td>
+                        <form action="/admin/newMenu/deleteDayMeals" method="post">
+                            <input name="dayId" value="2" hidden="hidden"/>
+                            <button>Usuń dzień</button>
+                        </form>
                     </td>
                 </c:if>
             </tr>
@@ -132,15 +146,22 @@
                             <c:forEach var="mealWednesday" items="${mealsWednesday}">
                                 <li>${mealWednesday.mealNo} ${mealWednesday.mealName} ${mealWednesday.mealPrice} zł
                                 <c:if test="${deleteButtonVisible == true}">
-                                    <a href="/menu/delete?mealNo=${mealWednesday.mealNo}">Usuń</a></li>
+                                    <form action="/admin/newMenu/deleteMeal" method="post">
+                                        <input name="mealNo" value="${mealWednesday.mealNo}" hidden="hidden"/>
+                                        <button>Usuń</button>
+                                    </form>
                                 </c:if>
+                                </li>
                             </c:forEach>
                         </ul>
                     </div>
                 </td>
                 <c:if test="${deleteButtonVisible == true}">
-                    <td class="day">
-                        <a href="/menu/deleteDay?dayId=3">Usuń dzień</a></li>
+                    <td>
+                        <form action="/admin/newMenu/deleteDayMeals" method="post">
+                            <input name="dayId" value="3" hidden="hidden"/>
+                            <button>Usuń dzień</button>
+                        </form>
                     </td>
                 </c:if>
             </tr>
@@ -158,15 +179,22 @@
                             <c:forEach var="mealThursday" items="${mealsThursday}">
                                 <li>${mealThursday.mealNo} ${mealThursday.mealName} ${mealThursday.mealPrice} zł
                                 <c:if test="${deleteButtonVisible == true}">
-                                    <a href="/menu/delete?mealNo=${mealThursday.mealNo}">Usuń</a></li>
+                                    <form action="/admin/newMenu/deleteMeal" method="post">
+                                        <input name="mealNo" value="${mealThursday.mealNo}" hidden="hidden"/>
+                                        <button>Usuń</button>
+                                    </form>
                                 </c:if>
+                                </li>
                             </c:forEach>
                         </ul>
                     </div>
                 </td>
                 <c:if test="${deleteButtonVisible == true}">
-                    <td class="day">
-                        <a href="/menu/deleteDay?dayId=4">Usuń dzień</a></li>
+                    <td>
+                        <form action="/admin/newMenu/deleteDayMeals" method="post">
+                            <input name="dayId" value="4" hidden="hidden"/>
+                            <button>Usuń dzień</button>
+                        </form>
                     </td>
                 </c:if>
             </tr>
@@ -184,15 +212,22 @@
                             <c:forEach var="mealFriday" items="${mealsFriday}">
                                 <li>${mealFriday.mealNo} ${mealFriday.mealName} ${mealFriday.mealPrice} zł
                                 <c:if test="${deleteButtonVisible == true}">
-                                    <a href="/menu/delete?mealNo=${mealFriday.mealNo}">Usuń</a></li>
+                                    <form action="/admin/newMenu/deleteMeal" method="post">
+                                        <input name="mealNo" value="${mealFriday.mealNo}" hidden="hidden"/>
+                                        <button>Usuń</button>
+                                    </form>
                                 </c:if>
+                                </li>
                             </c:forEach>
                         </ul>
                     </div>
                 </td>
                 <c:if test="${deleteButtonVisible == true}">
-                    <td class="day">
-                        <a href="/menu/deleteDay?dayId=5">Usuń dzień</a></li>
+                    <td>
+                        <form action="/admin/newMenu/deleteDayMeals" method="post">
+                            <input name="dayId" value="5" hidden="hidden"/>
+                            <button>Usuń dzień</button>
+                        </form>
                     </td>
                 </c:if>
             </tr>

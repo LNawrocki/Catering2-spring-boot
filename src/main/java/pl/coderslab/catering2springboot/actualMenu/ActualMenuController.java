@@ -12,7 +12,6 @@ import pl.coderslab.catering2springboot.actualOrder.ActualOrder;
 import pl.coderslab.catering2springboot.actualOrder.ActualOrderRepository;
 import pl.coderslab.catering2springboot.config.Config;
 import pl.coderslab.catering2springboot.config.ConfigService;
-import pl.coderslab.catering2springboot.entity.*;
 import pl.coderslab.catering2springboot.newMenu.NewMenu;
 import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.newOrder.NewOrder;

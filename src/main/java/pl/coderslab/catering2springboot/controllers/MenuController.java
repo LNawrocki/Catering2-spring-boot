@@ -32,59 +32,11 @@ public class MenuController {
         this.dishRepository = dishRepository;
     }
 
-    @GetMapping("/admin/menu/update")
-    public String updateMenuView(Model model, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-        model.addAttribute("newMenu", new NewMenu());
-        model.addAttribute("mealsMonday", newMenuRepository.findByDayId(1));
-        model.addAttribute("mealsTuesday", newMenuRepository.findByDayId(2));
-        model.addAttribute("mealsWednesday", newMenuRepository.findByDayId(3));
-        model.addAttribute("mealsThursday", newMenuRepository.findByDayId(4));
-        model.addAttribute("mealsFriday", newMenuRepository.findByDayId(5));
-        model.addAttribute("kw", LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-        model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
-        model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
-        model.addAttribute("prices", priceRepository.findAll());
-        model.addAttribute("dishes", dishRepository.findAll());
 
-        if (newOrderRepository.findAll().isEmpty()) {
-            model.addAttribute("deleteButtonVisible", true);
-        } else {
-            model.addAttribute("deleteButtonVisible", false);
-        }
-        return "/menu/menu-update";
-    }
-        return "redirect:/";
-    }
 
-    @PostMapping("/admin/menu/update")
-    public String updateMenu(NewMenu newMenu, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            newMenuRepository.save(newMenu);
-            return "redirect:/admin/menu/update";
-        }
-        return "redirect:/";
-    }
+
+
 
     //do poprawy - metoda get nie powinna zmieniać stanu bazy danych, zmian na post i miniformularz
-    @GetMapping("/menu/delete")
-    public String deleteMenu(@RequestParam Integer mealNo, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            newMenuRepository.deleteByMealNo(mealNo);
-            return "redirect:/admin/menu/update";
-        }
-        session.invalidate();
-        return "redirect:/";
-    }
 
-    //do poprawy - metoda get nie powinna zmieniać stanu bazy danych, zmian na post i miniformularz
-    @GetMapping("/menu/deleteDay")
-    public String deleteMenuDay(@RequestParam Integer dayId, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            newMenuRepository.deleteByDayNo(dayId);
-            return "redirect:/admin/menu/update";
-        }
-        session.invalidate();
-        return "redirect:/";
-    }
 }

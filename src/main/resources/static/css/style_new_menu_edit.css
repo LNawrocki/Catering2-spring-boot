@@ -54,12 +54,7 @@
     height: auto;
     text-align: left;
 }
-.meal {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 
-}
 
 .login-row {
     display: flex;

@@ -8,7 +8,7 @@ import pl.coderslab.catering2springboot.newMenu.NewMenu;
 import javax.transaction.Transactional;
 import java.util.List;
 
-public interface NewMenuRepository extends JpaRepository<NewMenu, Long> {
+public interface NewMenuRepository extends JpaRepository<NewMenu, Integer> {
     List<NewMenu> findByDayId(Integer dayId);
     NewMenu findByMealNo(Integer mealNo);
 
@@ -22,4 +22,8 @@ public interface NewMenuRepository extends JpaRepository<NewMenu, Long> {
     @Transactional
     @Query(value = "DELETE FROM new_menu WHERE day_id = ?1", nativeQuery = true)
     int deleteByDayNo(Integer dayId);
+
+    @Modifying
+    @Transactional
+    void deleteNewMenuByMealNo(Integer mealNo);
 }

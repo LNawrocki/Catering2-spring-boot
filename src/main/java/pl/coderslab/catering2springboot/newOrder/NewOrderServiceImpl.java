@@ -23,4 +23,9 @@ public class NewOrderServiceImpl implements NewOrderService{
     public void deleteAll() {
         newOrderRepository.deleteAll();
     }
+
+    @Override
+    public Integer getQuantityOfNewOrders() {
+        return newOrderRepository.getQuantityOfNewOrders();
+    }
 }

@@ -15,4 +15,19 @@ public class NewMenuServiceImpl implements NewMenuService{
     public List<NewMenu> newMenuFindByDayId(Integer id) {
         return newMenuRepository.findByDayId(id);
     }
+
+    @Override
+    public NewMenu save(NewMenu newMenu) {
+        return newMenuRepository.save(newMenu);
+    }
+
+    @Override
+    public void deleteMeal(Integer mealNo) {
+        newMenuRepository.deleteNewMenuByMealNo(mealNo);
+    }
+
+    @Override
+    public void deleteByDayNo(Integer dayId) {
+        newMenuRepository.deleteByDayNo(dayId);
+    }
 }

@@ -1,4 +1,4 @@
-package pl.coderslab.catering2springboot.entity;
+package pl.coderslab.catering2springboot.actualMenu;
 
 import lombok.Getter;
 import lombok.Setter;
