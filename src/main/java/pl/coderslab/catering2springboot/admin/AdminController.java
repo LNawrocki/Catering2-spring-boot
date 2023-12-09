@@ -32,7 +32,8 @@ import java.util.stream.Collectors;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/admin")
-@SessionAttributes({"msg"})
+@SessionAttributes({"msg", "searchId", "searchLogin", "searchDepartmentId"})
+
 public class AdminController {
 
     private final DepartmentService departmentService;
@@ -155,19 +156,19 @@ public class AdminController {
     @PostMapping("/userList/searchId")
     public String userListId(@RequestParam String searchId, Model model) {
         model.addAttribute("searchId", searchId);
-        return "redirect:/admin/list";
+        return "redirect:/admin/userList";
     }
 
     @PostMapping("/userList/searchLogin")
     public String userListLogin(@RequestParam String searchLogin, Model model) {
         model.addAttribute("searchLogin", searchLogin);
-        return "redirect:/admin/list";
+        return "redirect:/admin/userList";
     }
 
     @PostMapping("/userList/searchDepartment")
     public String userListDepartment(@RequestParam Integer searchDepartmentId, Model model) {
         model.addAttribute("searchDepartmentId", searchDepartmentId);
-        return "redirect:/admin/list";
+        return "redirect:/admin/userList";
     }
 
     @PostMapping("/userList/searchClean")
@@ -175,7 +176,7 @@ public class AdminController {
         model.addAttribute("searchId", "");
         model.addAttribute("searchLogin", "");
         model.addAttribute("searchDepartmentId", "");
-        return "redirect:/admin/list";
+        return "redirect:/admin/userList";
     }
 
     @GetMapping("/addUser")

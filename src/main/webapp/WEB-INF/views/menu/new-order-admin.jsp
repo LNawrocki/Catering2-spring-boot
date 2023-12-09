@@ -16,7 +16,7 @@
 <div class="main-block">
     <div class="login-row">
         <div class="day">
-            Witaj ${name} ${lastName}
+            Witaj ${user.name} ${user.lastName}
         </div>
         <c:if test="${receivables != 0}">
         <div class="day" style="color: red">
@@ -52,12 +52,12 @@
     <div class="main-block">
         <div class="day-block">
             <table>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="number" name="user.userId" placeholder="ID uśytkownika" value="${user.userId}"/>
-                    </td>
-                </tr>
+<%--                <tr>--%>
+<%--                    <td></td>--%>
+<%--                    <td>--%>
+<%--                        <input type="number" name="user.userId" placeholder="ID uśytkownika" value="${user.userId}"/>--%>
+<%--                    </td>--%>
+<%--                </tr>--%>
                 <tr style="font-weight: bold">
                     <td>
                         <div class="day">
