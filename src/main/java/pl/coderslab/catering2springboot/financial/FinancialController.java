@@ -1,4 +1,4 @@
-package pl.coderslab.catering2springboot.controllers;
+package pl.coderslab.catering2springboot.financial;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
