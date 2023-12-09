@@ -8,4 +8,7 @@ public interface NewMenuService {
     void deleteMeal(Integer mealNo);
 
     void deleteByDayNo(Integer dayId);
+    NewMenu findByMealNo(Integer mealNo);
+
+    Boolean newMenuListNotEmpty();
 }

@@ -11,12 +11,16 @@ import pl.coderslab.catering2springboot.config.Config;
 import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.department.Department;
 import pl.coderslab.catering2springboot.department.DepartmentRepository;
+import pl.coderslab.catering2springboot.department.DepartmentService;
 import pl.coderslab.catering2springboot.financial.FinancialDepartmentSummary;
 import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
+import pl.coderslab.catering2springboot.newMenu.NewMenuService;
 import pl.coderslab.catering2springboot.newOrder.NewOrder;
 import pl.coderslab.catering2springboot.newOrder.NewOrderRepository;
+import pl.coderslab.catering2springboot.newOrder.NewOrderService;
 import pl.coderslab.catering2springboot.user.User;
 import pl.coderslab.catering2springboot.user.UserRepository;
+import pl.coderslab.catering2springboot.user.UserService;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -31,12 +35,10 @@ import java.util.List;
 @RequestMapping("/admin")
 public class FinancialController {
 
-    private final DepartmentRepository departmentRepository;
-    private final UserRepository userRepository;
-    private final ActualOrderRepository actualOrderRepository;
-    private final NewOrderRepository newOrderRepository;
-    private final ActualMenuRepository actualMenuRepository;
-    private final NewMenuRepository newMenuRepository;
+    private final DepartmentService departmentService;
+    private final UserService userService;
+    private final NewOrderService newOrderService;
+    private final NewMenuService newMenuService;
     private final ConfigService configService;
 
 
@@ -44,30 +46,30 @@ public class FinancialController {
     public String financialSummary(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
             List<FinancialDepartmentSummary> financialDepartmentSummaryList = new ArrayList<>();
-            List<Department> allDepartments = departmentRepository.findAll();
+            List<Department> allDepartments = departmentService.findAll();
             BigDecimal sumOfDepartmentFullPrice = new BigDecimal(0);
             BigDecimal sumOfDepartmentDiscountPrice = new BigDecimal(0);
             for (Department department : allDepartments) {
                 FinancialDepartmentSummary financialDepartmentSummary = new FinancialDepartmentSummary();
                 financialDepartmentSummary.setDepartmentName(department.getName());
                 List<Long> usersId = new ArrayList<>();
-                List<User> usersByDepartment = userRepository.findAllByDepartment(department);
+                List<User> usersByDepartment = userService.findUsersByDepartment(department);
                 for (User userBelongToDepartment : usersByDepartment) {
                     usersId.add(userBelongToDepartment.getUserId());
                 }
                 for (Long id : usersId) {
-                    NewOrder newOrder = newOrderRepository.getNewOrderByUserId(id);
+                    NewOrder newOrder = newOrderService.getNewOrderByUserId(id);
                     if (newOrder != null) {
                         if (!newOrder.getIsPaid()) {
                             financialDepartmentSummary.setNotPaidOrders(financialDepartmentSummary.getNotPaidOrders() + 1);
                         }
                         financialDepartmentSummary.setDepartmentSummaryDiscountPrice(financialDepartmentSummary.getDepartmentSummaryDiscountPrice().add(newOrder.getToPay()));
-                        if (!newMenuRepository.findAll().isEmpty()) {
-                            financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealMon()).getMealPrice()));
-                            financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealTue()).getMealPrice()));
-                            financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealWed()).getMealPrice()));
-                            financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealThu()).getMealPrice()));
-                            financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuRepository.findByMealNo(newOrder.getMealFri()).getMealPrice()));
+                        if (newMenuService.newMenuListNotEmpty()) {
+                            financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuService.findByMealNo(newOrder.getMealMon()).getMealPrice()));
+                            financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuService.findByMealNo(newOrder.getMealTue()).getMealPrice()));
+                            financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuService.findByMealNo(newOrder.getMealWed()).getMealPrice()));
+                            financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuService.findByMealNo(newOrder.getMealThu()).getMealPrice()));
+                            financialDepartmentSummary.setDepartmentSummaryFullPrice(financialDepartmentSummary.getDepartmentSummaryFullPrice().add(newMenuService.findByMealNo(newOrder.getMealFri()).getMealPrice()));
                         } else {
                             financialDepartmentSummary.setDepartmentSummaryFullPrice(BigDecimal.valueOf(0));
                         }

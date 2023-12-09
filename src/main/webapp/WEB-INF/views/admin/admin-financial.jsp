@@ -136,10 +136,10 @@
             </div>
         </div>
     </form>
-    <form action="/admin/financial/saveToScv" method="post">
+    <form action="/admin/financial/saveActualOrdersToCsv" method="post">
         <div class="day-block">
             <div class="day">
-                <button>Wyślij do pliku csv (jeszcze nie działa)</button>
+                <button>Wyślij do pliku csv</button>
             </div>
         </div>
     </form>

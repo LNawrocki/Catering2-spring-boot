@@ -30,4 +30,16 @@ public class NewMenuServiceImpl implements NewMenuService{
     public void deleteByDayNo(Integer dayId) {
         newMenuRepository.deleteByDayNo(dayId);
     }
+
+    @Override
+    public NewMenu findByMealNo(Integer mealNo) {
+        return newMenuRepository.findByMealNo(mealNo);
+    }
+
+    @Override
+    public Boolean newMenuListNotEmpty() {
+        return !newMenuRepository.findAll().isEmpty();
+    }
+
+
 }

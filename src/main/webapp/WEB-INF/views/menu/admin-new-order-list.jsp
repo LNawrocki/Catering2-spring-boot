@@ -17,6 +17,15 @@
         <h3>Lista zamówień na tydzień KW: ${kw} ( ${weekStart} - ${weekEnd} )</h3>
     </div>
 </div>
+<div class="main-block">
+    <div class="day-block">
+        <form action="/admin/financial/saveNewOrdersToCsv" method="post">
+            <div>
+                <button>Wyślij do pliku csv</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="main-block">
     <div class="day-block">

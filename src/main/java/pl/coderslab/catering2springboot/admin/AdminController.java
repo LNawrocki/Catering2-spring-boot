@@ -76,8 +76,6 @@ public class AdminController {
         return "redirect:/";
     }
 
-
-
     @GetMapping("/config")
     public String configView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
@@ -101,21 +99,21 @@ public class AdminController {
 
     @PostMapping("/config/clearActualMenu")
     public String configClearActualMenu(HttpSession session) {
-//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
         actualMenuService.deleteAll();
         return "redirect:/admin/config";
     }
-//        return "redirect:/";
-//    }
+        return "redirect:/";
+    }
 
     @PostMapping("/config/clearNewOrders")
     public String configClearNewOrders(HttpSession session) {
-//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
         newOrderService.deleteAll();
         return "redirect:/admin/config";
     }
-//        return "redirect:/";
-//    }
+        return "redirect:/";
+    }
 
     @GetMapping("/userList")
     public String userList(Model model, HttpSession session) {
@@ -212,7 +210,7 @@ public class AdminController {
             }
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
             userService.save(user);
-            return "redirect:/admin/list";
+            return "redirect:/admin/userList";
         }
         return "redirect:/";
     }

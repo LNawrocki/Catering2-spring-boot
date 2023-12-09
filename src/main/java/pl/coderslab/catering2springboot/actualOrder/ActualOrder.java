@@ -2,6 +2,7 @@ package pl.coderslab.catering2springboot.actualOrder;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import pl.coderslab.catering2springboot.user.User;
 
 import javax.persistence.*;
@@ -77,5 +78,40 @@ public class ActualOrder {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Override
+    public String toString() {
+        return "ActualOrder{" +
+                "id=" + id +
+                ", kw=" + kw +
+                ", mealMon=" + mealMon +
+                ", mealMonName='" + mealMonName + '\'' +
+                ", priceMon=" + priceMon +
+                ", shiftMon=" + shiftMon +
+                ", qtyMon=" + qtyMon +
+                ", mealTue=" + mealTue +
+                ", mealTueName='" + mealTueName + '\'' +
+                ", priceTue=" + priceTue +
+                ", shiftTue=" + shiftTue +
+                ", qtyTue=" + qtyTue +
+                ", mealWed=" + mealWed +
+                ", mealWedName='" + mealWedName + '\'' +
+                ", priceWed=" + priceWed +
+                ", shiftWed=" + shiftWed +
+                ", qtyWed=" + qtyWed +
+                ", mealThu=" + mealThu +
+                ", mealThuName='" + mealThuName + '\'' +
+                ", priceThu=" + priceThu +
+                ", shiftThu=" + shiftThu +
+                ", qtyThu=" + qtyThu +
+                ", mealFri=" + mealFri +
+                ", mealFriName='" + mealFriName + '\'' +
+                ", priceFri=" + priceFri +
+                ", shiftFri=" + shiftFri +
+                ", qtyFri=" + qtyFri +
+                ", toPay=" + toPay +
+                ", isPaid=" + isPaid +
+                ", user=" + user.getLogin() +
+                '}';
+    }
 }
 
