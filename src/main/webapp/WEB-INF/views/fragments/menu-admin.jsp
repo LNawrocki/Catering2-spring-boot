@@ -17,10 +17,10 @@
 </div>
 <div class="main-menu-block">
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/admin/list">Lista użytkowników</a>
+        <a href="${pageContext.request.contextPath}/admin/userList">Lista użytkowników</a>
     </div>
     <div class="menu-links">
-        <a href="${pageContext.request.contextPath}/admin/add">Dodaj użytkownika</a>
+        <a href="${pageContext.request.contextPath}/admin/addUser">Dodaj użytkownika</a>
     </div>
     <div class="menu-links">
         <a href="${pageContext.request.contextPath}/admin/department">Edycja działów</a>

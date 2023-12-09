@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.newMenu.NewMenuService;
 
+import javax.servlet.http.HttpSession;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -35,5 +36,11 @@ private final NewMenuService newMenuService;
         model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
         model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
         return "home";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 }

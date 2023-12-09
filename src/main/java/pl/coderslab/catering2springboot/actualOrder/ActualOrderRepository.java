@@ -1,7 +1,7 @@
-package pl.coderslab.catering2springboot.repository;
+package pl.coderslab.catering2springboot.actualOrder;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.coderslab.catering2springboot.entity.ActualOrder;
+import pl.coderslab.catering2springboot.actualOrder.ActualOrder;
 
 public interface ActualOrderRepository extends JpaRepository<ActualOrder, Long> {
 

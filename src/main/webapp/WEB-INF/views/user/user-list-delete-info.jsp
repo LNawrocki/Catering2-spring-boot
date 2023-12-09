@@ -56,7 +56,7 @@
     </div>
 </div>
 
-<form action="/admin/delete/confirm" method="post">
+<form action="/admin/deleteUser/confirm" method="post">
     <div class="main-block">
         <div class="day-block">
             <p>

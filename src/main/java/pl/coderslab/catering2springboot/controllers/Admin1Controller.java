@@ -28,7 +28,7 @@ import java.time.temporal.WeekFields;
 @RequestMapping("/admin")
 @SessionAttributes({"msg"})
 @AllArgsConstructor
-public class AdminController {
+public class Admin1Controller {
 
     public final ActualMenuRepository actualMenuRepository;
     private final DepartmentRepository departmentRepository;
@@ -114,30 +114,6 @@ public class AdminController {
 //        return "redirect:/";
 //    }
 
-    @GetMapping("/update")
-    public String adminUpdateView(@RequestParam Long editUserId, Model model, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            User user = userRepository.getByUserId(editUserId);
-            model.addAttribute("user", user);
-            model.addAttribute("departments", departmentRepository.findAll());
-            return "/admin/admin-update";
-        }
-        return "redirect:/";
-    }
-
-    @PostMapping("/update")
-    public String adminUpdate(User user, HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            if (userRepository.getByUserId(user.getUserId()).getPassword().equals(user.getPassword())) {
-                userRepository.save(user);
-                return "redirect:/admin/list";
-            }
-            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-            userRepository.save(user);
-            return "redirect:/admin/list";
-        }
-        return "redirect:/";
-    }
 
 
 

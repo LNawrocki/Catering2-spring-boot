@@ -18,19 +18,19 @@
     <div class="day-block">
         <table>
             <tr>
-                <form action="/admin/list/searchId" method="post">
+                <form action="/admin/userList/searchId" method="post">
                     <td>
                         ID: <input type="number" name="searchId">
                         <button type="submit">Wyszukaj</button>
                     </td>
                 </form>
-                <form action="/admin/list/searchLogin" method="post">
+                <form action="/admin/userList/searchLogin" method="post">
                     <td>
                         Login: <input type="text" name="searchLogin">
                         <button type="submit">Wyszukaj</button>
                     </td>
                 </form>
-                <form action="/admin/list/searchDepartment" method="post">
+                <form action="/admin/userList/searchDepartment" method="post">
                     <td>
                         Dział: <select name="searchDepartmentId">
                         <c:forEach var="department" items="${departments}">
@@ -43,7 +43,7 @@
             </tr>
             <tr>
                 <td></td>
-                <form action="/admin/list/searchClean" method="post">
+                <form action="/admin/userList/searchClean" method="post">
                     <td>
                         <button type="submit">Wyczyść</button>
                     </td>
@@ -166,10 +166,10 @@
                     <td>
                         <div class="day" >
                             <div >
-                                <form action="/admin/update" method="get" style="padding: 1px; margin: 1px">
+                                <form action="/admin/userUpdate" method="get" style="padding: 1px; margin: 1px">
                                     <button name="editUserId" value="${user.userId}" style="font-size: small; border-radius: 5px; border-width: 1px; color: limegreen">Edytuj</button>
                                 </form>
-                                <form action="/admin/delete/confirm" method="post" style="padding: 1px; margin: 1px">
+                                <form action="/admin/deleteUser/confirm" method="post" style="padding: 1px; margin: 1px">
                                     <button name="deleteUserId" value="${user.userId}" style="font-size: small; border-radius: 5px; border-width: 1px; color: red">Usuń</button>
                                 </form>
                             </div>
