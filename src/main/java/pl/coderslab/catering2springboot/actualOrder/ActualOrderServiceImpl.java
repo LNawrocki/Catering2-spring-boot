@@ -25,4 +25,9 @@ public class ActualOrderServiceImpl implements ActualOrderService{
     public List<ActualOrder> findAll() {
         return actualOrderRepository.findAll();
     }
+
+    @Override
+    public ActualOrder save(ActualOrder actualOrder) {
+        return actualOrderRepository.save(actualOrder);
+    }
 }

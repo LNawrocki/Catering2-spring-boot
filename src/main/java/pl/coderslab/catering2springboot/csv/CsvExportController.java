@@ -38,7 +38,7 @@ public class CsvExportController {
         csvExportService.writeNewOrdersToCsv(servletResponse.getWriter());
     }
 
-    @GetMapping("/admin/financial/saveNewAndActualOrdersToCsv")
+    @PostMapping("/admin/financial/saveNewAndActualOrdersToCsv")
     public void getAllNewAndActualOrdersToCsv(HttpServletResponse servletResponse) throws IOException {
         servletResponse.setContentType("text/csv; charset=UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");

@@ -450,22 +450,14 @@ public class NewOrderController {
     }
 
 
-    @PostMapping("/admin/newOrder/clear")
-    public String newOrderClear() {
-        Config config = configService.getConfig();
-        config.setEditMode(true);
-        configService.save(config);
-        newOrderService.deleteAll();
-        newMenuService.deleteAll();
-        for (int i = 1; i <= 5; i++) {
-            NewMenu newMenu = new NewMenu();
-            newMenu.setMealNo(i);
-            newMenu.setMealName("Brak");
-            newMenu.setDayId(i);
-            newMenu.setKw(LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
-            newMenu.setMealPrice(BigDecimal.valueOf(0.00));
-            newMenuService.save(newMenu);
-        }
-        return "redirect:/admin/financial";
-    }
+//    @PostMapping("/admin/newOrder/clear")
+//    public String newOrderClear() {
+//        Config config = configService.getConfig();
+//        config.setEditMode(true);
+//        configService.save(config);
+//        newOrderService.deleteAll();
+//        newMenuService.deleteAll();
+//        newMenuService.setBrakFirstMealDay();
+//        return "redirect:/admin/financial";
+//    }
 }

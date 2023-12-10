@@ -1,12 +1,16 @@
 package pl.coderslab.catering2springboot.financial;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Service;
+import pl.coderslab.catering2springboot.config.Config;
+import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.department.Department;
 import pl.coderslab.catering2springboot.department.DepartmentService;
 import pl.coderslab.catering2springboot.newMenu.NewMenuService;
 import pl.coderslab.catering2springboot.newOrder.NewOrder;
 import pl.coderslab.catering2springboot.newOrder.NewOrderService;
+import pl.coderslab.catering2springboot.orderSummary.OrderSummaryService;
 import pl.coderslab.catering2springboot.user.User;
 import pl.coderslab.catering2springboot.user.UserService;
 
@@ -23,6 +27,8 @@ public class FinancialServiceimpl implements FinancialService{
     private final UserService userService;
     private final NewOrderService newOrderService;
     private final NewMenuService newMenuService;
+    private final ConfigService configService;
+    private final OrderSummaryService orderSummaryService;
 
 
     @Override
@@ -119,5 +125,16 @@ public class FinancialServiceimpl implements FinancialService{
             sumOfDepartmentFullPrice = sumOfDepartmentFullPrice.add(financialDepartmentSummary.getDepartmentSummaryFullPrice());
         }
         return sumOfDepartmentFullPrice;
+    }
+
+    @Override
+    public void closeWeekRewriteOrdersAndNewMenu() {
+        Config config = configService.getConfig();
+        config.setEditMode(true);
+        configService.save(config);
+        orderSummaryService.rewriteNewOrdersToActualOrders();
+        newOrderService.deleteAll();
+        newMenuService.deleteAll();
+        newMenuService.setBrakFirstMealDay();
     }
 }

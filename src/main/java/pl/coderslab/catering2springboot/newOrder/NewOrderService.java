@@ -11,6 +11,7 @@ public interface NewOrderService {
     NewOrder getNewOrderById(Long id);
     List<NewOrder> findAll();
     NewOrder save(NewOrder newOrder);
-
     List<NewOrder> findNewOrderByIsPaid(Boolean isPaid);
+
+
 }

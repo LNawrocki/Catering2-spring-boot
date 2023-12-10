@@ -24,16 +24,16 @@ Osoba będąca administratorem posiada dodatkowe możliwości:
 4. Edytować menu na kolejny tydzień,
 5. Przeglądać listę zamówień z możliwością odznaczania wpłat i usuwania zamówień,
 6. Przeglądać listę zamówień z bierzącego tygodnia.
+7. Zamawianie obiadów dla użytkowników
+8. Edycja predefniniowanych list dań (szybsze tworzenie nowego menu)
+9. Edycja predefiniowanej listy cen (szybsze tworzenie nowego menu)
 
 
 ![Catering2-spring-boot](https://github.com/LNawrocki/Catering2-spring-boot/blob/master/Catering2.gif)
 
 ### Funkcje do wdrożenia
-1. Panel konfiguracyjny, blokujący dostęp i możliwość zamawiania w trakcie tworzenia nowej listy dań, 
-2. Panel podsumowujący rozliczenia z firmą zewnętrzną dostarczającą posiłki,
-3. Obsługa nieaktywnych użytkowników,
-4. Spring Security,
-5. Nieaktywni użytkownicy nie bedą mogli się logować.
+1. Spring Security,
+2. Generowanie pliku csv z podsumowanie finansowego
 
 
 # Catering2-spring-boot (draft)
@@ -57,11 +57,11 @@ A person who is an administrator has additional possibilities:
 4. Edit the menu for the next week,
 5. View the list of orders with the option of deselecting payments and deleting orders,
 6. View the list of orders from the current week.
+7. Ordering lunches for users
+8. Editing predefined dish lists (faster creation of a new menu)
+9. Editing the predefined price list (faster creation of a new menu)
 
 
 ### Features to be implemented
-1. Configuration panel that blocks access and ordering when creating a new dish list,
-2. A panel summarizing settlements with an external company delivering meals,
-3. Support for inactive users,
-4. Spring Security,
-5. Inactive users will not be able to log in.
+1. Spring Security,
+2. Generating a csv file from the financial summary

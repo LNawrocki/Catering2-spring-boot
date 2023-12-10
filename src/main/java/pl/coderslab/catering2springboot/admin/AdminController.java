@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.catering2springboot.actualMenu.ActualMenuService;
+import pl.coderslab.catering2springboot.orderSummary.OrderSummaryService;
 import pl.coderslab.catering2springboot.actualOrder.ActualOrderService;
 import pl.coderslab.catering2springboot.config.Config;
 import pl.coderslab.catering2springboot.config.ConfigService;
@@ -42,7 +42,7 @@ public class AdminController {
     private final ActualOrderService actualOrderService;
     private final ConfigService configService;
     private final NewMenuService newMenuService;
-    private final ActualMenuService actualMenuService;
+    private final OrderSummaryService orderSummaryService;
 
     @GetMapping("/home")
     public String adminHomeView(Model model, HttpSession session) {
@@ -98,23 +98,23 @@ public class AdminController {
         return "redirect:/";
     }
 
-    @PostMapping("/config/clearActualMenu")
-    public String configClearActualMenu(HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-        actualMenuService.deleteAll();
-        return "redirect:/admin/config";
-    }
-        return "redirect:/";
-    }
+//    @PostMapping("/config/clearActualMenu")
+//    public String configClearActualMenu(HttpSession session) {
+//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+//        orderSummaryService.deleteAll();
+//        return "redirect:/admin/config";
+//    }
+//        return "redirect:/";
+//    }
 
-    @PostMapping("/config/clearNewOrders")
-    public String configClearNewOrders(HttpSession session) {
-        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-        newOrderService.deleteAll();
-        return "redirect:/admin/config";
-    }
-        return "redirect:/";
-    }
+//    @PostMapping("/config/clearNewOrders")
+//    public String configClearNewOrders(HttpSession session) {
+//        if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
+//        newOrderService.deleteAll();
+//        return "redirect:/admin/config";
+//    }
+//        return "redirect:/";
+//    }
 
     @GetMapping("/userList")
     public String userList(Model model, HttpSession session) {

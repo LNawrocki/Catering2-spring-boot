@@ -43,27 +43,27 @@
     </form:form>
 </div>
 
-<div class="main-block">
-    <div class="login-row">
-        <form:form method="post" action="/admin/config/clearActualMenu" modelAttribute="config">
-            <button name="editMode" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;"/>
-            <div>
-                Wyczyść Listę zamówień
-            </div>
-        </form:form>
-    </div>
-</div>
+<%--<div class="main-block">--%>
+<%--    <div class="login-row">--%>
+<%--        <form:form method="post" action="/admin/config/clearActualMenu" modelAttribute="config">--%>
+<%--            <button name="editMode" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;"/>--%>
+<%--            <div>--%>
+<%--                Wyczyść Listę zamówień--%>
+<%--            </div>--%>
+<%--        </form:form>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
-<div class="main-block">
-    <div class="login-row">
-        <form:form method="post" action="/admin/config/clearNewOrders" modelAttribute="config">
-            <button name="editMode" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;"/>
-            <div>
-                Wyczyść Listę nowych zamówień złożonych prze użytkowników na przyszły tydzień
-            </div>
-        </form:form>
-    </div>
-</div>
+<%--<div class="main-block">--%>
+<%--    <div class="login-row">--%>
+<%--        <form:form method="post" action="/admin/config/clearNewOrders" modelAttribute="config">--%>
+<%--            <button name="editMode" style="box-shadow: 0px 0px 15px rgb(229,62,62) inset;"/>--%>
+<%--            <div>--%>
+<%--                Wyczyść Listę nowych zamówień złożonych prze użytkowników na przyszły tydzień--%>
+<%--            </div>--%>
+<%--        </form:form>--%>
+<%--    </div>--%>
+<%--</div>--%>
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

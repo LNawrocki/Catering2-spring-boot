@@ -15,4 +15,8 @@ public interface NewMenuService {
     List<NewMenu> findNewMenusByDayId(Integer id);
     void deleteAll();
 
+    void setBrakFirstMealDay();
+
+    List<NewMenu> findAll();
+
 }

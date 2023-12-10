@@ -6,6 +6,7 @@ public interface ActualOrderService {
 
     ActualOrder getActualOrderByUserId(Long userId);
     void delete(ActualOrder actualOrder);
-
     List<ActualOrder> findAll();
+
+    ActualOrder save(ActualOrder actualOrder);
 }

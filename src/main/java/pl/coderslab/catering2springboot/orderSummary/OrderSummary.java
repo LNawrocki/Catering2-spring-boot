@@ -1,4 +1,4 @@
-package pl.coderslab.catering2springboot.actualMenu;
+package pl.coderslab.catering2springboot.orderSummary;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +14,8 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @ToString
-@Table(name ="actual_menu") // Menu for current week
-public class ActualMenu {
+@Table(name ="order_summary") // Menu for current week
+public class OrderSummary {
 
     @Id
     @Column(name = "meal_no", unique = true)

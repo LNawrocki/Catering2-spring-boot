@@ -4,31 +4,19 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.catering2springboot.actualMenu.ActualMenuRepository;
-import pl.coderslab.catering2springboot.actualOrder.ActualOrderRepository;
 import pl.coderslab.catering2springboot.config.Config;
 import pl.coderslab.catering2springboot.config.ConfigService;
-import pl.coderslab.catering2springboot.department.Department;
-import pl.coderslab.catering2springboot.department.DepartmentRepository;
 import pl.coderslab.catering2springboot.department.DepartmentService;
-import pl.coderslab.catering2springboot.financial.FinancialDepartmentSummary;
-import pl.coderslab.catering2springboot.newMenu.NewMenuRepository;
 import pl.coderslab.catering2springboot.newMenu.NewMenuService;
-import pl.coderslab.catering2springboot.newOrder.NewOrder;
-import pl.coderslab.catering2springboot.newOrder.NewOrderRepository;
 import pl.coderslab.catering2springboot.newOrder.NewOrderService;
-import pl.coderslab.catering2springboot.user.User;
-import pl.coderslab.catering2springboot.user.UserRepository;
 import pl.coderslab.catering2springboot.user.UserService;
 
 import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -102,4 +90,16 @@ public class FinancialController {
         }
         return "redirect:/";
     }
+
+    @PostMapping("/financial/closeWeek")
+    public String  closeWeekRewriteOrdersAndNewMenu(Model model){
+
+        financialService.closeWeekRewriteOrdersAndNewMenu();
+        model.addAttribute("financialDepartmentSummaryList", financialService.getfinancialDepartmentSummaryList());
+        model.addAttribute("sumOfDepartmentDiscountPrice", financialService.getSumOfDepartmentDiscountPrice());
+        model.addAttribute("sumOfDepartmentFullPrice", financialService. getSumOfDepartmentFullPrice());
+        model.addAttribute("refundation", financialService. getSumOfDepartmentFullPrice().subtract(financialService.getSumOfDepartmentDiscountPrice()));
+        return "/admin/admin-financial";
+    }
+
 }

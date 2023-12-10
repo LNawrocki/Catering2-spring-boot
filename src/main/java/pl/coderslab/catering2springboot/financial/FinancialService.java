@@ -10,4 +10,6 @@ public interface FinancialService {
     List<FinancialDepartmentSummary> getfinancialDepartmentSummaryList();
     BigDecimal getSumOfDepartmentDiscountPrice();
     BigDecimal getSumOfDepartmentFullPrice();
+
+    void closeWeekRewriteOrdersAndNewMenu();
 }

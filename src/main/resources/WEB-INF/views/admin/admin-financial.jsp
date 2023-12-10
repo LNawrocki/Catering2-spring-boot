@@ -122,7 +122,7 @@
 </div>
 
 <div class="main-block">
-    <form action="/admin/actualMenu/update" method="post">
+    <form action="/admin/orderSummary/update" method="post">
         <div class="day-block">
             <div class="day">
                 <button>Zamknij tydzień, przepisz nowe zamówienia na przyszły tydzień</button>

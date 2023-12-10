@@ -123,24 +123,24 @@
 </div>
 
 <div class="main-block">
-    <form action="/admin/actualMenu/update" method="post">
+    <form action="/admin/financial/saveNewAndActualOrdersToCsv" method="post">
         <div class="day-block">
             <div class="day">
-                <button>Zamknij tydzień, przepisz nowe zamówienia na przyszły tydzień</button>
+                <button>Wygeneruj listy aktualnych i nowych zamówień</button>
             </div>
         </div>
     </form>
-    <form action="/admin/newOrder/clear" method="post">
+    <form action="/admin/financial/closeWeek" method="post">
         <div class="day-block">
             <div class="day">
-                <button>Wyczyść LISTĘ NOWYCH ZAMÓWIEŃ wraz z podliczeniami</button>
+                <button>Zamknij tydzień</button>
             </div>
         </div>
     </form>
-    <form action="/admin/financial/saveActualOrdersToCsv" method="post">
+    <form action="#" method="post">
         <div class="day-block">
             <div class="day">
-                <button>Wyślij do pliku csv</button>
+                <button>Wyślij podsumowanie finansowe do pliku csv</button>
             </div>
         </div>
     </form>

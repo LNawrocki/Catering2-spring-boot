@@ -18,7 +18,7 @@
         <h3>Podsumowanie zamówień na tydzień KW: ${kw} </h3>
     </div>
 </div>
-<form action="/admin/actualMenu" method="get">
+<form action="/admin/orderSummary" method="get">
     <div class="main-block">
         <div class="day-block">
             <div class="day">
@@ -80,7 +80,7 @@
                         </div>
                     </td>
                 </tr>
-                <c:forEach var="meal" items="${actualMenuList}">
+                <c:forEach var="meal" items="${orderSummaryList}">
                     <c:if test="${meal.mealName != 'Brak'}">
                         <c:if test="${meal.firstShiftQuantity != 0 }">
                             <tr>
