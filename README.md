@@ -29,7 +29,7 @@ Osoba będąca administratorem posiada dodatkowe możliwości:
 9. Edycja predefiniowanej listy cen (szybsze tworzenie nowego menu)
 
 
-![Catering2-spring-boot](https://github.com/LNawrocki/Catering2-spring-boot/blob/master/Catering2.gif)
+![Catering2-spring-boot](https://github.com/LNawrocki/Catering2-spring-boot/blob/master/Catering2_20231210.mp4)
 
 ### Funkcje do wdrożenia
 1. Spring Security,
