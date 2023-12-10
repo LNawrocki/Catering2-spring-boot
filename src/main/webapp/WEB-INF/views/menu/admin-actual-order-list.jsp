@@ -5,12 +5,25 @@
     <meta charset="UTF-8"/>
     <jsp:include page="../fragments/title.jsp"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_admin_actual_order_list.css">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/css/style_admin_actual_order_list.css">
 </head>
 
 <body>
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
+<div class="main-block">
+    <div class="day-block">
+        <form action="/admin/financial/saveActualOrdersToCsv" method="post">
+            <div class="day-block">
+                <div class="day">
+                    <button>Wyślij do pliku csv</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 <div class="main-block">
     <div class="day-block">

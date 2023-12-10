@@ -92,16 +92,23 @@
                     </div>
                 </td>
                 <td>
-                    <div class="day">
+                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
                         <div>
                             Od pracowników: ${sumOfDepartmentDiscountPrice} zł
                         </div>
                     </div>
                 </td>
                 <td>
-                    <div class="day">
+                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
                         <div>
                             Dla dostawcy: ${sumOfDepartmentFullPrice} zł
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="day" style="color: #C73EE0FF; font-weight: bold;">
+                        <div>
+                            Kwota dofinansowania: ${refundation} zł
                         </div>
                     </div>
                 </td>
@@ -109,13 +116,7 @@
             <tr>
                 <td>
                 </td>
-                <td>
-                    <div class="day">
-                        <div>
-                            Kwota dofinansowania: ${refundation} zł
-                        </div>
-                    </div>
-                </td>
+
             </tr>
         </table>
     </div>
