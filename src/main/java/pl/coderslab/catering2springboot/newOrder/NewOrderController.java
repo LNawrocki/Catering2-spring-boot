@@ -142,9 +142,10 @@ public class NewOrderController {
     @PostMapping("/admin/newOrder/searchIsPaid")
     public String searchIdPaid(@RequestParam String searchIsPaid,
                                Model model) {
-        model.addAttribute("searchIsPaid", searchIsPaid);
         model.addAttribute("searchNewOrderId", "");
+        model.addAttribute("searchIsPaid", searchIsPaid);
         model.addAttribute("searchDepartmentId", "");
+        model.addAttribute("searchLogin", "");
         model.addAttribute("searchUserId", "");
         return "redirect:/admin/newOrder/list";
     }
@@ -152,9 +153,10 @@ public class NewOrderController {
     @PostMapping("/admin/newOrder/searchDepartment")
     public String searchDepartment(@RequestParam Integer searchDepartmentId,
                                    Model model) {
-        model.addAttribute("searchDepartmentId", searchDepartmentId);
         model.addAttribute("searchNewOrderId", "");
         model.addAttribute("searchIsPaid", "");
+        model.addAttribute("searchDepartmentId", searchDepartmentId);
+        model.addAttribute("searchLogin", "");
         model.addAttribute("searchUserId", "");
         return "redirect:/admin/newOrder/list";
     }
@@ -162,22 +164,29 @@ public class NewOrderController {
     @PostMapping("/admin/newOrder/searchLogin")
     public String searchLogin(@RequestParam String searchLogin,
                               Model model) {
-        model.addAttribute("searchLogin", searchLogin);
         model.addAttribute("searchNewOrderId", "");
         model.addAttribute("searchIsPaid", "");
         model.addAttribute("searchDepartmentId", "");
+        model.addAttribute("searchLogin", searchLogin);
+        model.addAttribute("searchUserId", "");
         return "redirect:/admin/newOrder/list";
     }
 
     @PostMapping("/admin/newOrder/searchUserId")
     public String userListId(@RequestParam String searchUserId,
                              Model model) {
+        model.addAttribute("searchNewOrderId", "");
+        model.addAttribute("searchIsPaid", "");
+        model.addAttribute("searchDepartmentId", "");
+        model.addAttribute("searchLogin", "");
         model.addAttribute("searchUserId", searchUserId);
         return "redirect:/admin/newOrder/list";
     }
 
     @PostMapping("/admin/newOrder/searchClean")
     public String newOrderListClean(Model model) {
+        model.addAttribute("searchUserId", "");
+        model.addAttribute("searchLogin", "");
         model.addAttribute("searchNewOrderId", "");
         model.addAttribute("searchIsPaid", "");
         model.addAttribute("searchDepartmentId", "");
