@@ -26,7 +26,7 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
-@SessionAttributes({"searchNewOrderId", "searchIsPaid", "searchLogin", "searchDepartmentId", "searchUserId"})
+@SessionAttributes({"searchNewOrderId", "searchIsPaid", "searchLogin", "searchDepartmentId", "searchUserId", "orderUserId"})
 public class NewOrderController {
     public final NewOrderService newOrderService;
     public final UserService userService;
@@ -220,7 +220,7 @@ public class NewOrderController {
         return "redirect:/";
     }
 
-    @GetMapping("/user/newOrder/check")
+    @GetMapping("/newOrder/check")
     public String NewOrderAdminCheckView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null) {
             User user = userService.getUserById((Long) session.getAttribute("userId"));
@@ -239,7 +239,7 @@ public class NewOrderController {
             }
 
             if ((Boolean) session.getAttribute("superAdmin")) {
-                return "/menu/new-order-admin-check";
+                return "redirect:/admin/newOrder/list";
             } else {
                 return "/menu/new-order-user-check";
             }
@@ -255,7 +255,6 @@ public class NewOrderController {
             model.addAttribute("user", user);
             model.addAttribute("name", user.getName());
             model.addAttribute("lastName", user.getLastName());
-//            model.addAttribute("editUserId", user.getUserId());
             if (configService.getConfig().getEditMode()) {
                 if ((Boolean) session.getAttribute("superAdmin")) {
                     return "/admin/admin-home-editmode";
@@ -264,9 +263,12 @@ public class NewOrderController {
                 }
             }
 
-            //TODO Zmienić działanie zamawiania obiadu dla admina, opcja zawsze dostepna ze sprawdzeniem czy admin już nie zamówił dania
             if (newOrderService.getNewOrderByUserId((Long) session.getAttribute("userId")) != null) {
-                return "redirect:/user/newOrder/check";
+                if ((Boolean) session.getAttribute("superAdmin")) {
+                    return "redirect:/admin/newOrder/list";
+                } else {
+                    return "redirect:/newOrder/check";
+                }
             }
 
             BigDecimal paymentPerc = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
@@ -362,31 +364,30 @@ public class NewOrderController {
             newOrder.setKw(LocalDate.now().get(WeekFields.ISO.weekOfWeekBasedYear()) + 1);
 
             newOrderService.save(newOrder);
-            return "redirect:/admin/newOrder/list";
+            return "redirect:/newOrder/check";
+
         }
-        //TODO: poprawić przekirowanie user / admin - admin zamawianie dla usera
         return "redirect:/";
     }
 
     @GetMapping("/admin/newOrder/orderForUser")
-    public String newOrderForUserView(@RequestParam(value = "userId") Long userId, Model model, HttpSession session) {
+    public String newOrderForUserView(@RequestParam(value = "orderUserId") Long orderUserId, Model model, HttpSession session) {
 
 
-        System.out.println(userId);
-        User user = userService.getUserById(userId);
-        System.out.println(user);
+        User user = userService.getUserById(orderUserId);
+        NewOrder order = newOrderService.getNewOrderByUserId(user.getUserId());
+        if (order != null && !order.getIsPaid()) {
+            model.addAttribute("receivables", order.getToPay());
+        } else {
+            model.addAttribute("receivables", 0);
+        }
         model.addAttribute("user", user);
-//            model.addAttribute("name", user.getName());
-//            model.addAttribute("lastName", user.getLastName());
-//            model.addAttribute("editUserId", user.getUserId());
         if (configService.getConfig().getEditMode()) {
             return "/admin/admin-home-editmode";
         }
 
-
-        //TODO przekazać dane użytkownika, dla którego zamawiamy obiad - strona check - czyszczenmie danych usera
         if (newOrderService.getNewOrderByUserId(user.getUserId()) != null) {
-            return "redirect:/user/newOrder/check";
+            return "redirect:/admin/newOrder/list";
         }
 
         BigDecimal paymentPerc = BigDecimal.valueOf(user.getDepartment().getPaymentPerc());
@@ -435,8 +436,6 @@ public class NewOrderController {
         model.addAttribute("kw", kw);
         model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
         model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));
-
-        NewOrder order = newOrderService.getNewOrderByUserId(user.getUserId());
 
         return "/menu/new-order-admin";
     }

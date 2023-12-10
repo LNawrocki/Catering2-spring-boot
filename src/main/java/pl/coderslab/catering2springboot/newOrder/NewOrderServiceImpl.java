@@ -3,6 +3,9 @@ package pl.coderslab.catering2springboot.newOrder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -38,7 +41,9 @@ public class NewOrderServiceImpl implements NewOrderService{
 
     @Override
     public List<NewOrder> findAll() {
-        return newOrderRepository.findAll();
+        List<NewOrder> newOrderList = newOrderRepository.findAll();
+        Collections.reverse(newOrderList);
+        return newOrderList;
     }
 
     @Override

@@ -173,7 +173,7 @@
                                     <button name="deleteUserId" value="${user.userId}" style="font-size: small; border-radius: 5px; border-width: 1px; color: red">Usuń</button>
                                 </form>
                                 <form action="/admin/newOrder/orderForUser" method="GET" style="padding: 1px; margin: 1px">
-                                    <button name="userId" value="${user.userId}" style="font-size: small; border-radius: 5px; border-width: 1px; color: blue">Zamów</button>
+                                    <button name="orderUserId" value="${user.userId}" style="font-size: small; border-radius: 5px; border-width: 1px; color: blue">Zamów</button>
                                 </form>
                             </div>
                         </div>
