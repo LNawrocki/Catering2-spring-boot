@@ -46,15 +46,12 @@ public class DepartmentController {
     @PostMapping("/department/delete")
     public String deleteDepartment(@RequestParam Integer deleteDepartmentId, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
-            System.out.println(departmentService.isUserByDepartmentId(deleteDepartmentId));
             if (departmentService.isUserByDepartmentId(deleteDepartmentId)){
                 departmentService.delete(departmentService.getById(deleteDepartmentId));
                 model.addAttribute("msg", "");
-
             } else {
                 model.addAttribute("msg", "Odmowa - nie możesz usunąć działu, do którego należą użytkownicy");
             }
-
             return "redirect:/admin/department";
         }
         return "redirect:/";

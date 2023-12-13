@@ -21,6 +21,13 @@ public class DishController {
         model.addAttribute("dishes", dishService.findAll());
         return "/admin/dish-list";
     }
+    @PostMapping("/dish")
+    public String dishes(Dish dish, Model model) {
+        dishService.save(dish);
+        model.addAttribute("dishes", dishService.findAll());
+        return "/admin/dish-list";
+    }
+
 
     @PostMapping("/dish/delete")
     public String dishDelete(@RequestParam Integer deleteDishId){

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import pl.coderslab.catering2springboot.config.ConfigService;
 import pl.coderslab.catering2springboot.department.DepartmentRepository;
+import pl.coderslab.catering2springboot.department.DepartmentService;
 import pl.coderslab.catering2springboot.newOrder.NewOrder;
 import pl.coderslab.catering2springboot.newMenu.NewMenuService;
 import pl.coderslab.catering2springboot.newOrder.NewOrderService;
@@ -25,7 +26,7 @@ import java.util.Objects;
 @SessionAttributes({"userId", "name", "lastName", "superAdmin", "searchId", "searchLogin", "searchDepartmentId"})
 public class UserController {
 
-    public final DepartmentRepository departmentRepository;
+    public final DepartmentService departmentService;
     public final NewOrderService newOrderService;
     private final UserService userService;
     private final NewMenuService newMenuService;
@@ -99,10 +100,9 @@ public class UserController {
     public String userUpdateView(@RequestParam Long editUserId, Model model, HttpSession session) {
         if (session.getAttribute("userId") != null) {
             User user = userService.getUserById(editUserId);
-            System.out.println(user.getPassword());
             user.setPassword("");
             model.addAttribute("user", user);
-            model.addAttribute("departments", departmentRepository.findAll());
+            model.addAttribute("departments", departmentService.findAll());
             return "/user/user-update";
         }
         return "redirect:/";

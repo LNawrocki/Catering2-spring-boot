@@ -42,7 +42,7 @@
         </div>
         <div class="login-row">
             <label for="password">Hasło:
-                <form:input path="password"/>
+                <form:input type="password" path="password"/>
             </label>
         </div>
         <div class="login-row">

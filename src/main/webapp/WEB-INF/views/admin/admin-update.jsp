@@ -13,6 +13,7 @@
 <jsp:include page="../fragments/header.jsp"/>
 <jsp:include page="../fragments/menu-admin.jsp"/>
 
+
 <form:form method="post" modelAttribute="user">
     <div class="main-block">
         <div class="login-row">
@@ -42,7 +43,7 @@
         </div>
         <div class="login-row">
             <label for="password">Hasło:
-                <form:input path="password"/>
+                <form:input type="password" path="password"/>
             </label>
         </div>
         <div class="login-row">
