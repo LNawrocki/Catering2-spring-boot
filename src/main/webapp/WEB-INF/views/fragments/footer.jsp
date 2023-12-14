@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <footer class="footer">
-        <p>© Lukasz Nawrocki 2023</p>
+        <p>© Łukasz Nawrocki 2023 / 2024</p>
 </footer>
 
 
