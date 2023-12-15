@@ -46,7 +46,7 @@
                 <td>
                     <div class="day" style="color: #C73EE0FF; font-weight: bold;">
                         <div>
-                            Ilość nieopłacownych obiadów
+                            Ilość nieopłaconych obiadów
                         </div>
                     </div>
                 </td>

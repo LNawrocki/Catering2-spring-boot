@@ -13,12 +13,12 @@ INSERT INTO catering.department (id, name, payment_perc) VALUES (3, 'Biuro2',   
 INSERT INTO catering.department (id, name, payment_perc) VALUES (4, 'Kadry',             50);
 INSERT INTO catering.department (id, name, payment_perc) VALUES (5, 'Zakupy',            50);
 INSERT INTO catering.department (id, name, payment_perc) VALUES (6, 'Księgowość',        50);
-INSERT INTO catering.department (id, name, payment_perc) VALUES (7, 'Lakiernia',         50);
+INSERT INTO catering.department (id, name, payment_perc) VALUES (7, 'Lakiernia',         0);
 INSERT INTO catering.department (id, name, payment_perc) VALUES (8, 'Portiernia',        50);
 INSERT INTO catering.department (id, name, payment_perc) VALUES (9, 'Wodociągowa',       50);
-INSERT INTO catering.department (id, name, payment_perc) VALUES (9, 'Gość 0%',           0 );
+INSERT INTO catering.department (id, name, payment_perc) VALUES (10, 'Gość 0%',           0 );
 
-
+# INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (23, true, 'Nawrocki', 'łnawrocki', 'Łukasz', '$2a$10$UiQHfXQLZKAkmuzhPVddr.YdYgLVXJxrJIa/wGeckY6rIaJO610dO', true, 3);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (1, true, 'Brachaczek', 'gbrachaczek', 'Grzegorz', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 3);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (2, true, 'Bernasińska', 'kbernasińska', 'Katarzyna', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 6);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (3, true, 'Kolec', 'akolec', 'Anna', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 6);
@@ -271,7 +271,7 @@ INSERT INTO catering.users (user_id, active, last_name, login, name, password, s
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (256, true, 'Stalec', 'bstalec', 'Beata', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 1);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (257, true, 'Stalec', 'dstalec', 'Dariusz', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 1);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (258, true, 'Stalec', 'jstalec', 'Jadwiga', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 1);
-INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (259, true, 'Stalec', '(stalec', 'Monika', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 1);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (259, true, 'Stalec', 'monikastalec', 'Monika', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 1);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (260, true, 'Stalec', 'pstalec', 'Paweł', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 1);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (262, true, 'Stalec', 'zstalec', 'Zdzisław', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 7);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (263, true, 'Stawowczyk', 'pstawowczyk', 'Paulina', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 1);
@@ -306,6 +306,39 @@ INSERT INTO catering.users (user_id, active, last_name, login, name, password, s
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (292, true, 'Zakrzewski', 'jzakrzewski', 'Jarosław', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 1);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (293, true, 'Zarzecka', 'azarzecka', 'Anna', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 1);
 INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (294, true, 'Żydek', 'kżydek', 'Kacper', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 1);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (295, true, 'Badan', 'abadan', 'Adrian', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (296, true, 'Baścik', 'mbaścik', 'Marek', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (297, true, 'Bazan', 'nbazan', 'Norbert', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (298, true, 'Dyrlik', 'pdyrlik', 'Piotr', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (299, true, 'Fudala', 'dfudala', 'Damian', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (300, true, 'Gadawski', 'sgadawski', 'Sławomir', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (301, true, 'Gil', 'pgil', 'Paweł', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (302, true, 'Jasiński', 'kjasiński', 'Kazimierz', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (303, true, 'Klimeczek', 'łklimeczek', 'Łukasz', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (304, true, 'Kołodziejczyk', 'adamkołodziejczyk', 'Adam', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (305, true, 'Koncki', 'zkoncki', 'Zbigniew', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (307, true, 'Korzonkiewicz', 'dkorzonkiewicz', 'Daniel', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (308, true, 'Krawiec', 'tkrawiec', 'Teresa', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (309, true, 'Kubieniec', 'akubieniec', 'Andrzej', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (310, true, 'Kubik', 'bkubik', 'Bogdan', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (311, true, 'Kula', 'pkula', 'Patryk', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (313, true, 'Małecki', 'tmałecki', 'Tadeusz', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (315, true, 'Marecki', 'amarecki', 'Andrzej', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (316, true, 'Matejko', 'adammatejko', 'Adam', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (318, true, 'Merta', 'pmerta', 'Paweł', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (320, true, 'Piecha', 'mpiecha', 'Mateusz', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (321, true, 'Pilorz', 'zpilorz', 'Zbigniew', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (322, true, 'Rokowski', 'mrokowski', 'Marek', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (323, true, 'Słowiak', 'łsłowiak', 'Łukasz', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (324, true, 'Szymla', 'zszymla', 'Zbigniew', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (325, true, 'Ślopek', 'wślopek', 'Waldemar', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (327, true, 'Trębla', 'gtrębla', 'Grzegorz', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (328, true, 'Wawak', 'iwawak', 'Iwona', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (329, true, 'Zawiła', 'ezawiła', 'Ewa', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (330, true, 'Zawiła', 'mzawiła', 'Marek', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (331, true, 'Zątek', 'mzątek', 'Maciej', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (332, true, 'Zhokovska', 'izhokovska', 'Inna', '$2a$10$0hhVGiYQz396mQCZTAE9P.MoMdu2GfhzCNW/cDsxpuLVj16B8Aa3S', false, 9);
+
 # INSERT INTO catering.users (user_id, active, last_name, login, name, password, super_admin, department_id) VALUES (1000, true, 'admin ', 'aadmin ', 'a', '$2a$10$UiQHfXQLZKAkmuzhPVddr.YdYgLVXJxrJIa/wGeckY6rIaJO610dO', true, 3);
 
 
