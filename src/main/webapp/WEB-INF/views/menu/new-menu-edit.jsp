@@ -22,7 +22,7 @@
     <div class="main-block">
         <div class="login-row">
             <label for="mealNo">Numer potrawy:
-                <form:input path="mealNo"/>
+                <form:input path="mealNo" value="${lastIndex}"/>
             </label>
         </div>
         <div class="login-row">
@@ -47,12 +47,7 @@
         </div>
         <div class="login-row">
             <label>Nazwa:
-                <select name="mealName">
-                    <option value="Brak" name="mealName">Pierwsza pozycja dnia musi się nazywać "Brak".</option>
-                    <c:forEach var="dish" items="${dishes}">
-                        <option value="${dish.name}" placeholder="Pierwsza pozycja dnia musi się nazywać 'Brak'.">${dish.name}</option>
-                    </c:forEach>
-                </select>
+                    <form:input path="mealName" size="150"/>
             </label>
         </div>
         <div class="login-row">

@@ -323,6 +323,7 @@ public class NewOrderController {
             model.addAttribute("newMenuThursday", menuThursday);
             model.addAttribute("newMenuFriday", menuFriday);
             model.addAttribute("userId", user.getUserId());
+            model.addAttribute("editUserId", user.getUserId());
             model.addAttribute("kw", kw);
             model.addAttribute("weekStart", LocalDate.now().plusWeeks(1).with(DayOfWeek.MONDAY));
             model.addAttribute("weekEnd", LocalDate.now().plusWeeks(1).with(DayOfWeek.SUNDAY));

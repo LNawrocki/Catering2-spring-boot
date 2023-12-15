@@ -28,6 +28,7 @@ public class NewMenuController {
     public String newMenuEditView(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
             model.addAttribute("newMenu", new NewMenu());
+            model.addAttribute("lastIndex", newMenuService.lastIndex()+1);
             model.addAttribute("mealsMonday", newMenuService.newMenuFindByDayId(1));
             model.addAttribute("mealsTuesday", newMenuService.newMenuFindByDayId(2));
             model.addAttribute("mealsWednesday", newMenuService.newMenuFindByDayId(3));

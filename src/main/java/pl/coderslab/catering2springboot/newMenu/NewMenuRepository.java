@@ -29,4 +29,8 @@ public interface NewMenuRepository extends JpaRepository<NewMenu, Integer> {
     void deleteNewMenuByMealNo(Integer mealNo);
 
     List<NewMenu> findNewMenusByDayId(Integer id);
+
+    @Query(value ="SELECT max(nm.mealNo) FROM NewMenu nm")
+    Integer lastIndex();
+
 }

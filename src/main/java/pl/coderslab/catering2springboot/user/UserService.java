@@ -14,4 +14,6 @@ public interface UserService {
     List<User> findAll();
     void delete(User user);
     User save(User user);
+    Integer firsEmptyIndex();
+    Integer lastEmptyIndex();
 }

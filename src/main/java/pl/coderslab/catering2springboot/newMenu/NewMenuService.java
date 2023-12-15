@@ -19,4 +19,6 @@ public interface NewMenuService {
 
     List<NewMenu> findAll();
 
+    Integer lastIndex();
+
 }

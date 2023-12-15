@@ -18,6 +18,8 @@
         <div class="login-row">
             <label for="userId">ID użytkownika:
                 <form:input path="userId"/><br>
+                    Pierwszy wolny ID: ${firstEmptyIndex}<br>
+                    Ostatni wolny ID: ${lastEmptyIndex}<br>
                 <form:errors path="userId"/>
             </label>
         </div>

@@ -72,5 +72,10 @@ public class NewMenuServiceImpl implements NewMenuService{
         return newMenuRepository.findAll();
     }
 
+    @Override
+    public Integer lastIndex() {
+        return newMenuRepository.lastIndex();
+    }
+
 
 }

@@ -46,4 +46,14 @@ public class UserServiceImpl implements UserService{
     public User save(User user) {
         return userRepository.save(user);
     }
+
+    @Override
+    public Integer firsEmptyIndex() {
+        return userRepository.firsEmptyIndex();
+    }
+
+    @Override
+    public Integer lastEmptyIndex() {
+        return userRepository.lastEmptyIndex()+1;
+    }
 }

@@ -184,6 +184,8 @@ public class AdminController {
         if (session.getAttribute("userId") != null && (Boolean) session.getAttribute("superAdmin")) {
 
             model.addAttribute("user", new User());
+            model.addAttribute("firstEmptyIndex", userService.firsEmptyIndex());
+            model.addAttribute("lastEmptyIndex", userService.lastEmptyIndex());
             model.addAttribute("departments", departmentService.findAll());
             return "/user/user-add";
         }
